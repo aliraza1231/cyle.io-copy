@@ -1,0 +1,27 @@
+{
+  "title": "StackContainerConfigNetwork.json",
+  "type": "object",
+  "required": [
+    "public",
+    "hostname"
+  ],
+  "properties": {
+    "public": {
+      "type": "string",
+      "enum": [
+        "enable",
+        "disable",
+        "egress-only"
+      ]
+    },
+    "hostname": {
+      "type": "string"
+    },
+    "ports": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

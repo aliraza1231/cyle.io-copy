@@ -1,0 +1,47 @@
+{
+  "get": {
+    "operationId": "getBillingSupportPlans",
+    "summary": "List Support Plans",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [
+      {
+        "$ref": "../../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/FilterParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/PageParam.json"
+      }
+    ],
+    "deprecated": true,
+    "responses": {
+      "200": {
+        "description": "Returns available support plans.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/billing/SupportPlan.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

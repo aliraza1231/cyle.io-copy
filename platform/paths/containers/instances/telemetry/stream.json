@@ -1,0 +1,70 @@
+{
+  "get": {
+    "operationId": "getInstanceTelemetryStreamAuth",
+    "summary": "Instance Telemetry Stream Authorization",
+    "description": "Retrieves an access token and URL to open a websocket to for streaming instance telemetry live.\nThis connects directly to the compute layer on the server the instance is hosted on, and streams telemetry in real time.\n\nRequires the `containers-view` capability.\n",
+    "tags": [
+      "Containers",
+      "Instances",
+      "Stream"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "instanceId",
+        "description": "The ID for the Container Instance.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns credentials for connecting to an instance telemetry stream.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "description": "Credentials for connecting to the instance telemetry stream on compute.",
+                  "required": [
+                    "token",
+                    "address"
+                  ],
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "description": "The authentication token passed into the address as a URL parameter (?token)."
+                    },
+                    "address": {
+                      "description": "The URL address to open a websocket to for streaming instance telemetry data.",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

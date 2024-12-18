@@ -1,0 +1,188 @@
+{
+  "title": "StackContainer",
+  "type": "object",
+  "description": "Records defining the containers within the stack.",
+  "additionalProperties": {
+    "type": "object",
+    "description": "Stacks container object",
+    "required": [
+      "name",
+      "image",
+      "config",
+      "stateful"
+    ],
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "image": {
+        "$ref": "StackSpecContainerImage.json"
+      },
+      "annotations": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "description": "Additional meta info about the container.",
+        "additionalProperties": {}
+      },
+      "stateful": {
+        "type": "boolean"
+      },
+      "config": {
+        "type": "object",
+        "title": "StackSpecContainerConfig",
+        "required": [
+          "network",
+          "deploy"
+        ],
+        "properties": {
+          "network": {
+            "$ref": "./StackContainerConfigNetwork.json"
+          },
+          "deploy": {
+            "$ref": "./StackContainerConfigDeploy.json"
+          },
+          "scaling": {
+            "anyOf": [
+              {
+                "$ref": "./StackContainerConfigScaling.json"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "runtime": {
+            "anyOf": [
+              {
+                "$ref": "./StackContainerConfigRuntime.json"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "resources": {
+            "anyOf": [
+              {
+                "$ref": "./StackContainerConfigResources.json"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "integrations": {
+            "anyOf": [
+              {
+                "$ref": "./StackContainerConfigIntegrations.json"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "role": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "conductor"
+        ]
+      },
+      "pod": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "volumes": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "title": "StackSpecContainerVolume",
+          "type": "object",
+          "required": [
+            "destination",
+            "read_only"
+          ],
+          "properties": {
+            "local": {
+              "type": "object",
+              "required": [
+                "max_size"
+              ],
+              "properties": {
+                "max_size": {
+                  "type": "string"
+                },
+                "storage_pool": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "destination": {
+              "type": "string"
+            },
+            "read_only": {
+              "type": "boolean"
+            },
+            "remote_access": {
+              "type": "object",
+              "required": [
+                "enable",
+                "password"
+              ],
+              "properties": {
+                "enable": {
+                  "type": "boolean"
+                },
+                "ips": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "web_hook": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "object",
+                  "required": [
+                    "algorigthm",
+                    "data"
+                  ],
+                  "properties": {
+                    "algorithm": {
+                      "type": "string",
+                      "enum": [
+                        "raw",
+                        "sha512",
+                        "md5"
+                      ]
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "deprecate": {
+        "type": "boolean"
+      },
+      "lock": {
+        "type": "boolean"
+      }
+    }
+  }
+}

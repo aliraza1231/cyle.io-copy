@@ -1,0 +1,49 @@
+{
+  "delete": {
+    "operationId": "deleteHubInvite",
+    "summary": "Delete Hub Invite",
+    "description": "Requires the `hub-invites-manage` capability.",
+    "tags": [
+      "Hubs"
+    ],
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "parameters": [
+      {
+        "name": "inviteId",
+        "description": "The ID of the Hub Invite.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a Hub Membership.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/hubs/HubMembership.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "get": {
+    "operationId": "getDeploymentStrategies",
+    "summary": "Get Deployment Strategies",
+    "description": "Gets the available deployment strategies that can be used to orchestrate containers.",
+    "tags": [
+      "Infrastructure"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "Returns available deployment strategies.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "resource-density": {
+                      "$ref": "../../../components/schemas/infrastructure/DeploymentStrategy.json"
+                    },
+                    "high-availability": {
+                      "$ref": "../../../components/schemas/infrastructure/DeploymentStrategy.json"
+                    },
+                    "first-available": {
+                      "$ref": "../../../components/schemas/infrastructure/DeploymentStrategy.json"
+                    },
+                    "node": {
+                      "$ref": "../../../components/schemas/infrastructure/DeploymentStrategy.json"
+                    },
+                    "edge": {
+                      "$ref": "../../../components/schemas/infrastructure/DeploymentStrategy.json"
+                    },
+                    "manual": {
+                      "$ref": "../../../components/schemas/infrastructure/DeploymentStrategy.json"
+                    },
+                    "function": {
+                      "$ref": "../../../components/schemas/infrastructure/DeploymentStrategy.json"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

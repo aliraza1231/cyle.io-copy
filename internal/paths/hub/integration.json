@@ -1,0 +1,53 @@
+{
+  "get": {
+    "operationId": "getHubIntegration",
+    "summary": "Get Hub Integration",
+    "description": "Gets an integration based on a provided identifier or vendor query parameter. At least one of these must be provided.\n",
+    "tags": [
+      "Hubs"
+    ],
+    "parameters": [
+      {
+        "name": "identifier",
+        "in": "query",
+        "required": false,
+        "description": "An integration identifier.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "vendor",
+        "in": "query",
+        "required": false,
+        "description": "An integration vendor.",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a hub integration.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/hubs/integrations/Integration.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

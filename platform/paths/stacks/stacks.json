@@ -1,0 +1,167 @@
+{
+  "get": {
+    "operationId": "getStacks",
+    "summary": "List Stacks",
+    "description": "Requires the `stacks-view` permission.",
+    "tags": [
+      "Stacks"
+    ],
+    "parameters": [
+      {
+        "name": "meta",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of meta values. Meta values will show up under a resource's `meta` field. In the case of applying a meta to a collection of resources, each resource will have it's own relevant meta data. In some rare cases, meta may not apply to individual resources, and may appear in the root document. These will be clearly labeled.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "containers_count",
+              "builds_count"
+            ]
+          }
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "creators"
+            ]
+          }
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "style": "deepObject",
+        "required": false,
+        "description": "## Filter Field \nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "identifier": {
+              "type": "string",
+              "description": "`filter[identifier]=value` List only those stacks matching this identifier. May return multiple results.\n"
+            },
+            "search": {
+              "type": "string",
+              "description": "`filter[search]=value` search for a value associated with a field on the given Stack(s).\n"
+            },
+            "state": {
+              "type": "string",
+              "description": "`filter[state]=value1,value2` state filtering will allow you to filter by the Stack's current state.\n"
+            }
+          }
+        }
+      },
+      {
+        "$ref": "../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Stacks.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/stacks/Stack.json"
+                  }
+                },
+                "includes": {
+                  "$ref": "../../../components/schemas/stacks/StackInclude.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "post": {
+    "operationId": "createStack",
+    "tags": [
+      "Stacks"
+    ],
+    "parameters": [],
+    "summary": "Create Stack",
+    "description": "Requires the `stacks-manage` capability.",
+    "requestBody": {
+      "description": "Parameters for creating a new Stack.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "name",
+              "source"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "A name for the Stack."
+              },
+              "identifier": {
+                "$ref": "../../../components/schemas/Identifier.json"
+              },
+              "variables": {
+                "type": "object",
+                "description": "A map of default variable values used when building this Stack. A variable can be added anywhere in a Stack using the format `{{var}}` where `var` would be a key in this map.",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "source": {
+                "$ref": "../../../components/schemas/stacks/StackSource.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Returns a Stack.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/stacks/Stack.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

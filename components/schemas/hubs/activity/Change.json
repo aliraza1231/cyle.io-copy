@@ -1,0 +1,20 @@
+{
+  "title": "ActivityChange",
+  "type": "object",
+  "description": "An object with information of details for before and after a resource changed.",
+  "required": [
+    "component"
+  ],
+  "properties": {
+    "component": {
+      "type": "string",
+      "description": "A description of the resource that was changed."
+    },
+    "before": {
+      "$ref": "./Detail.json"
+    },
+    "after": {
+      "$ref": "./Detail.json"
+    }
+  }
+}

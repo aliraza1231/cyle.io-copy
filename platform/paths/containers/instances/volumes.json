@@ -1,0 +1,63 @@
+{
+  "get": {
+    "operationId": "getInstanceVolumes",
+    "summary": "List Instance Volumes",
+    "description": "Requires the `containers-view` capability.",
+    "tags": [
+      "Containers",
+      "Instances"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested Container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "instanceId",
+        "description": "The ID for the Container Instance.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Container Instance Volumes.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/containers/instances/InstanceVolume.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "title": "ClaimedInstance",
+  "description": "Details about a claimed function Instance.",
+  "type": "object",
+  "required": [
+    "instance_id",
+    "environment",
+    "token"
+  ],
+  "properties": {
+    "instance_id": {
+      "description": "The ID of the claimed Instance.",
+      "$ref": "../../../components/schemas/ID.json"
+    },
+    "environment": {
+      "$ref": "EnvironmentNetworkSummary.json"
+    },
+    "token": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "post": {
+    "operationId": "createContainerJob",
+    "summary": "Create Container Job",
+    "description": "Used to perform different actions on a given Container. \n\nRequires the following capabilities based on the task: \n`start`: `containers-manage`\n`stop`: `containers-manage`\n`reconfigure`: `containers-manage`\n`volumes.reconfigure`: `containers-volumes-manage`\n`reimage`: `containers-manage`\n`scale`: `containers-manage`\n",
+    "tags": [
+      "Containers"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for creating a new container job.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "discriminator": {
+              "propertyName": "action",
+              "mapping": {
+                "start": "../../../components/schemas/containers/taskActions/ContainerStartAction.json",
+                "stop": "../../../components/schemas/containers/taskActions/ContainerStopAction.json",
+                "reconfigure": "../../../components/schemas/containers/taskActions/ReconfigureContainer.json",
+                "volumes.reconfigure": "../../../components/schemas/containers/taskActions/ReconfigureVolumes.json",
+                "reimage": "../../../components/schemas/containers/taskActions/Reimage.json",
+                "scale": "../../../components/schemas/containers/taskActions/Scale.json"
+              }
+            },
+            "oneOf": [
+              {
+                "$ref": "../../../components/schemas/containers/taskActions/ContainerStartAction.json"
+              },
+              {
+                "$ref": "../../../components/schemas/containers/taskActions/ContainerStopAction.json"
+              },
+              {
+                "$ref": "../../../components/schemas/containers/taskActions/ReconfigureContainer.json"
+              },
+              {
+                "$ref": "../../../components/schemas/containers/taskActions/ReconfigureVolumes.json"
+              },
+              {
+                "$ref": "../../../components/schemas/containers/taskActions/Reimage.json"
+              },
+              {
+                "$ref": "../../../components/schemas/containers/taskActions/Scale.json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

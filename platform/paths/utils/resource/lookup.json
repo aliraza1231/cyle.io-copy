@@ -1,0 +1,70 @@
+{
+  "get": {
+    "operationId": "lookupIdentifier",
+    "summary": "Look up a resource identifier.",
+    "description": "Given a (base64'd) resource identifier string (i.e. `cluster:production/env:abc`), returns the ID of the matching resource.\nIf more than one resource matches the identifier, or no resource matches the identifier, this endpoint will return an error. \nGiven identifiers are NOT unique, you may need to be more specific to target the exact identifier.\n",
+    "tags": [
+      "Utility"
+    ],
+    "parameters": [
+      {
+        "name": "identifier",
+        "in": "query",
+        "required": true,
+        "example": "cltr:production/environment:654d4e848924c1c445c3635a/container:api",
+        "description": "A base64 encoded resource identifier string.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "desired-component",
+        "in": "query",
+        "required": true,
+        "description": "The type of resource to lookup from the identifier string.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "cluster",
+            "environment",
+            "image-source",
+            "stack",
+            "server",
+            "container"
+          ]
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns the ID of the requested resource from the identifier string.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

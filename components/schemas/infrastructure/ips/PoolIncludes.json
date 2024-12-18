@@ -1,0 +1,19 @@
+{
+  "title": "PoolIncludes",
+  "type": "object",
+  "description": "Resources associated with an IP Pool.",
+  "properties": {
+    "creators": {
+      "$ref": "../../includes/CreatorInclude.json"
+    },
+    "servers": {
+      "$ref": "../../includes/ServersIncludes.json"
+    },
+    "integrations": {
+      "$ref": "../../includes/IntegrationsIncludes.json"
+    },
+    "locations": {
+      "$ref": "../../includes/LocationsIncludes.json"
+    }
+  }
+}

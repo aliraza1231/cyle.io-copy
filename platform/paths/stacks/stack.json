@@ -1,0 +1,154 @@
+{
+  "get": {
+    "operationId": "getStack",
+    "summary": "Get Stack",
+    "description": "Requires the `stacks-view` capability.",
+    "tags": [
+      "Stacks"
+    ],
+    "parameters": [
+      {
+        "name": "stackId",
+        "in": "path",
+        "required": true,
+        "description": "The ID of the Stack",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a Stack resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/stacks/Stack.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "patch": {
+    "operationId": "updateStack",
+    "tags": [
+      "Stacks"
+    ],
+    "parameters": [
+      {
+        "name": "stackId",
+        "in": "path",
+        "required": true,
+        "description": "The ID of the Stack",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "summary": "Update Stack",
+    "description": "Requires the `stacks-manage` capability.",
+    "requestBody": {
+      "description": "Parameters for updating a Stack.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "A name for the Stack."
+              },
+              "variables": {
+                "type": "object",
+                "description": "A map of default variable values used when building this Stack. A variable can be added anywhere in a Stack using the format `{{var}}` where `var` would be a key in this map.",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "source": {
+                "$ref": "../../../components/schemas/stacks/StackSource.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns the updated Stack.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/stacks/Stack.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteStack",
+    "summary": "Delete Stack",
+    "description": "Requires the `stacks-manage` capability.",
+    "tags": [
+      "Stacks"
+    ],
+    "parameters": [
+      {
+        "name": "stackId",
+        "in": "path",
+        "required": true,
+        "description": "The ID of the Stack",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

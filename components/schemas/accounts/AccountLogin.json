@@ -1,0 +1,36 @@
+{
+  "title": "AccountLogin",
+  "type": "object",
+  "description": "A record of an Account login.",
+  "required": [
+    "id",
+    "account",
+    "time",
+    "type",
+    "success"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "account": {
+      "$ref": "./AccountInfo.json"
+    },
+    "time": {
+      "description": "A timestamp of the time the login occurred.",
+      "$ref": "../DateTime.json"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of login mechanism used.",
+      "enum": [
+        "password",
+        "employee"
+      ]
+    },
+    "success": {
+      "type": "boolean",
+      "description": "A boolean where true reflects that the login was successful."
+    }
+  }
+}

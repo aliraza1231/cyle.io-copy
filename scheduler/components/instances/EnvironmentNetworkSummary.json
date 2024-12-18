@@ -1,0 +1,70 @@
+{
+  "title": "EnvironmentNetworkSummary",
+  "type": "object",
+  "description": "Details about the Environment network this Instance is a member of.",
+  "required": [
+    "id",
+    "network_subnet",
+    "subnet",
+    "ipv6",
+    "legacy",
+    "mac_addr",
+    "vxlan_tag"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../../components/schemas/ID.json"
+    },
+    "network_subnet": {
+      "type": "string"
+    },
+    "subnet": {
+      "type": "string"
+    },
+    "ipv6": {
+      "anyOf": [
+        {
+          "$ref": "../../../components/schemas/environments/IPNet.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "legacy": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "host",
+        "subnet",
+        "ipv4"
+      ],
+      "properties": {
+        "host": {
+          "type": "integer"
+        },
+        "subnet": {
+          "type": "integer"
+        },
+        "ipv4": {
+          "anyOf": [
+            {
+              "$ref": "../../../components/schemas/environments/IPNet.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "mac_addr": {
+      "type": "string"
+    },
+    "vxlan_tag": {
+      "type": "integer"
+    }
+  }
+}

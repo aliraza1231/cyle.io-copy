@@ -1,0 +1,88 @@
+{
+  "post": {
+    "tags": [
+      "Containers"
+    ],
+    "operationId": "createContainerBackupJob",
+    "summary": "Create Container Backup Job",
+    "description": "Creates a Container Backup Job.\nCan be used to restore a Container Backup for a given Container Instance. \n\nRequires the `containers-backups-manage` capability.\n",
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "backupId",
+        "description": "The ID of the backup.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "action",
+              "contents"
+            ],
+            "properties": {
+              "action": {
+                "type": "string",
+                "enum": [
+                  "restore"
+                ],
+                "description": "The action to take."
+              },
+              "contents": {
+                "type": "object",
+                "description": "Additional information the platform needs to create this Job.",
+                "required": [
+                  "instance_id"
+                ],
+                "properties": {
+                  "instance_id": {
+                    "type": "string",
+                    "description": "The ID of the instance this Container Backup is being restored to."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

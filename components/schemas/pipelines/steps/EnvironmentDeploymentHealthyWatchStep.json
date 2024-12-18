@@ -1,0 +1,64 @@
+{
+  "title": "EnvironmentDeploymentHealthyWatchStep",
+  "type": "object",
+  "description": "Waits for a deployment to be considered 'healthy' before allowing the pipeline to continue.\nA deployement is considered 'healthy' when all instances of all containers that have had a state change in the last 15 minutes\nthat have health checks defined, become healthy.\n",
+  "required": [
+    "action",
+    "details"
+  ],
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "description": "An identifier for the step."
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "skip": {
+          "type": "boolean"
+        }
+      }
+    },
+    "action": {
+      "type": "string",
+      "description": "The action that the step takes.",
+      "enum": [
+        "environment.deployment.healthy.watch"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "environment"
+      ],
+      "properties": {
+        "environment": {
+          "$ref": "../FluidIdentifier.json"
+        },
+        "tag": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "max_wait": {
+          "description": "The maximum amount of time to wait for the deployment to become healthy before failing this step.",
+          "anyOf": [
+            {
+              "$ref": "../../Duration.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

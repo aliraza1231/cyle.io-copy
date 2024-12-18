@@ -1,0 +1,37 @@
+{
+  "title": "EnvironmentServiceContainerSummary",
+  "type": "object",
+  "description": "An object containing information about a service container associated with this environment.",
+  "required": [
+    "enable",
+    "state",
+    "high_availability"
+  ],
+  "properties": {
+    "enable": {
+      "type": "boolean",
+      "description": "Whether or not the service is enabled."
+    },
+    "container_id": {
+      "anyOf": [
+        {
+          "$ref": "../../ID.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "state": {
+      "$ref": "../../containers/ContainerState.json"
+    },
+    "high_availability": {
+      "type": "boolean",
+      "description": "Whether or not the service is deployed in high availability"
+    },
+    "auto_update": {
+      "type": "boolean",
+      "description": "Whether or not the service will be automatically updated as new versions are released. Otherwise, the service will need to be restarted manually."
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "title": "LoadBalancerLatestTelemetryController",
+  "type": "object",
+  "required": [
+    "time",
+    "controller"
+  ],
+  "properties": {
+    "time": {
+      "$ref": "../../../../DateTime.json"
+    },
+    "controller": {
+      "$ref": "../../../../Identifier.json"
+    },
+    "instances": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "./LoadBalancerLatestTelemetryInstance.json"
+      }
+    }
+  }
+}

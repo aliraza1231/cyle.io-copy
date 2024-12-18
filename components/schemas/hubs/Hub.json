@@ -1,0 +1,54 @@
+{
+  "title": "Hub",
+  "description": "A hub resource.",
+  "type": "object",
+  "required": [
+    "id",
+    "identifier",
+    "name",
+    "creator",
+    "events",
+    "state",
+    "integrations",
+    "webhooks",
+    "billing"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "identifier": {
+      "$ref": "../Identifier.json",
+      "description": "A human readable slugged identifier for this hub."
+    },
+    "name": {
+      "type": "string",
+      "description": "A name for the hub."
+    },
+    "creator": {
+      "$ref": "../creators/CreatorScope.json"
+    },
+    "events": {
+      "$ref": "HubEvents.json"
+    },
+    "state": {
+      "$ref": "./HubState.json"
+    },
+    "webhooks": {
+      "$ref": "HubWebhooks.json"
+    },
+    "billing": {
+      "anyOf": [
+        {
+          "$ref": "./HubBillingProfile.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "meta": {
+      "$ref": "./HubMeta.json"
+    }
+  }
+}

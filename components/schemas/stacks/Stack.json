@@ -1,0 +1,79 @@
+{
+  "title": "Stack",
+  "type": "object",
+  "description": "Stacks are a way to orchestrate multiple containers atomically and automatically.",
+  "required": [
+    "id",
+    "identifier",
+    "name",
+    "hub_id",
+    "creator",
+    "source",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "identifier": {
+      "$ref": "../Identifier.json",
+      "description": "A human readable slugged identifier for this stack."
+    },
+    "name": {
+      "type": "string",
+      "description": "A user defined name for the stack resource."
+    },
+    "hub_id": {
+      "$ref": "../HubID.json"
+    },
+    "creator": {
+      "$ref": "../common/UserScope.json"
+    },
+    "source": {
+      "$ref": "./StackSource.json"
+    },
+    "state": {
+      "$ref": "./StackState.json"
+    },
+    "variables": {
+      "type": "object",
+      "description": "A map of default variable values used when building this stack. A variable can be added anywhere in a stack using the format `{{var}}` where `var` would be a key in this map.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "events": {
+      "title": "StackEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the Stacks lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted",
+        "last_build"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the stack was created.",
+          "$ref": "../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the stack was updated.",
+          "$ref": "../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the stack was deleted.",
+          "$ref": "../DateTime.json"
+        },
+        "last_build": {
+          "description": "The timestamp for the last build of the stack.",
+          "$ref": "../DateTime.json"
+        }
+      }
+    },
+    "meta": {
+      "$ref": "./StackMeta.json"
+    }
+  }
+}

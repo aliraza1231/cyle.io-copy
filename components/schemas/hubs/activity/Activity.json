@@ -1,0 +1,326 @@
+{
+  "title": "Activity",
+  "type": "object",
+  "description": "A resource representing information about activity taking place on a given hub.",
+  "required": [
+    "id",
+    "hub_id",
+    "user",
+    "verbosity",
+    "context",
+    "session",
+    "changes",
+    "annotations",
+    "error",
+    "component",
+    "status",
+    "event",
+    "time"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "user": {
+      "type": "object",
+      "description": "Userscope",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of user.",
+          "enum": [
+            "account",
+            "environment",
+            "platform",
+            "platform-pipeline",
+            "employee",
+            "api-key",
+            "visitor"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "description": "The given user's ID."
+        }
+      }
+    },
+    "verbosity": {
+      "type": "integer",
+      "description": "A number representing the detail level (verbosity) of this activity.\n\n## Levels\n- 0: activity that other users would find useful\n- 1: activity that can be useful in tracking down how a user did something\n- 2: full activity, can be useful in debugging problems\n"
+    },
+    "context": {
+      "$ref": "Context.json"
+    },
+    "session": {
+      "anyOf": [
+        {
+          "$ref": "Session.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "changes": {
+      "type": "array",
+      "description": "An array of changes.",
+      "items": {
+        "$ref": "Change.json"
+      }
+    },
+    "annotations": {
+      "type": "object",
+      "description": "A record of additional annotations for the activity.",
+      "additionalProperties": {}
+    },
+    "error": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "An object describing a given activity error.",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "The error message."
+        }
+      }
+    },
+    "component": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "An object holding information about a component.",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "../../ID.json"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of component."
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "An array of tags that denote things such as a type of security event, or can be user-provided.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "description": "A status for the given activity.",
+      "enum": [
+        "info",
+        "warn",
+        "request",
+        "success",
+        "error",
+        "alert"
+      ]
+    },
+    "security": {
+      "$ref": "ActivitySecurity.json"
+    },
+    "monitor": {
+      "$ref": "ActivityMonitor.json"
+    },
+    "event": {
+      "type": "string",
+      "description": "The activity event.",
+      "enum": [
+        "hub.images.prune",
+        "hub.update",
+        "hub.create",
+        "hub.task.delete",
+        "hub.task.images.prune",
+        "environment.services.discovery.reconfigure",
+        "environment.services.lb.reconfigure",
+        "environment.services.vpn.reconfigure",
+        "environment.delete",
+        "environment.initialize",
+        "environment.start",
+        "environment.stop",
+        "environment.create",
+        "environment.update",
+        "environment.task.delete",
+        "environment.services.discovery.task.reconfigure",
+        "environment.services.lb.task.reconfigure",
+        "environment.services.vpn.task.reconfigure",
+        "environment.services.vpn.user.create",
+        "environment.services.vpn.login",
+        "environment.services.vpn.reset",
+        "environment.services.vpn.task.reset",
+        "environment.task.initialize",
+        "environment.task.start",
+        "environment.task.stop",
+        "environment.task.deployments.reconfigure",
+        "environment.deployments.reconfigure",
+        "environment.deployments.prune",
+        "environment.deployment.start",
+        "environment.deployment.stop",
+        "environment.scoped-variable.delete",
+        "environment.scoped-variable.update",
+        "environment.scoped-variable.task.delete",
+        "environment.scoped-variable.create",
+        "image.delete",
+        "image.import",
+        "image.create",
+        "image.update",
+        "image.task.delete",
+        "image.task.import",
+        "image.source.delete",
+        "image.source.create",
+        "image.source.update",
+        "image.source.task.delete",
+        "billing.invoice.task.void",
+        "billing.invoice.task.credit",
+        "billing.invoice.task.refund",
+        "billing.invoice.pay",
+        "billing.invoice.task.pay",
+        "billing.order.confirm",
+        "billing.order.task.confirm",
+        "billing.method.update",
+        "billing.method.delete",
+        "billing.method.task.delete",
+        "billing.method.create",
+        "hub.apikey.update",
+        "hub.apikey.delete",
+        "hub.apikey.create",
+        "hub.role.update",
+        "hub.role.delete",
+        "hub.role.create",
+        "hub.role.task.delete",
+        "hub.membership.delete",
+        "hub.membership.create",
+        "hub.membership.update",
+        "hub.integration.create",
+        "hub.integration.update",
+        "hub.integration.delete",
+        "container.initialize",
+        "container.task.start",
+        "container.start",
+        "container.task.stop",
+        "container.stop",
+        "container.task.reconfigure",
+        "container.reconfigure",
+        "container.task.volumes.reconfigure",
+        "container.volumes.reconfigure",
+        "container.create",
+        "container.restart",
+        "container.task.reimage",
+        "container.reimage",
+        "container.update",
+        "container.task.delete",
+        "container.delete",
+        "container.task.scale",
+        "container.scale",
+        "container.instances.create",
+        "container.instances.delete",
+        "container.instances.autoscale.up",
+        "container.instances.autoscale.down",
+        "container.instance.healthcheck.restarted",
+        "container.instance.healthcheck.failed",
+        "container.instance.error",
+        "container.instance.ssh.login",
+        "container.instance.migration.start",
+        "container.instance.migration.revert",
+        "container.instance.delete",
+        "container.instance.task.migrate_revert",
+        "container.instance.task.migrate",
+        "container.backup.create",
+        "container.backup.restore",
+        "container.backup.delete",
+        "container.backup.task.delete",
+        "container.backup.task.restore",
+        "dns.zone.verify",
+        "dns.zone.delete",
+        "dns.zone.task.verify",
+        "dns.zone.update",
+        "dns.zone.task.delete",
+        "dns.zone.create",
+        "dns.zone.record.delete",
+        "dns.zone.record.cert.generate",
+        "dns.zone.record.cert.generate.auto",
+        "dns.zone.record.task.cert.generate",
+        "dns.zone.record.update",
+        "dns.zone.record.task.delete",
+        "dns.zone.record.create",
+        "stack.update",
+        "stack.task.delete",
+        "stack.create",
+        "stack.task.prune",
+        "stack.prune",
+        "stack.build.create",
+        "stack.build.generate",
+        "stack.build.deploy",
+        "stack.build.delete",
+        "stack.build.task.delete",
+        "stack.build.task.generate",
+        "stack.build.task.deploy",
+        "infrastructure.provider.update",
+        "infrastructure.provider.task.delete",
+        "infrastructure.provider.create",
+        "infrastructure.provider.task.verify",
+        "infrastructure.server.task.delete",
+        "infrastructure.server.task.restart",
+        "infrastructure.server.services.sftp.auth",
+        "infrastructure.server.live",
+        "infrastructure.server.delete",
+        "infrastructure.server.restart",
+        "infrastructure.server.compute.restart",
+        "infrastructure.server.compute.spawner.restart",
+        "infrastructure.server.features.reconfigure",
+        "infrastructure.server.sharedfs.reconfigure",
+        "infrastructure.server.provision",
+        "infrastructure.server.console",
+        "infrastructure.server.update",
+        "infrastructure.server.task.provision",
+        "infrastructure.server.ssh.token",
+        "infrastructure.server.task.features.reconfigure",
+        "infrastructure.server.task.sharedfs.reconfigure",
+        "infrastructure.server.services.sftp.lockdown",
+        "infrastructure.server.services.internal-api.throttle",
+        "infrastructure.autoscale.group.create",
+        "infrastructure.autoscale.group.update",
+        "infrastructure.autoscale.group.task.delete",
+        "infrastructure.autoscale.group.delete",
+        "infrastructure.ips.pool.task.delete",
+        "sdn.network.update",
+        "sdn.network.task.delete",
+        "sdn.network.create",
+        "sdn.network.task.reconfigure",
+        "pipeline.delete",
+        "pipeline.trigger",
+        "pipeline.update",
+        "pipeline.task.delete",
+        "pipeline.create",
+        "pipeline.task.trigger",
+        "pipeline.run.completed",
+        "pipeline.key.update",
+        "pipeline.key.delete",
+        "pipeline.key.create"
+      ]
+    },
+    "time": {
+      "description": "A timestamp for when the activity took place.",
+      "$ref": "../../DateTime.json"
+    }
+  }
+}

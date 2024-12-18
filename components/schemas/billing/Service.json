@@ -1,0 +1,80 @@
+{
+  "title": "BillingService",
+  "type": "object",
+  "description": "Information about billing service.",
+  "required": [
+    "id",
+    "creator",
+    "hub_id",
+    "title",
+    "order",
+    "item",
+    "events",
+    "discount",
+    "price",
+    "term",
+    "state"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "hub_id": {
+      "$ref": "../HubID.json"
+    },
+    "creator": {
+      "$ref": "../creators/CreatorScope.json"
+    },
+    "title": {
+      "type": "string",
+      "description": "Billing service title."
+    },
+    "order": {
+      "$ref": "./orders/Order.json"
+    },
+    "item": {
+      "$ref": "./ServiceItem.json"
+    },
+    "discount": {
+      "$ref": "./discounts/AssociatedDiscount.json"
+    },
+    "price": {
+      "$ref": "./BillingAmount.json"
+    },
+    "term": {
+      "$ref": "./Term.json"
+    },
+    "events": {
+      "title": "BillingServiceEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the billing service's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted",
+        "last_billed"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the billing service was created.",
+          "$ref": "../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the billing service was updated.",
+          "$ref": "../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the billing service was deleted.",
+          "$ref": "../DateTime.json"
+        },
+        "last_billed": {
+          "description": "The timestamp of when the billing service was last billed.",
+          "$ref": "../DateTime.json"
+        }
+      }
+    },
+    "state": {
+      "$ref": "./BillingServiceState.json"
+    }
+  }
+}

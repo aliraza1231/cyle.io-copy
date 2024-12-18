@@ -1,0 +1,60 @@
+{
+  "get": {
+    "operationId": "getAccountLogins",
+    "summary": "Get Account Logins",
+    "description": "Lists logins associated with a given account.",
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "tags": [
+      "Accounts"
+    ],
+    "parameters": [
+      {
+        "$ref": "../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../components/parameters/FilterParam.json"
+      },
+      {
+        "$ref": "../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of login records associated with this Account.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "AccountLoginsResponse",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "../../../components/schemas/accounts/AccountEmployeeLogin.json"
+                      },
+                      {
+                        "$ref": "../../../components/schemas/accounts/AccountPasswordLogin.json"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

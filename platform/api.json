@@ -1,0 +1,517 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "description": "Cycle Platform API",
+      "url": "https://api.cycle.io"
+    }
+  ],
+  "info": {
+    "license": {
+      "name": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "description": "The Cycle Platform API is a [REST-based](http://en.wikipedia.org/wiki/Representational_state_transfer), resource-oriented API\ndesigned to be easy to use and understand. Using this API, you are able to fully interact with the Cycle Platform. \n\nAll API responses return JSON, including errors. There is also support for cross-origin resource sharing, so this API can be used\nin a client-side web application as well.\n\n## Auth Basics \nEvery API request much have an accompanying API key in the Authorization header. For more informaiton on generating an API key head over to the [Portal Docs](https://docs.cycle.io/reference/hubs/API-access/api-key-generate). \n\nYour API key should never be made publicly available, published to a public repository, or used on a client side\nweb app. If you would like to use the API from a web app, you should create a thin-client service that acts as a passthrough for\nyour API requests.\n\n## The Root Document\nEvery response follows the same structure, known as the root document. The main data structure, known as a\nresource, is nested under a data field. If you request a collection of resources, the\ndata field will be an array of those resources. If you request a single resource, the data field will be\nequal to that resource.\n\nIf there is an error, the error field will be present, and the data field will be present and null.\n\nThe root resource. If fetching a collection, this will be an array of resource objects.\n\nIncludes fields - the key will be the name of the included item passed. All values of include fields\nwill be a full resource structure. (i.e. including environments will embed full environment objects by ID)\n\nMeta Fields - the key will be equal to the name of the meta field provided. Values of meta\nfields will vary based on the resource. These values are injected into the data object(s).\n\n## Scope\nIn order to fetch resources that are part of a hub (containers, environments, etc.), you will need to pass an\nX-Hub-ID header. When fetching collections of resources, this will limit the response to contain only resources from\nthe specified hub. Most requests require this header.\n\n## Queries\nWhen trying to gather more complete or specific data you can use query parameters to supplement the normal return (metas,\nincludes) and you can also add specificity to the format and the order (sort, filter). It's worth understanding that\nsort & filter should only be used on collections.\n\n**Sort** - An array of sort values. To sort descending, put a `-`n front of the value, i.e. `-id`.\n\n**Include** - An array of include values. Included resources will show up under the root document's `include` field, with the key being the id\nof the included resource. In the case of applying an include to a collection of resources, if two resources share the same\ninclude, it will only appear once in the return.\n\n**Meta** - An array of meta values. Meta values will show up under a resource's `meta` field. In the case of applying a meta to a\ncollection of resources, each resource will have it's own relevant meta data. In some rare cases, meta may not apply to\nindividual resources, and may appear in the root document. These will be clearly labeled.\n\n**Filter** - The filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+    "version": "1.0.0",
+    "title": "Cycle Platform API",
+    "contact": {
+      "email": "support@cycle.io"
+    }
+  },
+  "tags": [
+    {
+      "name": "Environments",
+      "description": "Environments are logical groupings of containers. All containers deployed inside an environment automatically have a private network built between them, enabling seamless communication."
+    },
+    {
+      "name": "Containers",
+      "description": "Containers are a way to package together your application along with it's dependencies, and run in a resource isolated process. They provide consistency across different hosts, efficiency over traditional hosting methods, and facilitate a micro-service based approach, where each logical piece of your application is split into multiple, easily testable parts (such as API, Backend, Frontend, etc)."
+    },
+    {
+      "name": "Images",
+      "description": "Container images are atomic copies of a filesystem that are built from a file (ex: Dockerfile)."
+    },
+    {
+      "name": "Stacks",
+      "description": "Stacks offer a powerful way to declarative manage multiple containers, and their deployments to the Cycle platform. Using stacks, you are able to configure every aspect of your applications ahead of time, save it to your version controlled repo, and have Cycle automate the deployment any time you make a push."
+    },
+    {
+      "name": "Pipelines",
+      "description": "From simple tasks like importing an image, to complex sequences that affect entire clusters, Deployment Pipelines make it easy to automate nearly any task within Cycle."
+    },
+    {
+      "name": "DNS",
+      "description": "Cycle provides a full suite of DNS tooling.  Set up everything from a DNS Zone, record, certificate, and more."
+    },
+    {
+      "name": "Infrastructure",
+      "description": "Cycle creates a paradigm shift when it comes to dealing with your infrastructure. The primary focus when using the platform is your containers, while the servers underneath appear as a giant pool of distributed resources."
+    },
+    {
+      "name": "Providers",
+      "description": "A subgroup of infrastructure, provider calls deal specifically with infrastructure providers used through the Cycle platform. "
+    },
+    {
+      "name": "Servers",
+      "description": "A subgroup of infrastructure, servers call deal specificially with server resources."
+    },
+    {
+      "name": "SDN",
+      "description": "Software defined networking. Includes networks that can be created when a user needs to create a new private network spanning multiple environments, and global load balancers for balancing traffic across multiple environments."
+    },
+    {
+      "name": "Instances",
+      "description": "A subgroup of containers, instances refers to calls that work with container instance resources. "
+    },
+    {
+      "name": "Jobs",
+      "description": "Jobs are calls which refer to managing job resources. "
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": [],
+      "hubAuth": []
+    }
+  ],
+  "paths": {
+    "/v1/account": {
+      "$ref": "./paths/accounts/account.json"
+    },
+    "/v1/account/invites": {
+      "$ref": "./paths/accounts/memberships/invites.json"
+    },
+    "/v1/account/invites/{inviteId}": {
+      "$ref": "./paths/accounts/memberships/invite.json"
+    },
+    "/v1/account/memberships": {
+      "$ref": "./paths/accounts/memberships/memberships.json"
+    },
+    "/v1/account/logins": {
+      "$ref": "./paths/accounts/logins.json"
+    },
+    "/v1/account/password": {
+      "$ref": "./paths/accounts/update-password.json"
+    },
+    "/v1/account/reset-password": {
+      "$ref": "./paths/accounts/reset-password.json"
+    },
+    "/v1/account/2fa/setup": {
+      "$ref": "./paths/accounts/twofactor/setup.json"
+    },
+    "/v1/account/2fa/disable": {
+      "$ref": "./paths/accounts/twofactor/disable.json"
+    },
+    "/v1/account/2fa/recover": {
+      "$ref": "./paths/accounts/twofactor/recover.json"
+    },
+    "/v1/announcements": {
+      "$ref": "./paths/announcements/announcements.json"
+    },
+    "/v1/billing/orders": {
+      "$ref": "./paths/billing/orders/orders.json"
+    },
+    "/v1/billing/orders/{orderId}": {
+      "$ref": "./paths/billing/orders/order.json"
+    },
+    "/v1/billing/orders/{orderId}/tasks": {
+      "$ref": "./paths/billing/orders/tasks.json"
+    },
+    "/v1/billing/plans/support": {
+      "$ref": "./paths/billing/plans/support.json"
+    },
+    "/v1/billing/plans/tiers": {
+      "$ref": "./paths/billing/plans/tiers.json"
+    },
+    "/v1/billing/methods": {
+      "$ref": "./paths/billing/methods/methods.json"
+    },
+    "/v1/billing/methods/{methodId}": {
+      "$ref": "./paths/billing/methods/method.json"
+    },
+    "/v1/billing/invoices": {
+      "$ref": "./paths/billing/invoices/invoices.json"
+    },
+    "/v1/billing/invoices/{invoiceId}": {
+      "$ref": "./paths/billing/invoices/invoice.json"
+    },
+    "/v1/billing/invoices/{invoiceId}/tasks": {
+      "$ref": "./paths/billing/invoices/tasks.json"
+    },
+    "/v1/billing/services": {
+      "$ref": "./paths/billing/services/services.json"
+    },
+    "/v1/billing/services/{servicesId}": {
+      "$ref": "./paths/billing/services/service.json"
+    },
+    "/v1/billing/services/overages": {
+      "$ref": "./paths/billing/services/overages.json"
+    },
+    "/v1/billing/credits": {
+      "$ref": "./paths/billing/credits/credits.json"
+    },
+    "/v1/billing/credits/{creditsId}": {
+      "$ref": "./paths/billing/credits/credit.json"
+    },
+    "/v1/environments": {
+      "$ref": "./paths/environments/environments.json"
+    },
+    "/v1/environments/{environmentId}": {
+      "$ref": "./paths/environments/environment.json"
+    },
+    "/v1/environments/{environmentId}/tasks": {
+      "$ref": "./paths/environments/tasks.json"
+    },
+    "/v1/environments/{environmentId}/summary": {
+      "$ref": "./paths/environments/summary.json"
+    },
+    "/v1/environments/{environmentId}/deployments": {
+      "$ref": "./paths/environments/deployments.json"
+    },
+    "/v1/environments/{environmentId}/services/lb": {
+      "$ref": "./paths/environments/services/lb/lb.json"
+    },
+    "/v1/environments/{environmentId}/services/lb/tasks": {
+      "$ref": "./paths/environments/services/lb/tasks.json"
+    },
+    "/v1/environments/{environmentId}/services/lb/telemetry/report": {
+      "$ref": "./paths/environments/services/lb/telemetry/report.json"
+    },
+    "/v1/environments/{environmentId}/services/lb/telemetry/latest": {
+      "$ref": "./paths/environments/services/lb/telemetry/latest.json"
+    },
+    "/v1/environments/{environmentId}/services/lb/telemetry/latest-controllers": {
+      "$ref": "./paths/environments/services/lb/telemetry/controllers.json"
+    },
+    "/v1/environments/{environmentId}/services/discovery/tasks": {
+      "$ref": "./paths/environments/services/discovery/tasks.json"
+    },
+    "/v1/environments/{environmentId}/services/scheduler/tasks": {
+      "$ref": "./paths/environments/services/scheduler/tasks.json"
+    },
+    "/v1/environments/{environmentId}/services/vpn": {
+      "$ref": "paths/environments/services/vpn/vpn.json"
+    },
+    "/v1/environments/{environmentId}/services/vpn/logins": {
+      "$ref": "./paths/environments/services/vpn/vpnLogins.json"
+    },
+    "/v1/environments/{environmentId}/services/vpn/users": {
+      "$ref": "./paths/environments/services/vpn/users.json"
+    },
+    "/v1/environments/{environmentId}/services/vpn/users/{userId}": {
+      "$ref": "./paths/environments/services/vpn/deleteUser.json"
+    },
+    "/v1/environments/{environmentId}/services/vpn/tasks": {
+      "$ref": "./paths/environments/services/vpn/tasks.json"
+    },
+    "/v1/environments/{environmentId}/telemetry/instances": {
+      "$ref": "./paths/environments/telemetry.json"
+    },
+    "/v1/environments/{environmentId}/scoped-variables": {
+      "$ref": "./paths/environments/scoped-variables.json"
+    },
+    "/v1/environments/{environmentId}/scoped-variables/{scopedVariableId}": {
+      "$ref": "./paths/environments/scoped-variable.json"
+    },
+    "/v1/containers": {
+      "$ref": "./paths/containers/containers.json"
+    },
+    "/v1/containers/{containerId}": {
+      "$ref": "./paths/containers/container.json"
+    },
+    "/v1/containers/{containerId}/summary": {
+      "$ref": "./paths/containers/summary.json"
+    },
+    "/v1/containers/{containerId}/tasks": {
+      "$ref": "./paths/containers/tasks.json"
+    },
+    "/v1/containers/{containerId}/instances": {
+      "$ref": "./paths/containers/instances/instances.json"
+    },
+    "/v1/containers/{containerId}/instances/{instanceId}": {
+      "$ref": "./paths/containers/instances/instance.json"
+    },
+    "/v1/containers/{containerId}/instances/{instanceId}/ssh": {
+      "$ref": "./paths/containers/instances/ssh.json"
+    },
+    "/v1/containers/{containerId}/instances/{instanceId}/tasks": {
+      "$ref": "./paths/containers/instances/tasks.json"
+    },
+    "/v1/containers/{containerId}/instances/{instanceId}/volumes": {
+      "$ref": "./paths/containers/instances/volumes.json"
+    },
+    "/v1/containers/{containerId}/instances/{instanceId}/telemetry/resources/report": {
+      "$ref": "paths/containers/instances/telemetry/report.json"
+    },
+    "/v1/containers/{containerId}/instances/{instanceId}/telemetry/resources/stream": {
+      "$ref": "paths/containers/instances/telemetry/stream.json"
+    },
+    "/v1/containers/{containerId}/servers": {
+      "$ref": "./paths/containers/servers.json"
+    },
+    "/v1/containers/{containerId}/servers/usable": {
+      "$ref": "paths/containers/compatibleServers.json"
+    },
+    "/v1/containers/{containerId}/compatible-images": {
+      "$ref": "./paths/containers/compatibleImages.json"
+    },
+    "/v1/containers/{containerId}/backups": {
+      "$ref": "./paths/containers/backups/backups.json"
+    },
+    "/v1/containers/{containerId}/backups/{backupId}": {
+      "$ref": "./paths/containers/backups/backup.json"
+    },
+    "/v1/containers/{containerId}/backups/{backupId}/tasks": {
+      "$ref": "./paths/containers/backups/tasks.json"
+    },
+    "/v1/containers/{containerId}/backups/{backupId}/logs": {
+      "$ref": "./paths/containers/backups/backupLogs.json"
+    },
+    "/v1/containers/{containerId}/telemetry/instances": {
+      "$ref": "paths/containers/telemetry.json"
+    },
+    "/v1/dns/zones": {
+      "$ref": "./paths/dns/zones.json"
+    },
+    "/v1/dns/zones/{zoneId}": {
+      "$ref": "./paths/dns/zone.json"
+    },
+    "/v1/dns/zones/{zoneId}/tasks": {
+      "$ref": "./paths/dns/tasks.json"
+    },
+    "/v1/dns/zones/{zoneId}/records": {
+      "$ref": "./paths/dns/records/records.json"
+    },
+    "/v1/dns/zones/{zoneId}/records/{recordId}": {
+      "$ref": "./paths/dns/records/record.json"
+    },
+    "/v1/dns/zones/{zoneId}/records/{recordId}/tasks": {
+      "$ref": "./paths/dns/records/tasks.json"
+    },
+    "/v1/dns/tls/attempts": {
+      "$ref": "./paths/dns/tls/attempts.json"
+    },
+    "/v1/dns/tls/certificates/lookup": {
+      "$ref": "./paths/dns/tls/certificates.json"
+    },
+    "/v1/hubs": {
+      "$ref": "./paths/hubs/hubs.json"
+    },
+    "/v1/hubs/current": {
+      "$ref": "./paths/hubs/hub.json"
+    },
+    "/v1/hubs/capabilities": {
+      "$ref": "./paths/hubs/capabilities.json"
+    },
+    "/v1/hubs/current/usage": {
+      "$ref": "./paths/hubs/usage.json"
+    },
+    "/v1/hubs/current/activity": {
+      "$ref": "./paths/hubs/activity.json"
+    },
+    "/v1/hubs/current/invites/{inviteId}": {
+      "$ref": "./paths/hubs/invites/invite.json"
+    },
+    "/v1/hubs/current/invites": {
+      "$ref": "./paths/hubs/invites/invites.json"
+    },
+    "/v1/hubs/current/members": {
+      "$ref": "./paths/hubs/members/members.json"
+    },
+    "/v1/hubs/current/membership": {
+      "$ref": "./paths/hubs/members/membership.json"
+    },
+    "/v1/hubs/current/members/{memberId}": {
+      "$ref": "./paths/hubs/members/member.json"
+    },
+    "/v1/hubs/current/members/account/{accountId}": {
+      "$ref": "./paths/hubs/members/account.json"
+    },
+    "/v1/hubs/current/api-keys": {
+      "$ref": "./paths/hubs/keys/keys.json"
+    },
+    "/v1/hubs/current/api-keys/{apikeyId}": {
+      "$ref": "./paths/hubs/keys/key.json"
+    },
+    "/v1/hubs/current/roles": {
+      "$ref": "./paths/hubs/roles/roles.json"
+    },
+    "/v1/hubs/current/roles/{roleId}": {
+      "$ref": "./paths/hubs/roles/role.json"
+    },
+    "/v1/hubs/current/integrations/{integrationId}": {
+      "$ref": "paths/hubs/integrations/integration.json"
+    },
+    "/v1/hubs/current/integrations": {
+      "$ref": "paths/hubs/integrations/integrations.json"
+    },
+    "/v1/hubs/current/integrations/available": {
+      "$ref": "paths/hubs/integrations/availableIntegrations.json"
+    },
+    "/v1/hubs/current/integrations/{integrationId}/tasks": {
+      "$ref": "paths/hubs/integrations/tasks.json"
+    },
+    "/v1/search/index": {
+      "$ref": "./paths/search/index.json"
+    },
+    "/v1/images": {
+      "$ref": "./paths/images/images.json"
+    },
+    "/v1/images/{imageId}": {
+      "$ref": "./paths/images/image.json"
+    },
+    "/v1/images/{imageId}/build-log": {
+      "$ref": "./paths/images/buildLog.json"
+    },
+    "/v1/images/tasks": {
+      "$ref": "paths/images/bulkTasks.json"
+    },
+    "/v1/images/{imageId}/tasks": {
+      "$ref": "./paths/images/tasks.json"
+    },
+    "/v1/images/sources": {
+      "$ref": "./paths/images/sources/sources.json"
+    },
+    "/v1/images/sources/{sourceId}": {
+      "$ref": "./paths/images/sources/source.json"
+    },
+    "/v1/infrastructure/summary": {
+      "$ref": "./paths/infrastructure/summary.json"
+    },
+    "/v1/infrastructure/providers/{providerVendor}/servers": {
+      "$ref": "./paths/infrastructure/providers/servers.json"
+    },
+    "/v1/infrastructure/providers/{providerVendor}/locations": {
+      "$ref": "./paths/infrastructure/providers/locations.json"
+    },
+    "/v1/infrastructure/auto-scale/groups": {
+      "$ref": "./paths/infrastructure/auto-scale/groups/groups.json"
+    },
+    "/v1/infrastructure/auto-scale/groups/{groupId}": {
+      "$ref": "./paths/infrastructure/auto-scale/groups/group.json"
+    },
+    "/v1/infrastructure/servers": {
+      "$ref": "./paths/infrastructure/servers/servers.json"
+    },
+    "/v1/infrastructure/servers/{serverId}": {
+      "$ref": "./paths/infrastructure/servers/server.json"
+    },
+    "/v1/infrastructure/servers/{serverId}/telemetry": {
+      "$ref": "./paths/infrastructure/servers/telemetry.json"
+    },
+    "/v1/infrastructure/servers/{serverId}/instances": {
+      "$ref": "./paths/infrastructure/servers/instances.json"
+    },
+    "/v1/infrastructure/servers/{serverId}/tasks": {
+      "$ref": "./paths/infrastructure/servers/tasks.json"
+    },
+    "/v1/infrastructure/servers/tags": {
+      "$ref": "./paths/infrastructure/servers/tags.json"
+    },
+    "/v1/infrastructure/servers/clusters": {
+      "$ref": "./paths/infrastructure/servers/clusters.json"
+    },
+    "/v1/infrastructure/servers/{serverId}/usage": {
+      "$ref": "./paths/infrastructure/servers/usage.json"
+    },
+    "/v1/infrastructure/servers/{serverId}/console": {
+      "$ref": "./paths/infrastructure/servers/console.json"
+    },
+    "/v1/infrastructure/ips/pools": {
+      "$ref": "./paths/infrastructure/ips/pools.json"
+    },
+    "/v1/infrastructure/ips/pools/{poolId}": {
+      "$ref": "./paths/infrastructure/ips/pool.json"
+    },
+    "/v1/infrastructure/ips/pools/{poolId}/ips": {
+      "$ref": "./paths/infrastructure/ips/ips.json"
+    },
+    "/v1/infrastructure/deployment-strategies": {
+      "$ref": "./paths/infrastructure/deploymentStrategies.json"
+    },
+    "/v1/jobs": {
+      "$ref": "./paths/jobs/jobs.json"
+    },
+    "/v1/jobs/{jobId}": {
+      "$ref": "./paths/jobs/job.json"
+    },
+    "/v1/jobs/latest": {
+      "$ref": "./paths/jobs/latest.json"
+    },
+    "/v1/stacks": {
+      "$ref": "./paths/stacks/stacks.json"
+    },
+    "/v1/stacks/{stackId}": {
+      "$ref": "./paths/stacks/stack.json"
+    },
+    "/v1/stacks/{stackId}/tasks": {
+      "$ref": "./paths/stacks/tasks.json"
+    },
+    "/v1/stacks/builds/{buildId}": {
+      "$ref": "./paths/stacks/builds/lookup.json"
+    },
+    "/v1/stacks/{stackId}/builds": {
+      "$ref": "./paths/stacks/builds/builds.json"
+    },
+    "/v1/stacks/{stackId}/builds/{buildId}": {
+      "$ref": "./paths/stacks/builds/build.json"
+    },
+    "/v1/stacks/{stackId}/builds/{buildId}/tasks": {
+      "$ref": "./paths/stacks/builds/tasks.json"
+    },
+    "/v1/sdn/networks": {
+      "$ref": "./paths/sdn/networks.json"
+    },
+    "/v1/sdn/networks/{networkId}": {
+      "$ref": "./paths/sdn/network.json"
+    },
+    "/v1/sdn/networks/{networkId}/tasks": {
+      "$ref": "./paths/sdn/tasks.json"
+    },
+    "/v1/pipelines": {
+      "$ref": "./paths/pipelines/pipelines.json"
+    },
+    "/v1/pipelines/{pipelineId}": {
+      "$ref": "./paths/pipelines/pipeline.json"
+    },
+    "/v1/pipelines/{pipelineId}/runs": {
+      "$ref": "./paths/pipelines/runs.json"
+    },
+    "/v1/pipelines/{pipelineId}/tasks": {
+      "$ref": "./paths/pipelines/tasks.json"
+    },
+    "/v1/pipelines/{pipelineId}/keys": {
+      "$ref": "./paths/pipelines/triggerKeys/triggerKeys.json"
+    },
+    "/v1/pipelines/{pipelineId}/keys/{triggerKeyId}": {
+      "$ref": "./paths/pipelines/triggerKeys/triggerKey.json"
+    },
+    "/v1/hubs/current/notifications": {
+      "$ref": "paths/hubs/notifications/pipeline.json"
+    },
+    "/v1/containers/{containerId}/instances/{instanceId}/console": {
+      "$ref": "paths/containers/instances/console.json"
+    },
+    "/v1/security/report": {
+      "$ref": "paths/security/report.json"
+    },
+    "/v1/utils/resource/lookup": {
+      "$ref": "paths/utils/resource/lookup.json"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      },
+      "hubAuth": {
+        "name": "X-Hub-Id",
+        "in": "header",
+        "type": "apiKey",
+        "description": "Defines the scope of the request to a specific Hub."
+      }
+    }
+  }
+}

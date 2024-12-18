@@ -1,0 +1,22 @@
+{
+  "title": "LoadBalancerLatestControllers",
+  "description": "Information about the latest controllers that generated traffic.",
+  "type": "object",
+  "required": [
+    "created"
+  ],
+  "properties": {
+    "created": {
+      "$ref": "../../../../DateTime.json"
+    },
+    "controllers": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "./LoadBalancerLatestTelemetryController.json"
+      }
+    }
+  }
+}

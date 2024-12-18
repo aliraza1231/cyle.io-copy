@@ -1,0 +1,80 @@
+{
+  "post": {
+    "operationId": "spawnInstance",
+    "summary": "Spawn Instance",
+    "description": "Spawns a previously claimed Instance.\n",
+    "tags": [
+      "Functions"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested Container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "token",
+              "instance_id"
+            ],
+            "properties": {
+              "token": {
+                "description": "The claim token previously used to claim the Instance.",
+                "$ref": "../../components/ClaimToken.json"
+              },
+              "instance_id": {
+                "$ref": "../../../components/schemas/ID.json"
+              },
+              "arguments": {
+                "type": "array",
+                "description": "Arguments to pass to the Instance.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "environment_variables": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns details about the spawned Instance.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../components/instances/SpawnedInstance.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

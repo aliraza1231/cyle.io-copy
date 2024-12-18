@@ -1,0 +1,202 @@
+{
+  "get": {
+    "operationId": "getContainer",
+    "summary": "Get Container",
+    "description": "Gets a Container.\n\nRequires the `containers-view` capability.\n",
+    "tags": [
+      "Containers"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested Container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "meta",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of meta values. Meta values will show up under a resource's `meta` field. In the case of applying a meta to a collection of resources, each resource will have it's own relevant meta data. In some rare cases, meta may not apply to individual resources, and may appear in the root document. These will be clearly labeled.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "instances_count",
+              "domains",
+              "ips"
+            ]
+          }
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "creators",
+              "images",
+              "stack_builds",
+              "stacks",
+              "environments"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a Container.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/containers/Container.json"
+                },
+                "includes": {
+                  "$ref": "../../../components/schemas/containers/ContainerIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "patch": {
+    "operationId": "updateContainer",
+    "summary": "Update Container",
+    "description": "Updates the specified Container.\n\nRequires the `containers-manage` capability.\n",
+    "tags": [
+      "Containers"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the Container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for updating a Container.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name for the Container."
+              },
+              "identifier": {
+                "type": "string",
+                "description": "The name for the identifier."
+              },
+              "deprecate": {
+                "type": "boolean",
+                "description": "Sets whether Container should be deprecated."
+              },
+              "lock": {
+                "type": "boolean",
+                "description": "When set to true, prevents this Container from being deleted."
+              },
+              "annotation": {
+                "type": "object",
+                "description": "User meta data for the Container.",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns the updated Container.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/containers/Container.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteContainer",
+    "summary": "Delete Container",
+    "description": "Requires the `containers-manage` capability.",
+    "tags": [
+      "Containers"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested Container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

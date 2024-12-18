@@ -1,0 +1,47 @@
+{
+  "title": "InstanceMigration",
+  "type": "object",
+  "description": "Information regarding the migration of an instance, such as the server that the instance came from or the server that the instance was moved to.",
+  "required": [
+    "key",
+    "copy_volumes"
+  ],
+  "properties": {
+    "to": {
+      "anyOf": [
+        {
+          "$ref": "MigrationInstance.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "from": {
+      "anyOf": [
+        {
+          "$ref": "MigrationInstance.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "started": {
+      "description": "A timestamp of when the migration was started.",
+      "$ref": "../../DateTime.json"
+    },
+    "completed": {
+      "description": "A timestamp of when the migration was completed.",
+      "$ref": "../../DateTime.json"
+    },
+    "key": {
+      "type": "string",
+      "description": "A key used by the platform to verify the migration."
+    },
+    "copy_volumes": {
+      "type": "boolean",
+      "description": "A boolean where true represents the volumes for the instance should be copied to the new server as well."
+    }
+  }
+}

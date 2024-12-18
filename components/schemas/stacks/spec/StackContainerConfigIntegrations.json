@@ -1,0 +1,217 @@
+{
+  "title": "StackContainerConfigIntegrations",
+  "type": "object",
+  "properties": {
+    "webhooks": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "events": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "deploy": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "start": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "stop": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "lets_encrypt": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "enable"
+      ],
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        },
+        "certificate_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "chain_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "key_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "bundle_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "additional_certs_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "files": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "required": [
+          "source",
+          "destination"
+        ],
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "backups": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "destination",
+        "backup",
+        "restore",
+        "retention"
+      ],
+      "properties": {
+        "destination": {
+          "type": "string"
+        },
+        "backup": {
+          "type": "object",
+          "required": [
+            "command",
+            "timeout",
+            "cron_string"
+          ],
+          "properties": {
+            "command": {
+              "type": "string"
+            },
+            "timeout": {
+              "description": "How long the backup will attempt to run before timing out.",
+              "anyOf": [
+                {
+                  "$ref": "../../Duration.json"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "cron_string": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "restore": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "command",
+            "timeout"
+          ],
+          "properties": {
+            "command": {
+              "type": "string"
+            },
+            "timeout": {
+              "description": "The time in seconds for the restore to attempt to complete before timing out.",
+              "anyOf": [
+                {
+                  "$ref": "../../Duration.json"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "retention": {
+          "description": "How long the platform will keep backups. Default is 1 year.",
+          "anyOf": [
+            {
+              "$ref": "../../Duration.json"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "365d"
+        }
+      }
+    },
+    "shared_file_systems": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "writable",
+          "mount_point"
+        ],
+        "properties": {
+          "writable": {
+            "type": "boolean"
+          },
+          "mount_point": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

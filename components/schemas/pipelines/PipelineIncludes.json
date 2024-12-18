@@ -1,0 +1,43 @@
+{
+  "title": "PipelineIncludes",
+  "description": "All includable resources linkable to the given pipeline.",
+  "type": "object",
+  "properties": {
+    "creators": {
+      "$ref": "../includes/CreatorInclude.json"
+    },
+    "name": {
+      "type": "string",
+      "description": "A name value."
+    },
+    "components": {
+      "type": "object",
+      "description": "A record of resources that can be associated with the pipeline.",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "$ref": "../containers/Container.json"
+          },
+          {
+            "$ref": "../environments/Environment.json"
+          },
+          {
+            "$ref": "../stacks/Stack.json"
+          },
+          {
+            "$ref": "../stacks/builds/StackBuild.json"
+          },
+          {
+            "$ref": "../images/Image.json"
+          },
+          {
+            "$ref": "../images/sources/ImageSource.json"
+          }
+        ]
+      }
+    },
+    "components:identifiers": {
+      "$ref": "../includes/IdentifierIncludes.json"
+    }
+  }
+}

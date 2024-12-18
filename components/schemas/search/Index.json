@@ -1,0 +1,61 @@
+{
+  "title": "Index",
+  "type": "object",
+  "description": "An index that enables search in the portal",
+  "required": [
+    "generated",
+    "hub_id",
+    "containers",
+    "environments",
+    "image_sources",
+    "dns_zones",
+    "stacks",
+    "servers"
+  ],
+  "properties": {
+    "generated": {
+      "description": "The timestampof when the index was generated",
+      "$ref": "../DateTime.json"
+    },
+    "hub_id": {
+      "description": "Id describing the Hub",
+      "type": "string"
+    },
+    "containers": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "./Component.json"
+      }
+    },
+    "environments": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "./Component.json"
+      }
+    },
+    "image_sources": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "./Component.json"
+      }
+    },
+    "dns_zones": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "./Component.json"
+      }
+    },
+    "stacks": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "./Component.json"
+      }
+    },
+    "servers": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "./Component.json"
+      }
+    }
+  }
+}

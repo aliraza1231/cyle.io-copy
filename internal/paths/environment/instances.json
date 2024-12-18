@@ -1,0 +1,38 @@
+{
+  "get": {
+    "operationId": "getEnvironmentInstances",
+    "summary": "List Environment Instances",
+    "description": "Lists all Instances present in this Instance's Environment.",
+    "tags": [
+      "Environments",
+      "Instances"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Instances.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/containers/instances/Instance.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

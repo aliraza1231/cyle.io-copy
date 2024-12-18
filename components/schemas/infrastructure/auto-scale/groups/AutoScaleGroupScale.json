@@ -1,0 +1,36 @@
+{
+  "title": "AutoScaleGroupScale",
+  "type": "object",
+  "properties": {
+    "down": {
+      "title": "AutoScaleGroupScaleDown",
+      "type": "object",
+      "properties": {
+        "min_ttl": {
+          "description": "The minimum TTL for the server once deployed through an autoscale event.",
+          "$ref": "../../../Duration.json"
+        },
+        "inactivity_period": {
+          "description": "The amount of time between last instance deployed and when the server can begin to get deleted.",
+          "$ref": "../../../Duration.json"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "fifo",
+            "lifo"
+          ]
+        }
+      }
+    },
+    "up": {
+      "title": "AutoScaleGroupScaleUp",
+      "type": "object",
+      "properties": {
+        "maximum": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

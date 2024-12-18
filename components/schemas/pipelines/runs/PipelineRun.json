@@ -1,0 +1,134 @@
+{
+  "title": "PipelineRun",
+  "type": "object",
+  "description": "A pipeline run resource.",
+  "required": [
+    "id",
+    "creator",
+    "hub_id",
+    "pipeline_id",
+    "stages",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "creator": {
+      "$ref": "../../creators/CreatorScope.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "pipeline_id": {
+      "type": "string",
+      "description": "The ID for the pipeline this run belongs to."
+    },
+    "stages": {
+      "type": "array",
+      "description": "An array of pipeline stages.",
+      "items": {
+        "type": "object",
+        "required": [
+          "identifier",
+          "steps",
+          "events"
+        ],
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "description": "A stage identifier."
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "identifier",
+                "action",
+                "events",
+                "success"
+              ],
+              "properties": {
+                "identifier": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "environment.create",
+                    "environment.start",
+                    "environment.stop",
+                    "environment.delete",
+                    "environment.deployments.prune",
+                    "environment.deployments.tag",
+                    "environment.deployment.start",
+                    "environment.deployment.stop",
+                    "environment.deployment.healthy.watch",
+                    "image.source.create",
+                    "image.create",
+                    "image.import",
+                    "images.prune",
+                    "image.create-import",
+                    "container.create",
+                    "container.reimage",
+                    "container.start",
+                    "container.stop",
+                    "container.restart",
+                    "container.delete",
+                    "stack.build.create",
+                    "stack.build.deploy",
+                    "stack.build.generate",
+                    "stack.prune",
+                    "sleep",
+                    "webhook.post",
+                    "webhook.get"
+                  ]
+                },
+                "events": {
+                  "$ref": "./PipelineRunEvents.json"
+                },
+                "success": {
+                  "type": "boolean"
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "description": "An error, if any, that has occurred for this step.",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Details about the error that has occurred."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "events": {
+            "$ref": "./PipelineRunEvents.json"
+          }
+        }
+      }
+    },
+    "state": {
+      "$ref": "./RunState.json"
+    },
+    "events": {
+      "$ref": "./PipelineRunEvents.json"
+    },
+    "variables": {
+      "type": "object",
+      "description": "A map of variable values used during pipeline run.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

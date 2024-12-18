@@ -1,0 +1,22 @@
+{
+  "title": "LoadBalancerLatestTelemetry",
+  "description": "Snapshots of the latest load balancer telemetry",
+  "type": "object",
+  "required": [
+    "created"
+  ],
+  "properties": {
+    "created": {
+      "$ref": "../../../../DateTime.json"
+    },
+    "controllers": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "./LoadBalancerLatestTelemetryController.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "RegistryAuth",
+  "type": "object",
+  "description": "Authentication details for a third party image registry/source.",
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "user": "RegistryAuthUser.json",
+      "provider": "RegistryAuthProvider.json",
+      "webhook": "RegistryAuthWebhook.json"
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "RegistryAuthUser.json"
+    },
+    {
+      "$ref": "RegistryAuthProvider.json"
+    },
+    {
+      "$ref": "RegistryAuthWebhook.json"
+    }
+  ]
+}

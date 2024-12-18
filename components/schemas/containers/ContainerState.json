@@ -1,0 +1,43 @@
+{
+  "title": "ContainerState",
+  "allOf": [
+    {
+      "required": [
+        "current"
+      ],
+      "properties": {
+        "current": {
+          "description": "The current state of the container.",
+          "type": "string",
+          "enum": [
+            "new",
+            "starting",
+            "running",
+            "function",
+            "stopping",
+            "stopped",
+            "deleting",
+            "deleted"
+          ]
+        },
+        "desired": {
+          "description": "The desired state of the container.",
+          "type": "string",
+          "enum": [
+            "new",
+            "starting",
+            "running",
+            "function",
+            "stopping",
+            "stopped",
+            "deleting",
+            "deleted"
+          ]
+        }
+      }
+    },
+    {
+      "$ref": "../State.json"
+    }
+  ]
+}

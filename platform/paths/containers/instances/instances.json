@@ -1,0 +1,221 @@
+{
+  "get": {
+    "operationId": "getInstances",
+    "summary": "List Instances",
+    "description": "Requires the `containers-view` capability.",
+    "tags": [
+      "Containers",
+      "Instances"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the container this instance is created from.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "explode": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "creators",
+              "servers",
+              "locations",
+              "integrations",
+              "containers",
+              "environments"
+            ]
+          }
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "required": false,
+        "style": "deepObject",
+        "description": "## Filter Field \nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "state": {
+              "type": "string",
+              "description": "`filter[state]=value1,value2` state filtering will allow you to filter by the instance's current state.\n"
+            },
+            "search": {
+              "type": "string",
+              "description": "`filter[search]=value` search instances for a value associated with a field on the given instance(s).\n"
+            },
+            "server": {
+              "type": "string",
+              "description": "`filter[server]=ID` server filtering by ID. Submit the ID of the server you wish to filter for and the return will be any instances of the container currently deployed to the given server.\n"
+            },
+            "range-start": {
+              "description": "The start date from when to pull the instances",
+              "$ref": "../../../../components/schemas/DateTime.json"
+            },
+            "range-end": {
+              "description": "The end date from when to pull the instances",
+              "$ref": "../../../../components/schemas/DateTime.json"
+            }
+          }
+        }
+      },
+      {
+        "$ref": "../../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Container Instances.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/containers/instances/Instance.json"
+                  }
+                },
+                "includes": {
+                  "$ref": "../../../../components/schemas/containers/instances/InstanceIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "post": {
+    "operationId": "createInstances",
+    "summary": "Create Instances",
+    "description": "Manually create Instances of a Container.\n\nRequires the `containers-update` capability.\n",
+    "tags": [
+      "Containers",
+      "Instances"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the Container this Instance is created from.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "server_id",
+                "new_instances"
+              ],
+              "properties": {
+                "server_id": {
+                  "type": "string",
+                  "description": "The ID of the Server the new Instance(s) should be deployed to."
+                },
+                "new_instances": {
+                  "type": "integer",
+                  "description": "The number of new Instances to be created on the given Server."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteContainerInstances",
+    "summary": "Delete Container Instance(s)",
+    "description": "Manually delete Instances of a Container.\n\nRequires the `containers-update` capability.\n",
+    "tags": [
+      "Instances"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the container the instance(s) were created from.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

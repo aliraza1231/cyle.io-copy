@@ -1,0 +1,60 @@
+{
+  "get": {
+    "operationId": "getLoadBalancerLatestTelemetryReport",
+    "summary": "Get Latest Load Balancer Telemetry Report.",
+    "description": "Fetches the latest telemetry report for Cycle's native load balancer. Provides detailed information on a per-instance basis.\n\n## Permissions\nRequires the `environments-view` capability. Also requires the user to have access specifically to the requested Environment.\n",
+    "tags": [
+      "Environments"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The environmentId where the load balancer resides.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "style": "deepObject",
+        "required": true,
+        "description": "## Filter Field\nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n### Required Filter\nOn this endpoint, you MUST pass filter[controller].\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "controller": {
+              "type": "string",
+              "description": "`filter[controller]=port-123` filter for a specific controller to load telemetry for. THIS FILTER IS REQUIRED.\n"
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns the latest load balancer telemetry",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../../../components/schemas/environments/services/lb/telemetry/LoadBalancerLatestTelemetry.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

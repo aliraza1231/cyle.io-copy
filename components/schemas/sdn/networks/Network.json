@@ -1,0 +1,98 @@
+{
+  "title": "Network",
+  "type": "object",
+  "description": "SDN Network resource.",
+  "required": [
+    "id",
+    "name",
+    "identifier",
+    "cluster",
+    "creator",
+    "hub_id",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the network."
+    },
+    "identifier": {
+      "type": "string",
+      "description": "A network identifier used to construct http calls that specifically use this network over another."
+    },
+    "cluster": {
+      "type": "string",
+      "description": "The infrastructure cluster the environments belonging to this network belong to."
+    },
+    "creator": {
+      "$ref": "../../creators/CreatorScope.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "state": {
+      "$ref": "NetworkState.json"
+    },
+    "private_network": {
+      "anyOf": [
+        {
+          "$ref": "NetworkPrivacySettings.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "environments": {
+      "description": "An array of environments and timestamps.",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "added"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "../../ID.json"
+          },
+          "added": {
+            "description": "A timestamp of when the environment was added.",
+            "$ref": "../../DateTime.json"
+          }
+        }
+      }
+    },
+    "events": {
+      "title": "NetworkEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the network's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the image was created.",
+          "$ref": "../../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the image was updated.",
+          "$ref": "../../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the image was deleted.",
+          "$ref": "../../DateTime.json"
+        }
+      }
+    }
+  }
+}

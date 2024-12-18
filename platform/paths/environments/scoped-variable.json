@@ -1,0 +1,199 @@
+{
+  "get": {
+    "operationId": "getScopedVariable",
+    "summary": "Get Scoped Variable",
+    "description": "Requires the `scoped-variables-view` capability.",
+    "tags": [
+      "Environments",
+      "Scoped Variables"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The ID of the requested Environment.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "scopedVariableId",
+        "description": "The ID of the requested Scoped Variable.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a Scoped Variable.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/scoped-variables/ScopedVariable.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "patch": {
+    "operationId": "updateScopedVariable",
+    "summary": "Update Scoped Variable",
+    "description": "Requires the `scoped-variables-manage` capability.",
+    "tags": [
+      "Environments",
+      "Scoped Variables"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The ID of the requested endpointnvironment.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "scopedVariableId",
+        "description": "The ID of the requested Scoped Variable.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for updating a Scoped Variable.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "identifier": {
+                "type": "string",
+                "description": "An identifier, similar to a key in an Environment variable.  Its used when envoking the Scoped Variable."
+              },
+              "scope": {
+                "$ref": "../../../components/schemas/scoped-variables/ScopedVariableScope.json"
+              },
+              "access": {
+                "$ref": "../../../components/schemas/scoped-variables/ScopedVariableAccess.json"
+              },
+              "source": {
+                "type": "object",
+                "description": "The source or value of the Scoped Variable.",
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "raw": "../../../components/schemas/scoped-variables/RawSource.json",
+                    "url": "../../../components/schemas/scoped-variables/URLSource.json"
+                  }
+                },
+                "oneOf": [
+                  {
+                    "$ref": "../../../components/schemas/scoped-variables/RawSource.json"
+                  },
+                  {
+                    "$ref": "../../../components/schemas/scoped-variables/URLSource.json"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns a Scoped Variable.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/scoped-variables/ScopedVariable.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteScopedVariable",
+    "summary": "Delete Scoped Variable",
+    "description": "Requires the `scoped-variables-manage` capability.",
+    "tags": [
+      "Environments",
+      "Scoped Variables"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The ID of the requested Environment.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "scopedVariableId",
+        "description": "The ID of the requested Scoped Variable.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

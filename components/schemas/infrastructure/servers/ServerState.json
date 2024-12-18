@@ -1,0 +1,27 @@
+{
+  "title": "ServerState",
+  "allOf": [
+    {
+      "required": [
+        "current"
+      ],
+      "properties": {
+        "current": {
+          "description": "The current state of the server.",
+          "type": "string",
+          "enum": [
+            "new",
+            "provisioning",
+            "configuring",
+            "live",
+            "deleting",
+            "deleted"
+          ]
+        }
+      }
+    },
+    {
+      "$ref": "../../State.json"
+    }
+  ]
+}

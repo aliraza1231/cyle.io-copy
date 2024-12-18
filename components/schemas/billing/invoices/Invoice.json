@@ -1,0 +1,133 @@
+{
+  "title": "BillingInvoice",
+  "type": "object",
+  "description": "Information about a billing invoice.",
+  "required": [
+    "id",
+    "hub_id",
+    "approved",
+    "charges",
+    "events",
+    "failed_payment_attempts",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "approved": {
+      "type": "boolean",
+      "description": "A boolean where true represents the invoice is approved for collection."
+    },
+    "services": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "../BillingSummary.json"
+      }
+    },
+    "payments": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "./Payment.json"
+      }
+    },
+    "credits": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "./InvoiceCredit.json"
+      }
+    },
+    "late_fees": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "./LateFee.json"
+      }
+    },
+    "charges": {
+      "type": "integer",
+      "description": "The amount in charges generated through the licesnse agreement + overages for the billing period covered by the invoice."
+    },
+    "due": {
+      "description": "A timestamp of when the invoice is due to be paid.",
+      "$ref": "../../DateTime.json"
+    },
+    "overdue": {
+      "description": "A timestamp of when the invoice is overdue.",
+      "$ref": "../../DateTime.json"
+    },
+    "failed_payment_attempts": {
+      "type": "integer",
+      "description": "The number of failed payment attempts for the invoice."
+    },
+    "events": {
+      "title": "BillingOrderEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the billing order's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted",
+        "billed",
+        "paid",
+        "credited",
+        "voided"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the billing order was created.",
+          "$ref": "../../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the billing order was updated.",
+          "$ref": "../../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the billing order was deleted.",
+          "$ref": "../../DateTime.json"
+        },
+        "billed": {
+          "description": "The timestamp of when the billing order billed.",
+          "$ref": "../../DateTime.json"
+        },
+        "paid": {
+          "description": "The timestamp of when the billing order paid.",
+          "$ref": "../../DateTime.json"
+        },
+        "payment_attempt": {
+          "description": "The timestamp of when the billing order payment was attempted.",
+          "$ref": "../../DateTime.json"
+        },
+        "credited": {
+          "description": "The timestamp of when the billing order credited.",
+          "$ref": "../../DateTime.json"
+        },
+        "voided": {
+          "description": "The timestamp of when the billing order voided.",
+          "$ref": "../../DateTime.json"
+        }
+      }
+    },
+    "state": {
+      "$ref": "./InvoiceState.json"
+    },
+    "meta": {
+      "$ref": "./InvoiceMeta.json"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "get": {
+    "operationId": "getBillingServices",
+    "summary": "List Billing Services",
+    "description": "Requries the `billing-services-view` capability.",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [
+      {
+        "$ref": "../../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/FilterParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Billing Services.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/billing/Service.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

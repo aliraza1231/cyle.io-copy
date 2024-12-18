@@ -1,0 +1,38 @@
+{
+  "get": {
+    "operationId": "getServerInstances",
+    "summary": "Get Server Instances",
+    "description": "Gets a list of instances that are on the same server as this instance.",
+    "tags": [
+      "Servers",
+      "Instances"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "Returns a list of instances.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/containers/instances/Instance.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

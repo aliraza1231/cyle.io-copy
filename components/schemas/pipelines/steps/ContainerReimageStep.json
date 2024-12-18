@@ -1,0 +1,56 @@
+{
+  "title": "ContainerReimageStep",
+  "type": "object",
+  "description": "Settings for reimaging a container in a pipeline",
+  "required": [
+    "action",
+    "details"
+  ],
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "description": "An identifier for the step."
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "skip": {
+          "type": "boolean"
+        }
+      }
+    },
+    "action": {
+      "type": "string",
+      "description": "The action that the step takes.",
+      "enum": [
+        "container.reimage"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "image",
+        "container"
+      ],
+      "properties": {
+        "container": {
+          "$ref": "../FluidIdentifier.json"
+        },
+        "image": {
+          "$ref": "../FluidIdentifier.json"
+        },
+        "options": {
+          "type": "object",
+          "required": [
+            "allow_incompatible"
+          ],
+          "properties": {
+            "allow_incompatible": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}

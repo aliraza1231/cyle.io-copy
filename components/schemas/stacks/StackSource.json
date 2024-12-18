@@ -1,0 +1,20 @@
+{
+  "title": "StackSource",
+  "type": "object",
+  "description": "A source for a stack to be created from.",
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "git-repo": "./spec/StackRepoSource.json",
+      "raw": "./spec/StackRawSource.json"
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "./spec/StackRepoSource.json"
+    },
+    {
+      "$ref": "./spec/StackRawSource.json"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "title": "StackSpecTestContainer",
+  "type": "object",
+  "required": [
+    "name",
+    "image",
+    "config"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "image": {
+      "anyOf": [
+        {
+          "$ref": "StackSpecContainerImage.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "config": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "runtime": {
+          "anyOf": [
+            {
+              "$ref": "StackContainerConfigRuntime.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resources": {
+          "anyOf": [
+            {
+              "$ref": "StackContainerConfigResources.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

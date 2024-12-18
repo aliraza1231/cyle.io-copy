@@ -1,0 +1,67 @@
+{
+  "post": {
+    "operationId": "createStackJob",
+    "summary": "Create Stack Job",
+    "description": "Requires the `stacks-manage` capability.",
+    "tags": [
+      "Stacks"
+    ],
+    "parameters": [
+      {
+        "name": "stackId",
+        "in": "path",
+        "required": true,
+        "description": "The ID of the Stack",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for creating a new Stack Job.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "title": "PruneStackBuilds",
+            "type": "object",
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "type": "string",
+                "description": "The Job to do.",
+                "enum": [
+                  "prune"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

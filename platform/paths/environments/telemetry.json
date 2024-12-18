@@ -1,0 +1,67 @@
+{
+  "get": {
+    "operationId": "getEnvironmentInstancesTelemetry",
+    "summary": "Get Environment Instances Telemetry",
+    "description": "Get telemetry points on the number of instances and their states over a range of time.\n\nRequires the `environments-view` capability.\n",
+    "tags": [
+      "Environments"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The ID of the desired Environment",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "style": "deepObject",
+        "required": false,
+        "description": "## Filter Field \nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "range-start": {
+              "description": "The start date from when to pull instance telemetry data",
+              "$ref": "../../../components/schemas/DateTime.json"
+            },
+            "range-end": {
+              "description": "The end date from when to pull instance telemetry data",
+              "$ref": "../../../components/schemas/DateTime.json"
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of telemetry data points.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/environments/returns/InstanceTelemetryPoint.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

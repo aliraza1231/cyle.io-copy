@@ -1,0 +1,65 @@
+{
+  "title": "StackBuildDeployStep",
+  "type": "object",
+  "description": "Settings for deploying a stack build in a pipeline.",
+  "required": [
+    "action",
+    "details"
+  ],
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "description": "An identifier for the step."
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "skip": {
+          "type": "boolean"
+        }
+      }
+    },
+    "action": {
+      "type": "string",
+      "description": "The action that the step takes.",
+      "enum": [
+        "stack.build.deploy"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "environment",
+        "build"
+      ],
+      "properties": {
+        "build": {
+          "$ref": "../FluidIdentifier.json"
+        },
+        "environment": {
+          "$ref": "../FluidIdentifier.json"
+        },
+        "update": {
+          "anyOf": [
+            {
+              "$ref": "../../stacks/builds/StackBuildDeploymentUpdates.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deployment": {
+          "anyOf": [
+            {
+              "$ref": "../../containers/Deployment.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

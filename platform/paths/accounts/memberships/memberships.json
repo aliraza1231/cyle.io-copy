@@ -1,0 +1,58 @@
+{
+  "get": {
+    "operationId": "getAccountMemberships",
+    "summary": "Get Account Memberships",
+    "description": "Lists the Hub Memberships for a given account.",
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "tags": [
+      "Accounts"
+    ],
+    "parameters": [
+      {
+        "$ref": "includes/MembershipIncludeParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/FilterParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Hub Memberships associated with the Account.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/hubs/HubMembership.json"
+                  }
+                },
+                "includes": {
+                  "$ref": "../../../../components/schemas/hubs/HubMembershipIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

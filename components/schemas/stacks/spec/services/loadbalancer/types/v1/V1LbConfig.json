@@ -1,0 +1,20 @@
+{
+  "title": "V1LbConfig",
+  "type": "object",
+  "required": [
+    "controllers"
+  ],
+  "properties": {
+    "controllers": {
+      "type": "array",
+      "description": "A configuration for a specific port.",
+      "items": {
+        "$ref": "./V1LbController.json"
+      }
+    },
+    "controller_template": {
+      "nullable": true,
+      "$ref": "./V1LbController.json"
+    }
+  }
+}

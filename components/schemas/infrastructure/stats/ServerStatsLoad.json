@@ -1,0 +1,27 @@
+{
+  "title": "ServerStatsLoad",
+  "type": "object",
+  "description": "Statistics about the current load on the server.",
+  "required": [
+    "avg1m",
+    "avg5m",
+    "avg15m"
+  ],
+  "properties": {
+    "avg1m": {
+      "type": "number",
+      "format": "float",
+      "description": "The 1 minute load average."
+    },
+    "avg5m": {
+      "type": "number",
+      "format": "float",
+      "description": "The 5 minute load average."
+    },
+    "avg15m": {
+      "type": "number",
+      "format": "float",
+      "description": "the 15 minute load average."
+    }
+  }
+}

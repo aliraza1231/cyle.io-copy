@@ -1,0 +1,75 @@
+{
+  "post": {
+    "operationId": "createDNSZoneRecordJob",
+    "summary": "Create a DNS Zone Record Job",
+    "description": "Used to perform different actions on a given DNS Zone record. \n\nRequires the `dns-manage` capability.\n",
+    "tags": [
+      "DNS"
+    ],
+    "parameters": [
+      {
+        "name": "zoneId",
+        "description": "The ID of the zone.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "recordId",
+        "description": "The ID of the record.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for creating a new DNS Zone Record Job.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "type": "string",
+                "description": "The action that the job will take.",
+                "enum": [
+                  "generateCert"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

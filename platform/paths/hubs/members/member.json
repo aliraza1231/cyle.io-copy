@@ -1,0 +1,183 @@
+{
+  "get": {
+    "operationId": "getHubMember",
+    "summary": "Get Hub Member",
+    "description": "Requires the `hubs-members-view` capability.",
+    "tags": [
+      "Hubs"
+    ],
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "parameters": [
+      {
+        "name": "memberId",
+        "description": "The ID for the given Hub member.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "senders",
+              "hubs",
+              "accounts",
+              "roles"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a Hub Membership.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/hubs/HubMembership.json"
+                },
+                "includes": {
+                  "$ref": "../../../../components/schemas/hubs/HubMembershipIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "patch": {
+    "operationId": "updateHubMember",
+    "summary": "Update Hub Member",
+    "description": "Requires the `hubs-members-manage` capability.",
+    "tags": [
+      "Hubs"
+    ],
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "parameters": [
+      {
+        "name": "memberId",
+        "description": "The ID for the given member.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for updating a Hub membership.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "role_id": {
+                "description": "The account role.",
+                "$ref": "../../../../components/schemas/ID.json"
+              },
+              "permissions": {
+                "$ref": "../../../../components/schemas/creators/Permissions.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns a Hub Membership.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/hubs/HubMembership.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteHubMember",
+    "summary": "Delete Hub Member",
+    "description": "Requires the `hubs-members-manage` capability.",
+    "tags": [
+      "Hubs"
+    ],
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "parameters": [
+      {
+        "name": "memberId",
+        "description": "The ID of the given Hub Member.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

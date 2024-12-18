@@ -1,0 +1,22 @@
+{
+  "title": "AssociatedDiscount",
+  "type": "object",
+  "description": "Information about a billing discount.",
+  "required": [
+    "id",
+    "amount",
+    "expires"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "amount": {
+      "$ref": "../BillingAmount.json"
+    },
+    "expires": {
+      "description": "A timestamp of when the discount expires.",
+      "$ref": "../../DateTime.json"
+    }
+  }
+}

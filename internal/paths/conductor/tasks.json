@@ -1,0 +1,52 @@
+{
+  "post": {
+    "operationId": "createInstanceJob",
+    "summary": "Create Instance Job",
+    "description": "Used to perform different actions on a given instance.\n",
+    "tags": [
+      "Containers",
+      "Instances"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "discriminator": {
+              "propertyName": "action",
+              "mapping": {
+                "container.instance.start": "../../components/instances/tasks/StartInstanceTask.json",
+                "container.instance.stop": "../../components/instances/tasks/StopInstanceTask.json"
+              }
+            },
+            "oneOf": [
+              {
+                "$ref": "../../components/instances/tasks/StartInstanceTask.json"
+              },
+              {
+                "$ref": "../../components/instances/tasks/StopInstanceTask.json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns nothing on success.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

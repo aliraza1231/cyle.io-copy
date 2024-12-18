@@ -1,0 +1,54 @@
+{
+  "get": {
+    "operationId": "getVPNLogins",
+    "summary": "Get VPN Logins",
+    "description": "Requires the `environments-vpn` capability.",
+    "tags": [
+      "Environments"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The environmentId where the VPN resides.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../../../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a VPNInfo resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "VPNInfoEnvironmentService",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../../components/schemas/environments/returns/VPNLogin.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

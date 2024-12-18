@@ -1,0 +1,62 @@
+{
+  "title": "WebhookGetStep",
+  "description": "A pipeline step that will make a GET request to the specified endpoint.\n",
+  "type": "object",
+  "required": [
+    "action",
+    "details"
+  ],
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "description": "An identifier for the step."
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "skip": {
+          "type": "boolean"
+        }
+      }
+    },
+    "action": {
+      "type": "string",
+      "description": "The action that the step takes.",
+      "enum": [
+        "webhook.get"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The url to submit a POST request to."
+        },
+        "headers": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "An optional map of headers to send with the request.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "WebhookStepOptions.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "title": "HubEvents",
+  "type": "object",
+  "description": "A collection of timestamps for each event in the hub's lifetime.",
+  "required": [
+    "created",
+    "updated",
+    "deleted"
+  ],
+  "properties": {
+    "created": {
+      "description": "The timestamp of when the hub was created.",
+      "$ref": "../DateTime.json"
+    },
+    "updated": {
+      "description": "The timestamp of when the hub was updated.",
+      "$ref": "../DateTime.json"
+    },
+    "deleted": {
+      "description": "The timestamp of when the hub was deleted.",
+      "$ref": "../DateTime.json"
+    },
+    "converted": {
+      "description": "The timestamp of when the hub had the first converted.",
+      "$ref": "../DateTime.json"
+    },
+    "first_order": {
+      "description": "The timestamp of when the hub had the first provider added.",
+      "$ref": "../DateTime.json"
+    },
+    "first_provider": {
+      "description": "The timestamp of when the hub had the first provider added.",
+      "$ref": "../DateTime.json"
+    },
+    "first_server": {
+      "description": "The timestamp of when the hub had the first_server deployed.",
+      "$ref": "../DateTime.json"
+    },
+    "first_environment": {
+      "description": "The timestamp of when the hub had the first environment deployed.",
+      "$ref": "../DateTime.json"
+    },
+    "first_image": {
+      "description": "The timestamp of when the hub had the first image deployed.",
+      "$ref": "../DateTime.json"
+    },
+    "first_container": {
+      "description": "The timestamp of when the hub had the first container deployed.",
+      "$ref": "../DateTime.json"
+    }
+  }
+}

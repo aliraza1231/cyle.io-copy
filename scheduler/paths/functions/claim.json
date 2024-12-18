@@ -1,0 +1,63 @@
+{
+  "post": {
+    "operationId": "claimInstance",
+    "summary": "Claim Instance",
+    "description": "Reserves an instance of the target function Container. The scheduler will release the claim back into the pool if the Instance is not claimed\nwithin ten seconds.\n",
+    "tags": [
+      "Functions"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested Container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "token"
+            ],
+            "properties": {
+              "token": {
+                "type": "string",
+                "description": "A custom token used for identifying and managing a claim. Can be any valid string, and must be used with spawning and releasing the Instance."
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns details about the claimed Instance.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../components/instances/ClaimedInstance.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

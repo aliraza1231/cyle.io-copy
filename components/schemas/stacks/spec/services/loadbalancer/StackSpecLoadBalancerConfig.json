@@ -1,0 +1,24 @@
+{
+  "title": "StackSpecLoadBalancerConfig",
+  "type": "object",
+  "description": "The config object for the loadbalancer service.",
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "haproxy": "types/haproxy/HaProxyLbType.json",
+      "v1": "types/v1/V1LbType.json",
+      "default": "types/DefaultLbType.json"
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "./types/haproxy/HaProxyLbType.json"
+    },
+    {
+      "$ref": "./types/v1/V1LbType.json"
+    },
+    {
+      "$ref": "./types/DefaultLbType.json"
+    }
+  ]
+}

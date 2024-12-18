@@ -1,0 +1,37 @@
+{
+  "get": {
+    "operationId": "getBillingTiers",
+    "summary": "List Billing Tiers",
+    "description": "Returns list of availiable Billing Tiers.",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "Returns a list of available Billing Tiers.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/billing/plans/TierPlan.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

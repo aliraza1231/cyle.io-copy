@@ -1,0 +1,44 @@
+{
+  "title": "LoadBalancerTelemetryReport",
+  "description": "Aggregated load balancer telemetry across all instances for a given range.",
+  "type": "object",
+  "required": [
+    "created",
+    "range",
+    "snapshots"
+  ],
+  "properties": {
+    "created": {
+      "$ref": "../../../../DateTime.json"
+    },
+    "range": {
+      "$ref": "../../../../Range.json"
+    },
+    "snapshots": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "title": "LoadBalancerTelemetryReportMergedSnapshot",
+        "required": [
+          "time",
+          "controller",
+          "metrics"
+        ],
+        "properties": {
+          "time": {
+            "$ref": "../../../../DateTime.json"
+          },
+          "controller": {
+            "$ref": "../../../../Identifier.json"
+          },
+          "metrics": {
+            "$ref": "LoadBalancerTelemetryControllerMetrics.json"
+          }
+        }
+      }
+    }
+  }
+}

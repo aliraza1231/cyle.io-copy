@@ -1,0 +1,97 @@
+{
+  "title": "Integration",
+  "type": "object",
+  "required": [
+    "id",
+    "identifier",
+    "vendor",
+    "creator",
+    "hub_id",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Name of the Integration."
+    },
+    "vendor": {
+      "type": "string",
+      "description": "Which vendor this Integration is associated with."
+    },
+    "identifier": {
+      "$ref": "../../Identifier.json"
+    },
+    "auth": {
+      "description": "Authentication information for the Integration, can be null.",
+      "anyOf": [
+        {
+          "$ref": "IntegrationAuth.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "extra": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Additional key-value pairs associated with the Integration."
+    },
+    "creator": {
+      "$ref": "../../creators/CreatorScope.json"
+    },
+    "hub_id": {
+      "$ref": "../../ID.json",
+      "description": "Identifier of the hub associated with the Integration."
+    },
+    "state": {
+      "$ref": "IntegrationState.json"
+    },
+    "events": {
+      "title": "IntegrationEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the Integration's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the Integration was created.",
+          "$ref": "../../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the Integration was updated.",
+          "$ref": "../../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the Integration was deleted.",
+          "$ref": "../../DateTime.json"
+        }
+      }
+    },
+    "meta": {
+      "anyOf": [
+        {
+          "$ref": "IntegrationMeta.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

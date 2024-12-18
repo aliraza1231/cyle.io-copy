@@ -1,0 +1,32 @@
+{
+  "title": "StackContainerScaleThreshold",
+  "type": "object",
+  "description": "Discriminated union describing the different types of scaling threshold and their respective details",
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "ram": "./StackContainerScaleThresholdRam.json",
+      "cpu": "./StackContainerScaleThresholdCpu.json",
+      "network-connections": "./StackContainerScaleThresholdNetworkConnections.json",
+      "network-requests": "./StackContainerScaleThresholdNetworkRequests.json",
+      "network-throughput": "./StackContainerScaleThresholdNetworkThroughput.json"
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "./StackContainerScaleThresholdRam.json"
+    },
+    {
+      "$ref": "./StackContainerScaleThresholdCpu.json"
+    },
+    {
+      "$ref": "./StackContainerScaleThresholdNetworkConnections.json"
+    },
+    {
+      "$ref": "./StackContainerScaleThresholdNetworkRequests.json"
+    },
+    {
+      "$ref": "./StackContainerScaleThresholdNetworkThroughput.json"
+    }
+  ]
+}

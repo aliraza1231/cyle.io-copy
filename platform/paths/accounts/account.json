@@ -1,0 +1,125 @@
+{
+  "get": {
+    "operationId": "getAccount",
+    "summary": "Get Account",
+    "description": "Gets the Account associated with the authenticated bearer token.",
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "tags": [
+      "Accounts"
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns the Account.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "AccountResponse",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/accounts/Account.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "patch": {
+    "operationId": "updateAccount",
+    "tags": [
+      "Accounts"
+    ],
+    "summary": "Update Account",
+    "description": "Updates the Account.",
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "object",
+                "description": "The new name on the Account.",
+                "properties": {
+                  "first": {
+                    "type": "string"
+                  },
+                  "last": {
+                    "type": "string"
+                  }
+                }
+              },
+              "allow_support_login": {
+                "type": "boolean",
+                "description": "If true, Cycle employees will have the ability, upon consent, to access the account for support purposes. This access will be logged."
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns the updated Account.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/accounts/Account.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteAccount",
+    "tags": [
+      "Accounts"
+    ],
+    "summary": "Delete Account",
+    "description": "Puts the Account into a `deleted` state. This will fail if the Account is the current `OWNER` of an active Hub.",
+    "responses": {
+      "202": {
+        "description": "Returns a job descriptor with information about the status of the Account deletion.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

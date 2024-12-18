@@ -1,0 +1,9 @@
+{
+  "title": "BillingOrderIncludes",
+  "type": "object",
+  "properties": {
+    "promo_codes": {
+      "$ref": "../../../../../components/schemas/includes/PromoCodeInclude.json"
+    }
+  }
+}

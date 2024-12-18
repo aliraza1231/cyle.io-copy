@@ -1,0 +1,106 @@
+{
+  "title": "TierPlan",
+  "type": "object",
+  "description": "A TierPlan object describes the attributes of a subscription tier",
+  "required": [
+    "id",
+    "name",
+    "code",
+    "generation",
+    "usable",
+    "price",
+    "servers",
+    "members",
+    "max_nodes",
+    "max_members",
+    "advanced_features",
+    "max_daily_api_requests",
+    "ram",
+    "image_storage",
+    "builds",
+    "hidden",
+    "description"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "generation": {
+      "type": "integer"
+    },
+    "usable": {
+      "type": "boolean"
+    },
+    "price": {
+      "$ref": "../BillingAmount.json"
+    },
+    "servers": {
+      "$ref": "../BillingServers.json"
+    },
+    "members": {
+      "$ref": "../BillingMembers.json"
+    },
+    "max_nodes": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "max_members": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "advanced_features": {
+      "type": "object",
+      "required": [
+        "gpu",
+        "ial",
+        "autoscale",
+        "deployments"
+      ],
+      "properties": {
+        "gpu": {
+          "type": "boolean"
+        },
+        "ial": {
+          "type": "boolean"
+        },
+        "deployments": {
+          "type": "boolean"
+        },
+        "autoscale": {
+          "type": "boolean"
+        }
+      }
+    },
+    "max_daily_api_requests": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "ram": {
+      "$ref": "../BillingRam.json"
+    },
+    "image_storage": {
+      "$ref": "../BillingImageStorage.json"
+    },
+    "builds": {
+      "$ref": "../BillingBuilds.json"
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

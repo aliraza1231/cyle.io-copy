@@ -1,0 +1,46 @@
+{
+  "get": {
+    "operationId": "getHubUsage",
+    "summary": "Get Hub Usage",
+    "description": "Requires the `hubs-view` capability.",
+    "tags": [
+      "Hubs"
+    ],
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "parameters": [
+      {
+        "$ref": "../../../components/parameters/FilterParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns usage detail points of the Hub over a range of time.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/hubs/HubUsageDatum.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

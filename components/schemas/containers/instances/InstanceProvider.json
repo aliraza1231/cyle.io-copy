@@ -1,0 +1,23 @@
+{
+  "title": "InstanceProvider",
+  "type": "object",
+  "required": [
+    "vendor",
+    "integration_id",
+    "location"
+  ],
+  "properties": {
+    "vendor": {
+      "type": "string",
+      "description": "The vendor of the hub provider integration related to the server this instance runs on."
+    },
+    "integration_id": {
+      "$ref": "../../ID.json",
+      "description": "An ID of the provider Hub integration that this instance's host node is related to."
+    },
+    "location": {
+      "type": "string",
+      "description": "The identifier of the location related to the server this instance runs on."
+    }
+  }
+}

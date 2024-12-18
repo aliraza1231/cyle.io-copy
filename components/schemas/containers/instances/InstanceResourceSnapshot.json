@@ -1,0 +1,48 @@
+{
+  "title": "InstanceResourceSnapshot",
+  "type": "object",
+  "description": "A snapshot of instance telemetry.",
+  "required": [
+    "time",
+    "cpu",
+    "memory",
+    "processes"
+  ],
+  "properties": {
+    "time": {
+      "description": "A timestamp for when the snapshot was taken.",
+      "$ref": "../../DateTime.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "container_id": {
+      "type": "string",
+      "description": "The ID of the container the instance was created from."
+    },
+    "instance_id": {
+      "type": "string",
+      "description": "The ID of the instance."
+    },
+    "environment_id": {
+      "type": "string",
+      "description": "The ID of the environment this instnace is in."
+    },
+    "cpu": {
+      "$ref": "./snapshots/CPUSnapshot.json"
+    },
+    "memory": {
+      "$ref": "./snapshots/MemorySnapshot.json"
+    },
+    "processes": {
+      "$ref": "./snapshots/ProcessesSnapshot.json"
+    },
+    "hugetlb": {
+      "type": "object",
+      "description": "Records of HugeTLB resource data.",
+      "additionalProperties": {
+        "$ref": "./snapshots/HugeTLB.json"
+      }
+    }
+  }
+}

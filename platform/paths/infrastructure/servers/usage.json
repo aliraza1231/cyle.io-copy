@@ -1,0 +1,45 @@
+{
+  "get": {
+    "operationId": "GetServerUsage",
+    "summary": "Get Server Usage",
+    "description": "Requires the `servers-view` capability.",
+    "tags": [
+      "Infrastructure",
+      "Servers"
+    ],
+    "parameters": [
+      {
+        "name": "serverId",
+        "description": "The ID for the given server.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns usage data for the Server.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/infrastructure/servers/UsageDatum.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

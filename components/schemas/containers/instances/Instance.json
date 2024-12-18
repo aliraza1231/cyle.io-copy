@@ -1,0 +1,166 @@
+{
+  "title": "Instance",
+  "type": "object",
+  "description": "An instance of a Container.",
+  "required": [
+    "id",
+    "creator",
+    "hub_id",
+    "container_id",
+    "location_id",
+    "environment",
+    "provider",
+    "server_id",
+    "ready_state",
+    "hostname",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "creator": {
+      "$ref": "../../creators/CreatorScope.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "container_id": {
+      "type": "string",
+      "description": "A container identifier for the container that is associated with this instance."
+    },
+    "location_id": {
+      "type": "string",
+      "description": "A location identifier that's associated with the server this instance is deployed to."
+    },
+    "environment": {
+      "$ref": "EnvironmentNetworkSummary.json"
+    },
+    "stateful": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "If the instance is stateful, additional details relating to its stateful properties.",
+      "required": [
+        "id",
+        "base_hostname"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "../../ID.json"
+        },
+        "base_hostname": {
+          "type": "string",
+          "description": "The base hostname for the given instance."
+        }
+      }
+    },
+    "function": {
+      "type": "object",
+      "description": "If the instance is a function, additional details relating to its function properties",
+      "required": [
+        "seed"
+      ],
+      "properties": {
+        "seed": {
+          "type": "integer",
+          "description": "The seed used for this function."
+        }
+      }
+    },
+    "provider": {
+      "$ref": "InstanceProvider.json"
+    },
+    "server_id": {
+      "$ref": "../../ID.json",
+      "description": "An identifier for the server this instance is deployed to."
+    },
+    "ready_state": {
+      "type": "string",
+      "description": "The state as it relates to the following. * `active` - instance can be started or stopped. * `purge` - instance should be deleted. * `hibernate` - instance is active but not allowed to run. * `configuring` - this instance is not allowed to start yet",
+      "enum": [
+        "active",
+        "purge",
+        "hibernate",
+        "configuring"
+      ]
+    },
+    "purge_time": {
+      "description": "The timestamp of when the instance was purged.",
+      "anyOf": [
+        {
+          "$ref": "../../DateTime.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "hostname": {
+      "type": "string",
+      "description": "The hostname of the instance."
+    },
+    "service": {
+      "$ref": "../ServiceContainerIdentifier.json",
+      "description": "The type of service this instance is within the environment, if any."
+    },
+    "state": {
+      "$ref": "InstanceState.json"
+    },
+    "autoscale": {
+      "anyOf": [
+        {
+          "$ref": "InstanceAutoScale.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "migration": {
+      "anyOf": [
+        {
+          "$ref": "InstanceMigration.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "deployment": {
+      "anyOf": [
+        {
+          "$ref": "../Deployment.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "events": {
+      "title": "InstanceEvents",
+      "description": "A collection of timestamps for each event in the instnaces lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the instance was created.",
+          "$ref": "../../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the instance was updated.",
+          "$ref": "../../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the instance was deleted.",
+          "$ref": "../../DateTime.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "description": "General error response from the platform",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../../schemas/errors/ErrorEnvelope.json"
+      }
+    }
+  }
+}

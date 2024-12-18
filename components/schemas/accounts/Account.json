@@ -1,0 +1,111 @@
+{
+  "title": "Account",
+  "type": "object",
+  "description": "An object representing information about the currently logged-in user.",
+  "required": [
+    "id",
+    "name",
+    "email",
+    "allow_support_logins",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "name": {
+      "type": "object",
+      "description": "The first and last name associated with the Account.",
+      "required": [
+        "first",
+        "last"
+      ],
+      "properties": {
+        "first": {
+          "type": "string",
+          "description": "The first name of the Account owner."
+        },
+        "last": {
+          "type": "string",
+          "description": "The last name of the Account owner."
+        }
+      }
+    },
+    "email": {
+      "type": "object",
+      "description": "Information about the email address associated with the Account.",
+      "required": [
+        "address",
+        "verified",
+        "added"
+      ],
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "The email address."
+        },
+        "verified": {
+          "type": "boolean",
+          "description": "If true, the email has been verified and the Account is active."
+        },
+        "added": {
+          "description": "The date the email was added to the Account",
+          "$ref": "../DateTime.json"
+        }
+      }
+    },
+    "two_factor_auth": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Two factor auth verification information.",
+      "required": [
+        "verified"
+      ],
+      "properties": {
+        "verified": {
+          "type": "boolean",
+          "description": "A boolean representing if the Account has verified with two-factor authentication."
+        }
+      }
+    },
+    "allow_support_login": {
+      "description": "Indicates whether or not Cycle employees have authorization to log in to this Account in a support capacity.",
+      "type": "boolean"
+    },
+    "state": {
+      "$ref": "./AccountState.json"
+    },
+    "events": {
+      "title": "AccountEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the Account's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted",
+        "last_login"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the image was created.",
+          "$ref": "../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the image was updated.",
+          "$ref": "../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the image was deleted.",
+          "$ref": "../DateTime.json"
+        },
+        "last_login": {
+          "description": "The timestamp of when the Account was last accessed.",
+          "$ref": "../DateTime.json"
+        }
+      }
+    }
+  }
+}

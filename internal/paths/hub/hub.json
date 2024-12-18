@@ -1,0 +1,34 @@
+{
+  "get": {
+    "operationId": "getHub",
+    "summary": "Get Hub",
+    "description": "Gets the hub that this instance is a member of.",
+    "tags": [
+      "Hubs"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "Returns a hub.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/hubs/PublicHub.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

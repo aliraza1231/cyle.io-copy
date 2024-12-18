@@ -1,0 +1,143 @@
+{
+  "get": {
+    "operationId": "getBillingMethods",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [
+      {
+        "$ref": "../../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/FilterParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/PageParam.json"
+      }
+    ],
+    "summary": "List Billing Methods",
+    "description": "Lists the Billing Methods associated with the Hub defined in X-Hub-ID.\n\nRequires the `billing-methods-manage` capability.\n",
+    "responses": {
+      "200": {
+        "description": "returns a collection of billing methods.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/billing/methods/Method.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "post": {
+    "operationId": "createBillingMethod",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [],
+    "summary": "Create Billing Method",
+    "description": "Requires the `billing-methods-manage` capability.",
+    "requestBody": {
+      "description": "Parameters for creating a new billing method.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "name",
+              "primary",
+              "address",
+              "credit_card"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "A name for the billing method."
+              },
+              "primary": {
+                "type": "boolean",
+                "description": "A boolean where true represents a billing method being primary."
+              },
+              "address": {
+                "$ref": "../../../../components/schemas/billing/methods/Address.json"
+              },
+              "credit_card": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "number",
+                  "cvv",
+                  "expiration"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "string"
+                  },
+                  "cvv": {
+                    "type": "string"
+                  },
+                  "expiration": {
+                    "type": "object",
+                    "required": [
+                      "month",
+                      "year"
+                    ],
+                    "properties": {
+                      "month": {
+                        "type": "number"
+                      },
+                      "year": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Returns a Billing Method resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/billing/methods/Method.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

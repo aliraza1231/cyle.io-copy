@@ -1,0 +1,41 @@
+{
+  "title": "StackBuildGenerateStep",
+  "type": "object",
+  "description": "Settings for the stack build generate step for a pipeline.",
+  "required": [
+    "action",
+    "details"
+  ],
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "description": "An identifier for the step."
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "skip": {
+          "type": "boolean"
+        }
+      }
+    },
+    "action": {
+      "type": "string",
+      "description": "The action that the step takes.",
+      "enum": [
+        "stack.build.generate"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "build"
+      ],
+      "properties": {
+        "build": {
+          "$ref": "../FluidIdentifier.json"
+        }
+      }
+    }
+  }
+}

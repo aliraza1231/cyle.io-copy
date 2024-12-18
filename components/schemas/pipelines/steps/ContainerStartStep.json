@@ -1,0 +1,41 @@
+{
+  "title": "ContainerStartStep",
+  "type": "object",
+  "description": "Settings for starting a container in a pipeline",
+  "required": [
+    "action",
+    "details"
+  ],
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "description": "An identifier for the step."
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "skip": {
+          "type": "boolean"
+        }
+      }
+    },
+    "action": {
+      "type": "string",
+      "description": "The action that the step takes.",
+      "enum": [
+        "container.start"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "container"
+      ],
+      "properties": {
+        "container": {
+          "$ref": "../FluidIdentifier.json"
+        }
+      }
+    }
+  }
+}

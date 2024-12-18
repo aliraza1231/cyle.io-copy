@@ -1,0 +1,44 @@
+{
+  "get": {
+    "operationId": "getCredit",
+    "summary": "Get Billing Credit",
+    "description": "Requires the `billing-credits-view` capability.",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [
+      {
+        "name": "creditsId",
+        "description": "The ID for a given credit.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a credit resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/billing/credits/Credit.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

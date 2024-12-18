@@ -1,0 +1,173 @@
+{
+  "get": {
+    "operationId": "getNetworks",
+    "summary": "List Networks",
+    "description": "Requires the `sdn-networks-view` capability.",
+    "tags": [
+      "SDN"
+    ],
+    "parameters": [
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "creators",
+              "environments"
+            ]
+          }
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "style": "deepObject",
+        "required": false,
+        "description": "## Filter Field \nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "search": {
+              "type": "string",
+              "description": "`filter[search]=value` search for a value associated with a field on the given Network(s).\n"
+            },
+            "state": {
+              "type": "string",
+              "description": "`filter[state]=value1,value2` state filtering will allow you to filter by the Network's current state.\n"
+            }
+          }
+        }
+      },
+      {
+        "$ref": "../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Networks.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "ListNetworksResponse",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/sdn/networks/Network.json"
+                  }
+                },
+                "includes": {
+                  "$ref": "../../../components/schemas/sdn/networks/NetworkIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "post": {
+    "operationId": "createNetwork",
+    "summary": "Create Network",
+    "description": "Requires the `sdn-networks-manage` capability.",
+    "tags": [
+      "SDN"
+    ],
+    "parameters": [
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "creators",
+              "environments"
+            ]
+          }
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for creating a new Network.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "name",
+              "identifier",
+              "cluster",
+              "environments"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the Network."
+              },
+              "identifier": {
+                "type": "string",
+                "description": "A Network identifier used to construct http calls that specifically use this Network over another."
+              },
+              "cluster": {
+                "type": "string",
+                "description": "The infrastructure Cluster the Environments belonging to this Network belong to."
+              },
+              "environments": {
+                "description": "An array of Environment Ids",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Returns a Network.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/sdn/networks/Network.json"
+                },
+                "includes": {
+                  "$ref": "../../../components/schemas/sdn/networks/NetworkIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "title": "ApiKeyCreator",
+  "description": "An extended resource that has information on a Cycle hub API key",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "creator",
+    "hub_id",
+    "permissions",
+    "capabilities",
+    "ips",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the API key"
+    },
+    "hub_id": {
+      "$ref": "../ID.json"
+    },
+    "secret": {
+      "type": "string",
+      "description": "The API key secret"
+    },
+    "permissions": {
+      "$ref": "./Permissions.json"
+    },
+    "capabilities": {
+      "type": "object",
+      "description": "The API key capabilities list",
+      "required": [
+        "all",
+        "specific"
+      ],
+      "properties": {
+        "all": {
+          "type": "boolean"
+        },
+        "specific": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ips": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "state": {
+      "allOf": [
+        {
+          "required": [
+            "current"
+          ],
+          "properties": {
+            "current": {
+              "type": "string",
+              "enum": [
+                "live",
+                "deleting",
+                "deleted"
+              ]
+            }
+          }
+        },
+        {
+          "$ref": "../State.json"
+        }
+      ]
+    },
+    "events": {
+      "$ref": "../Events.json"
+    }
+  }
+}

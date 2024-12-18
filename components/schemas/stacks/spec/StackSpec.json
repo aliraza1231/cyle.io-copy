@@ -1,0 +1,147 @@
+{
+  "title": "StackSpec",
+  "type": "object",
+  "required": [
+    "version",
+    "containers"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "A string defining the version of the stack spec."
+    },
+    "about": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Information about the stack.",
+      "required": [
+        "description",
+        "version"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Internal version information set by the user."
+        },
+        "description": {
+          "type": "string",
+          "description": "Information describing the stack."
+        }
+      }
+    },
+    "tests": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "StackSpecTestContainer.json"
+      }
+    },
+    "scoped_variables": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "./StackSpecScopedVariable.json"
+      }
+    },
+    "containers": {
+      "$ref": "./StackContainer.json"
+    },
+    "services": {
+      "title": "StackSpecServices",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "discovery": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "hosts": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "ipv4": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "ipv6": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "loadbalancer": {
+          "anyOf": [
+            {
+              "$ref": "services/loadbalancer/StackSpecLoadBalancerConfig.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "vpn": {
+          "type": "object",
+          "required": [
+            "auth",
+            "allow_internet"
+          ],
+          "properties": {
+            "auth": {
+              "type": "object",
+              "required": [
+                "cycle_accounts",
+                "vpn_accounts"
+              ],
+              "properties": {
+                "webhook": {
+                  "type": "string"
+                },
+                "cycle_accounts": {
+                  "type": "boolean"
+                },
+                "vpn_accounts": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "allow_internet": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "annotations": {
+      "type": "object",
+      "description": "Additional meta info about the stack.",
+      "additionalProperties": {}
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "title": "ServerSpecs",
+  "description": "Specs for a given server",
+  "type": "object",
+  "required": [
+    "cpu",
+    "gpu",
+    "memory",
+    "storage",
+    "network",
+    "features"
+  ],
+  "properties": {
+    "cpu": {
+      "$ref": "../specs/CPUSpec.json"
+    },
+    "gpu": {
+      "$ref": "../specs/GPUSpec.json"
+    },
+    "memory": {
+      "$ref": "../specs/MemorySpec.json"
+    },
+    "storage": {
+      "type": "array",
+      "items": {
+        "$ref": "../specs/StorageSpec.json"
+      }
+    },
+    "network": {
+      "type": "array",
+      "items": {
+        "$ref": "../specs/NetworkSpec.json"
+      }
+    },
+    "features": {
+      "$ref": "../specs/FeaturesSpec.json"
+    }
+  }
+}

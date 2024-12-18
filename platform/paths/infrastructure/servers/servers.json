@@ -1,0 +1,222 @@
+{
+  "get": {
+    "operationId": "getServers",
+    "summary": "List Servers",
+    "description": "Requires the `servers-view` capability.",
+    "tags": [
+      "Infrastructure",
+      "Servers"
+    ],
+    "parameters": [
+      {
+        "name": "meta",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of meta values. Meta values will show up under a resource's `meta` field. In the case of applying a meta to a collection of resources, each resource will have it's own relevant meta data. In some rare cases, meta may not apply to individual resources, and may appear in the root document. These will be clearly labeled.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "node",
+              "instances_count"
+            ]
+          }
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "locations",
+              "models",
+              "integrations"
+            ]
+          }
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "style": "deepObject",
+        "required": false,
+        "description": "## Filter Field \nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "state": {
+              "type": "string",
+              "description": "`filter[state]=value1,value2` state filtering will allow you to filter by the provider's current state.\n"
+            },
+            "tags": {
+              "type": "string",
+              "description": "`filter[tags]=tagone,tagtwo,tagthree` filtering by Server tag.  Enter one or more tags (comma separated) and the return will include servers that match any tags in the list.\n"
+            },
+            "clusters": {
+              "type": "string",
+              "description": "`filter[clusters]=clusterone,clustertwo` filtering by cluster.  Enter one or more clusters (commas separated) and the return will include servers that match any clusters in the list.\n"
+            },
+            "providers": {
+              "type": "string",
+              "description": "`filter[providers]=providerone,providertwo` filtering by provider.  Enter one or more providers (commas separated) and the return will include servers that match any providers in the list.\n"
+            }
+          }
+        }
+      },
+      {
+        "$ref": "../../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Servers.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/infrastructure/servers/Server.json"
+                  }
+                },
+                "includes": {
+                  "$ref": "../../../../components/schemas/infrastructure/servers/ServerIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "post": {
+    "operationId": "createServer",
+    "summary": "Create Server",
+    "description": "Requires the `servers-provision` capability.",
+    "tags": [
+      "Infrastructure",
+      "Servers"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "description": "Parameters for creating a Server.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "servers",
+              "cluster"
+            ],
+            "properties": {
+              "cluster": {
+                "type": "string",
+                "description": "The existing or new cluster this infrastructure should be provisioned in."
+              },
+              "servers": {
+                "description": "An array of servers to provision.",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "integration_id",
+                    "model_id",
+                    "location_id",
+                    "quantity"
+                  ],
+                  "properties": {
+                    "integration_id": {
+                      "$ref": "../../../../components/schemas/ID.json",
+                      "description": "The ID of the provider integration to use for this Server."
+                    },
+                    "model_id": {
+                      "type": "string",
+                      "description": "The model ID of the Server."
+                    },
+                    "location_id": {
+                      "type": "string",
+                      "description": "The location ID of the Server."
+                    },
+                    "quantity": {
+                      "type": "integer",
+                      "description": "The number of this Server at this location to deploy."
+                    },
+                    "hostnames": {
+                      "description": "An array of hostnames for the given servers.",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "advanced": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "provision_options": {
+                            "type": "object",
+                            "properties": {
+                              "attached_storage_size": {
+                                "type": "number"
+                              },
+                              "reservation_id": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "zone": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

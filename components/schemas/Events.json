@@ -1,0 +1,8 @@
+{
+  "title": "Events",
+  "description": "Describes the date and time at which certain events occurred in the lifetime of this resource.",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "./DateTime.json"
+  }
+}

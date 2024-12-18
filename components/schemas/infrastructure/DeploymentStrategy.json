@@ -1,0 +1,24 @@
+{
+  "title": "DeploymentStrategy",
+  "type": "object",
+  "description": "Information about supported container deployment strategies.",
+  "required": [
+    "name",
+    "disabled",
+    "description"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The human-friendly name of the deployment strategy."
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "A boolean where true signifies a strategy is either not yet or no longer available."
+    },
+    "description": {
+      "type": "string",
+      "description": "A description for the deployment strategy."
+    }
+  }
+}

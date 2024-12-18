@@ -1,0 +1,105 @@
+{
+  "title": "Environment",
+  "type": "object",
+  "description": "Environments are groups of containers with a private network built between them. For more information on environments, see the [main docs](https://docs.cycle.io/environments/overview/).",
+  "required": [
+    "id",
+    "identifier",
+    "name",
+    "cluster",
+    "about",
+    "creator",
+    "hub_id",
+    "state",
+    "events",
+    "features",
+    "services"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "identifier": {
+      "$ref": "../Identifier.json",
+      "description": "A human readable slugged identifier for this environment."
+    },
+    "name": {
+      "type": "string",
+      "description": "A user defined name for the environment resource."
+    },
+    "cluster": {
+      "type": "string",
+      "description": "The cluster this environment is associated with."
+    },
+    "about": {
+      "$ref": "./EnvironmentAbout.json"
+    },
+    "creator": {
+      "$ref": "../creators/CreatorScope.json"
+    },
+    "hub_id": {
+      "$ref": "../HubID.json"
+    },
+    "state": {
+      "$ref": "./EnvironmentState.json"
+    },
+    "events": {
+      "title": "EnvironmentEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the environment's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the environment was created.",
+          "$ref": "../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the environment was updated.",
+          "$ref": "../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the environment was deleted.",
+          "$ref": "../DateTime.json"
+        }
+      }
+    },
+    "features": {
+      "$ref": "./Features.json"
+    },
+    "services": {
+      "$ref": "./EnvironmentServices.json"
+    },
+    "private_network": {
+      "anyOf": [
+        {
+          "$ref": "./PrivateNetwork.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "deployments": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "A map of custom tags to deployment versions.\n",
+      "required": [
+        "tags"
+      ],
+      "properties": {
+        "tags": {
+          "$ref": "EnvironmentDeploymentTags.json"
+        }
+      }
+    },
+    "meta": {
+      "$ref": "./EnvironmentMeta.json"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "title": "EnvironmentCreateStep",
+  "type": "object",
+  "description": "Settings for creating an environment in a pipeline.",
+  "required": [
+    "action",
+    "details"
+  ],
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "description": "An identifier for the step."
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "skip": {
+          "type": "boolean"
+        }
+      }
+    },
+    "action": {
+      "type": "string",
+      "description": "The action that the step takes.",
+      "enum": [
+        "environment.create"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "name",
+        "cluster",
+        "features"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "about": {
+          "anyOf": [
+            {
+              "$ref": "../../environments/EnvironmentAbout.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cluster": {
+          "type": "string"
+        },
+        "features": {
+          "$ref": "../../environments/Features.json"
+        }
+      }
+    }
+  }
+}

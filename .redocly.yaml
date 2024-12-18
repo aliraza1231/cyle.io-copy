@@ -1,0 +1,73 @@
+# See https://redocly.com/docs/cli/configuration/
+apis:
+  cycle-platform-api@1.0.0:
+    root: ./platform/api.json
+  cycle-internal-api@1.0.0:
+    root: ./internal/api.json
+  cycle-scheduler-api@1.0.0:
+    root: ./scheduler/api.json
+    theme:
+      openapi:
+        htmlTemplate: ./docs/scheduler.html
+        theme:
+          colors:
+            accent:
+              main: rgb(42, 167, 255)
+              contrastText: rgb(42, 167, 255)
+            http:
+              post: rgb(42, 167, 255)
+          typography:
+            fontFamily: "Source Sans 3, sans-serif"
+            links:
+              color: rgb(42, 167, 255)
+          sidebar:
+            backgroundColor: "rgb(18, 18, 21)"
+            textColor: "ivory"
+          rightPanel:
+            textColor: "ivory"
+            backgroundColor: "rgb(18, 18, 21)"
+          logo:
+            gutter: 16px
+
+extends:
+  - recommended
+
+rules:
+  operation-4xx-response: off
+  no-ambiguous-paths: off
+  # A sample custom rule. Read more about rules: https://redocly.com/docs/cli/rules/
+  # assert/operation-description:
+  #   subject:
+  #     type: Operation
+  #     property: description
+  #   assertions:
+  #     defined: true
+  #     minLength: 30
+  #     pattern: ^[A-Z].+(\.|\.)$
+# features.openapi:
+#   generateCodeSamples:
+#     languages:
+#       - lang: curl
+#       - lang: Node.js
+#       - lang: Python
+theme:
+  openapi:
+    theme:
+      colors:
+        accent:
+          main: rgb(42, 167, 255)
+          contrastText: rgb(42, 167, 255)
+        http:
+          post: rgb(42, 167, 255)
+      typography:
+        fontFamily: "Source Sans 3, sans-serif"
+        links:
+          color: rgb(42, 167, 255)
+      sidebar:
+        backgroundColor: "rgb(18, 18, 21)"
+        textColor: "ivory"
+      rightPanel:
+        textColor: "ivory"
+        backgroundColor: "rgb(18, 18, 21)"
+      logo:
+        gutter: 16px

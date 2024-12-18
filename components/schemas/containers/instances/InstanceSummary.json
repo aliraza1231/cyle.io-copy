@@ -1,0 +1,109 @@
+{
+  "title": "InstanceSummary",
+  "type": "object",
+  "description": "A summary of an instance of a Container.",
+  "required": [
+    "id",
+    "creator",
+    "hub_id",
+    "container_id",
+    "location_id",
+    "environment",
+    "provider",
+    "server_id",
+    "ready_state",
+    "hostname",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "creator": {
+      "$ref": "../../creators/CreatorScope.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "container_id": {
+      "type": "string",
+      "description": "A container identifier for the container that is associated with this instance."
+    },
+    "location_id": {
+      "type": "string",
+      "description": "A location identifier that's associated with the server this instance is deployed to."
+    },
+    "environment": {
+      "$ref": "EnvironmentNetworkSummary.json"
+    },
+    "stateful": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "If the instance is stateful, additional details relating to its stateful properties.",
+      "required": [
+        "id",
+        "base_hostname"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "../../ID.json"
+        },
+        "base_hostname": {
+          "type": "string",
+          "description": "The base hostname for the given instance."
+        }
+      }
+    },
+    "autoscale": {
+      "anyOf": [
+        {
+          "$ref": "InstanceAutoScale.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "provider": {
+      "$ref": "InstanceProvider.json"
+    },
+    "server_id": {
+      "$ref": "../../ID.json",
+      "description": "An identifier for the server this instance is deployed to."
+    },
+    "ready_state": {
+      "type": "string",
+      "description": "The state as it relates to the following:\n  - `active` - instance can be started or stopped.\n  - `purge` - instance should be deleted.\n  - `hibernate` - instance is active but not allowed to run.\n  - `configuring` - this instance is not allowed to start yet\n",
+      "enum": [
+        "active",
+        "purge",
+        "hibernate",
+        "configuring"
+      ]
+    },
+    "deployment": {
+      "anyOf": [
+        {
+          "$ref": "../Deployment.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "hostname": {
+      "type": "string",
+      "description": "The hostname of the instance."
+    },
+    "service": {
+      "$ref": "../ServiceContainerIdentifier.json",
+      "description": "The type of service this instance is within the environment, if any."
+    },
+    "state": {
+      "$ref": "InstanceState.json"
+    }
+  }
+}

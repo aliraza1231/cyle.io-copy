@@ -1,0 +1,155 @@
+{
+  "get": {
+    "operationId": "getDNSZoneRecords",
+    "summary": "List DNS Zone Records",
+    "description": "Requires the `dns-view` capability.",
+    "tags": [
+      "DNS"
+    ],
+    "parameters": [
+      {
+        "name": "zoneId",
+        "description": "The ID of the zone.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "creators",
+              "containers"
+            ]
+          }
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "style": "deepObject",
+        "required": false,
+        "description": "## Filter Field \nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "state": {
+              "type": "string",
+              "description": "`filter[state]=value1,value2` state filtering will allow you to filter by the DNS record's current state.\n"
+            }
+          }
+        }
+      },
+      {
+        "$ref": "../../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a collection of DNS Zone Records.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "DNSZoneRecordListReturn",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/dns/records/Record.json"
+                  }
+                },
+                "includes": {
+                  "$ref": "../../../../components/schemas/dns/records/RecordIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "post": {
+    "operationId": "createDNSZoneRecord",
+    "summary": "Create DNS Zone Record",
+    "description": "Requires the `dns-manage` capability.",
+    "tags": [
+      "DNS"
+    ],
+    "parameters": [
+      {
+        "name": "zoneId",
+        "description": "The ID of the Zone.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for creating a new DNS Zone Record.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "type",
+              "name"
+            ],
+            "properties": {
+              "type": {
+                "$ref": "../../../../components/schemas/dns/records/RecordTypes.json"
+              },
+              "name": {
+                "type": "string",
+                "description": "A name for the given record where `@` represents the desire to use the root of the origin."
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Returns the DNS zone resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "DNSZoneCreateResponse",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/dns/records/Record.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

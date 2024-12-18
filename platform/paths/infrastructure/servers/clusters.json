@@ -1,0 +1,37 @@
+{
+  "get": {
+    "operationId": "GetClusters",
+    "summary": "List Clusters",
+    "description": "Requires the `servers-view` capability.",
+    "tags": [
+      "Infrastructure"
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Clusters on this Hub.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "ServerClustersReturn",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

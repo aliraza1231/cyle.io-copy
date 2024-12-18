@@ -1,0 +1,77 @@
+{
+  "title": "WebhookPostStep",
+  "description": "A pipeline step that will make a POST request to the specified endpoints. The webhook will post the full body of the resource referenced by the step.\nFor example if you were to reference a step creating a container, you would receive that container object in the post body. \nYou may also specify a custom body instead.\n",
+  "type": "object",
+  "required": [
+    "action",
+    "details"
+  ],
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "description": "An identifier for the step."
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "skip": {
+          "type": "boolean"
+        }
+      }
+    },
+    "action": {
+      "type": "string",
+      "description": "The action that the step takes.",
+      "enum": [
+        "webhook.post"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The url to submit a POST request to."
+        },
+        "headers": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "An optional map of headers to send with the request.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "WebhookStepOptions.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "body": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "An optional POST body to send with the request. Cannot be used with `from``."
+        },
+        "from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Takes the output from a previous step and uses it as the body for the POST request. Cannot be used with `body`. String format is <stageIdentifier/stepIdentifier>",
+          "example": "init/image-create"
+        }
+      }
+    }
+  }
+}

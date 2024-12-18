@@ -1,0 +1,158 @@
+{
+  "get": {
+    "operationId": "getBillingOrder",
+    "summary": "Get Billing Order",
+    "description": "Requires the `billing-services-manage` capability.",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [
+      {
+        "name": "orderId",
+        "description": "The ID of the billing order.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "meta",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "due"
+            ]
+          }
+        }
+      },
+      {
+        "$ref": "includes/OrderIncludeParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a Billing Order",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/billing/orders/Order.json"
+                },
+                "includes": {
+                  "$ref": "includes/BillingOrderIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "patch": {
+    "operationId": "updateBillingOrder",
+    "summary": "Update Billing Order",
+    "description": "Requires the `billing-services-manage` capability.",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [
+      {
+        "name": "orderId",
+        "description": "The ID of the billing order.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "meta",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "due"
+            ]
+          }
+        }
+      },
+      {
+        "$ref": "includes/OrderIncludeParam.json"
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "tier_plan_id": {
+                "type": "string",
+                "description": "ID associated with the tier plan"
+              },
+              "support_plan_id": {
+                "type": "string",
+                "description": "ID associated with the support plan"
+              },
+              "term_length": {
+                "type": "string",
+                "description": "String that defines term length",
+                "enum": [
+                  "once",
+                  "monthly",
+                  "yearly"
+                ]
+              },
+              "promo_code": {
+                "type": "string",
+                "description": "String that defines a promo code"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns a Billing Order.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/billing/orders/Order.json"
+                },
+                "includes": {
+                  "$ref": "includes/BillingOrderIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

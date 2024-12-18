@@ -1,0 +1,88 @@
+{
+  "title": "ContainerCreateStep",
+  "type": "object",
+  "description": "Settings for the create container step for a pipeline.",
+  "required": [
+    "action",
+    "details"
+  ],
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "description": "An identifier for the step."
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "skip": {
+          "type": "boolean"
+        }
+      }
+    },
+    "action": {
+      "type": "string",
+      "description": "The action that the step takes.",
+      "enum": [
+        "container.create"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "required": [
+        "name",
+        "environment",
+        "image",
+        "stateful",
+        "config",
+        "volumes"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "environment": {
+          "$ref": "../FluidIdentifier.json"
+        },
+        "image": {
+          "$ref": "../FluidIdentifier.json"
+        },
+        "stateful": {
+          "type": "boolean"
+        },
+        "annotations": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Additional information about a container",
+          "additionalProperties": {}
+        },
+        "config": {
+          "$ref": "../../containers/config/Config.json"
+        },
+        "volumes": {
+          "type": "array",
+          "items": {
+            "$ref": "../../containers/config/ContainerVolume.json"
+          }
+        },
+        "deployment": {
+          "anyOf": [
+            {
+              "$ref": "../../containers/Deployment.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

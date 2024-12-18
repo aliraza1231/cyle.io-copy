@@ -1,0 +1,80 @@
+{
+  "title": "Pipeline",
+  "type": "object",
+  "description": "A pipeline resource.",
+  "required": [
+    "id",
+    "hub_id",
+    "name",
+    "creator",
+    "dynamic",
+    "disable",
+    "events",
+    "state"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "identifier": {
+      "$ref": "../../../components/schemas/Identifier.json"
+    },
+    "name": {
+      "type": "string",
+      "description": "A name for the pipeline."
+    },
+    "creator": {
+      "$ref": "../creators/CreatorScope.json"
+    },
+    "hub_id": {
+      "$ref": "../HubID.json"
+    },
+    "disable": {
+      "type": "boolean",
+      "description": "A boolean where true signifies the pipeline is disabled."
+    },
+    "dynamic": {
+      "type": "boolean",
+      "description": "Setting to true enables variable and other advanced logic support on this pipeline. This is a one-way toggle. Once set to true, it cannot be set back to false."
+    },
+    "stages": {
+      "description": "An array of stages.",
+      "type": "array",
+      "items": {
+        "$ref": "./PipelineStage.json"
+      }
+    },
+    "events": {
+      "title": "PipelineEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the pipeline's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted",
+        "last_run"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the pipeline was created.",
+          "$ref": "../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the pipeline was updated.",
+          "$ref": "../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the pipeline was deleted.",
+          "$ref": "../DateTime.json"
+        },
+        "last_run": {
+          "description": "The timestamp of when the pipeline was last run.",
+          "$ref": "../DateTime.json"
+        }
+      }
+    },
+    "state": {
+      "$ref": "./PipelineState.json"
+    }
+  }
+}

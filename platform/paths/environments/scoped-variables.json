@@ -1,0 +1,166 @@
+{
+  "get": {
+    "operationId": "getScopedVariables",
+    "summary": "List Scoped Variables",
+    "description": "Requires the `scoped-variables-view` capability.",
+    "tags": [
+      "Environments",
+      "Scoped Variables"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The ID of the requested Environment.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "required": false,
+        "description": "## Filter Field \nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "identifier": {
+              "type": "string",
+              "description": "`filter[identifier]=value` List only those environments matching this identifier. May return multiple results.\n"
+            },
+            "search": {
+              "type": "string",
+              "description": "`filter[search]=value` search for a value associated with a field on the given Scoped Variable(s).\n"
+            },
+            "state": {
+              "type": "string",
+              "description": "`filter[state]=value1,value2` state filtering will allow you to filter by the Scoped Variable's current state.\n"
+            }
+          }
+        }
+      },
+      {
+        "$ref": "../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Scoped Variables.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/scoped-variables/ScopedVariable.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "post": {
+    "operationId": "createScopedVariable",
+    "summary": "Create Scoped Variable",
+    "description": "Requires the `scoped-variables-manage` capability.",
+    "tags": [
+      "Environments",
+      "Scoped Variables"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The ID of the requested Environment.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for creating a Scoped Variable.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "identifier",
+              "scope",
+              "source"
+            ],
+            "properties": {
+              "identifier": {
+                "type": "string",
+                "description": "An identifier for this Scoped Variable."
+              },
+              "scope": {
+                "$ref": "../../../components/schemas/scoped-variables/ScopedVariableScope.json"
+              },
+              "access": {
+                "$ref": "../../../components/schemas/scoped-variables/ScopedVariableAccess.json"
+              },
+              "source": {
+                "type": "object",
+                "description": "The source or value of the Scoped Variable.",
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "raw": "../../../components/schemas/scoped-variables/RawSource.json",
+                    "url": "../../../components/schemas/scoped-variables/URLSource.json"
+                  }
+                },
+                "oneOf": [
+                  {
+                    "$ref": "../../../components/schemas/scoped-variables/RawSource.json"
+                  },
+                  {
+                    "$ref": "../../../components/schemas/scoped-variables/URLSource.json"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Returns a Scoped Variable.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/scoped-variables/ScopedVariable.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

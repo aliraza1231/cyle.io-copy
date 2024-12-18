@@ -1,0 +1,101 @@
+{
+  "title": "BillingCredit.json",
+  "type": "object",
+  "description": "Information about a billing credit.",
+  "required": [
+    "id",
+    "hub_id",
+    "description",
+    "creator",
+    "account_id",
+    "amount",
+    "amount_remaining",
+    "expires",
+    "events",
+    "state"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "description": {
+      "type": "string",
+      "description": "Some extra information about the billing credit."
+    },
+    "account_id": {
+      "type": "string",
+      "description": "The account the credit was issued to."
+    },
+    "amount": {
+      "type": "integer",
+      "description": "The amount of credit."
+    },
+    "amount_remaining": {
+      "type": "integer",
+      "description": "The amount of the credit that remains after being applied to invoices."
+    },
+    "expires": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Information on when the billing credit expires.",
+      "properties": {
+        "date": {
+          "description": "A timestamp of when the billing credit expires.",
+          "$ref": "../../DateTime.json"
+        }
+      }
+    },
+    "events": {
+      "title": "BillingCreditEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the billing order's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the billing order was created.",
+          "$ref": "../../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the billing order was updated.",
+          "$ref": "../../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the billing order was deleted.",
+          "$ref": "../../DateTime.json"
+        }
+      }
+    },
+    "state": {
+      "allOf": [
+        {
+          "required": [
+            "current"
+          ],
+          "properties": {
+            "current": {
+              "description": "The current state of the credit.",
+              "type": "string",
+              "enum": [
+                "new",
+                "live",
+                "expired"
+              ]
+            }
+          }
+        },
+        {
+          "$ref": "../../State.json"
+        }
+      ]
+    }
+  }
+}

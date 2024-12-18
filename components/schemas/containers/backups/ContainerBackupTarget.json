@@ -1,0 +1,27 @@
+{
+  "title": "ContainerBackupTarget",
+  "type": "object",
+  "description": "A target for the given Container Backup.",
+  "required": [
+    "integration_id",
+    "path",
+    "size",
+    "file_id"
+  ],
+  "properties": {
+    "integration_id": {
+      "$ref": "../../HybridIdentifier.json"
+    },
+    "path": {
+      "type": "string",
+      "description": "The target for where to store the Container Backup on the destination service."
+    },
+    "file_id": {
+      "type": "string"
+    },
+    "size": {
+      "type": "integer",
+      "description": "The total size of the backup."
+    }
+  }
+}

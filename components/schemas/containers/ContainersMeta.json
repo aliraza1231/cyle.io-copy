@@ -1,0 +1,39 @@
+{
+  "title": "ContainersMeta",
+  "type": "object",
+  "description": "A list of meta fields that can be applied to a container.",
+  "properties": {
+    "instances_count": {
+      "$ref": "../StateCountSummary.json"
+    },
+    "domains": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "description": "Any associated Linked Records for this container, and their fully-qualified domain name (fqdn)",
+        "required": [
+          "fqdn"
+        ],
+        "properties": {
+          "fqdn": {
+            "type": "string",
+            "description": "The fully qualified domain name."
+          },
+          "record": {
+            "$ref": "../dns/records/Record.json"
+          }
+        }
+      }
+    },
+    "ips": {
+      "description": "An array of IP resources.",
+      "type": "array",
+      "items": {
+        "$ref": "../infrastructure/ips/Ip.json"
+      }
+    }
+  }
+}

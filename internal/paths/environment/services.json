@@ -1,0 +1,51 @@
+{
+  "get": {
+    "operationId": "getEnvironmentServices",
+    "summary": "List Environment Services",
+    "description": "Lists the services containers/instances that are in the same environment as this instance.",
+    "tags": [
+      "Environments"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "Returns a list of environment services (a combination of container and instance details).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "discovery": {
+                      "$ref": "../../../components/schemas/containers/ServiceContainer.json"
+                    },
+                    "vpn": {
+                      "$ref": "../../../components/schemas/containers/ServiceContainer.json"
+                    },
+                    "loadbalancer": {
+                      "$ref": "../../../components/schemas/containers/ServiceContainer.json"
+                    },
+                    "scheduler": {
+                      "$ref": "../../../components/schemas/containers/ServiceContainer.json"
+                    }
+                  },
+                  "additionalProperties": {
+                    "$ref": "../../../components/schemas/containers/ServiceContainer.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

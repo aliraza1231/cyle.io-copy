@@ -1,0 +1,41 @@
+{
+  "title": "NodeMetaStats",
+  "type": "object",
+  "description": "Statistics that pertain to a specific node.",
+  "required": [
+    "network",
+    "uptime",
+    "cpu",
+    "load",
+    "ram",
+    "storage",
+    "os",
+    "versions"
+  ],
+  "properties": {
+    "network": {
+      "$ref": "./ServerStatsNetwork.json"
+    },
+    "uptime": {
+      "$ref": "./ServerStatsUptime.json"
+    },
+    "cpu": {
+      "$ref": "./ServerStatsCpu.json"
+    },
+    "load": {
+      "$ref": "./ServerStatsLoad.json"
+    },
+    "ram": {
+      "$ref": "./ServerStatsRam.json"
+    },
+    "storage": {
+      "$ref": "./ServerStatsStorage.json"
+    },
+    "os": {
+      "$ref": "./ServerStatsOS.json"
+    },
+    "versions": {
+      "$ref": "./ServerStatsVersions.json"
+    }
+  }
+}

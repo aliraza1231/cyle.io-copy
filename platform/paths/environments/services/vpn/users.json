@@ -1,0 +1,112 @@
+{
+  "get": {
+    "operationId": "getVPNUsers",
+    "summary": "List VPN Users",
+    "description": "Requires the `environments-vpn-manage` capability.",
+    "tags": [
+      "Environments"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The environmentId where the VPN service resides.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of VPN users for the given VPN.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "getVPNUsersReturn",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../../components/schemas/environments/returns/VPNUsers.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "post": {
+    "operationId": "createVPNUser",
+    "summary": "Create VPN User",
+    "description": "Requires the `environments-vpn-manage` capability.",
+    "tags": [
+      "Environments"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The environmentId where the VPN service resides.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for creating a new VPN user.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "username",
+              "password"
+            ],
+            "properties": {
+              "username": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Returns a VPN User.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../../components/schemas/environments/returns/VPNUsers.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

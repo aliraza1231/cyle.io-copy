@@ -1,0 +1,31 @@
+{
+  "title": "ImageIncludes",
+  "description": "All includable resources linkable to the given image.",
+  "type": "object",
+  "properties": {
+    "creators": {
+      "$ref": "../includes/CreatorInclude.json"
+    },
+    "stack_builds": {
+      "$ref": "../includes/StackBuildIncludes.json"
+    },
+    "stacks": {
+      "$ref": "../includes/StackIncludes.json"
+    },
+    "stacks:identifiers": {
+      "$ref": "../includes/IdentifierIncludes.json"
+    },
+    "sources": {
+      "$ref": "../includes/ImageSourceIncludes.json"
+    },
+    "sources:identifiers": {
+      "$ref": "../includes/IdentifierIncludes.json"
+    },
+    "integrations": {
+      "$ref": "../includes/IntegrationsIncludes.json"
+    },
+    "integrations:identifiers": {
+      "$ref": "../includes/IdentifierIncludes.json"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "title": "DockerFileOrigin",
+  "type": "object",
+  "description": "An image origin where the image is built from a Dockerfile located in a git repository.",
+  "required": [
+    "type",
+    "details"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "docker-file"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "properties": {
+        "existing": {
+          "anyOf": [
+            {
+              "$ref": "../ExistingSource.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "repo": {
+          "anyOf": [
+            {
+              "$ref": "./RepoType.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "targz_url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "An endpoint that serves the tar file."
+        },
+        "context_dir": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The path to the directory to use as the context when building the image."
+        },
+        "build_file": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The path to the Dockerfile to be used for buiding the image."
+        },
+        "credentials": {
+          "anyOf": [
+            {
+              "$ref": "./DockerfileCredentials.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

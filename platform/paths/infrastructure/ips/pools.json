@@ -1,0 +1,84 @@
+{
+  "get": {
+    "operationId": "getInfrastructureIPPools",
+    "summary": "List IP Pools",
+    "description": "Requires the `infrastructure-ips-manage` capability.",
+    "tags": [
+      "Infrastructure"
+    ],
+    "parameters": [
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "servers",
+              "integrations",
+              "locations"
+            ]
+          }
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "style": "deepObject",
+        "required": false,
+        "description": "## Filter Field \nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "available": {
+              "type": "string",
+              "description": "`filter[available]=true` filter for IPs that are available for use.\n"
+            },
+            "state": {
+              "type": "string",
+              "description": "`filter[state]=value1,value2` state filtering will allow you to filter by the IP's current state.\n"
+            }
+          }
+        }
+      },
+      {
+        "$ref": "../../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A list of IP Pools.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/infrastructure/ips/Pool.json"
+                  }
+                },
+                "includes": {
+                  "$ref": "../../../../components/schemas/infrastructure/ips/PoolIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "post": {
+    "operationId": "createServerJob",
+    "summary": "Create Server Job",
+    "description": "Used to perform different actions on a given Server. Requires the `servers-manage` capability.",
+    "tags": [
+      "Infrastructure",
+      "Servers"
+    ],
+    "parameters": [
+      {
+        "name": "serverId",
+        "description": "The ID for the given Server.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for creating the new Server Job.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "discriminator": {
+              "propertyName": "action",
+              "mapping": {
+                "sharedfs.reconfigure": "../../../../components/schemas/infrastructure/servers/taskActions/ReconfigureSharedFs.json",
+                "features.reconfigure": "../../../../components/schemas/infrastructure/servers/taskActions/ReconfigureServer.json",
+                "restart": "../../../../components/schemas/infrastructure/servers/taskActions/RestartServer.json",
+                "compute.restart": "../../../../components/schemas/infrastructure/servers/taskActions/RestartCompute.json",
+                "compute.spawner.restart": "../../../../components/schemas/infrastructure/servers/taskActions/RestartComputeSpawner.json"
+              }
+            },
+            "oneOf": [
+              {
+                "$ref": "../../../../components/schemas/infrastructure/servers/taskActions/ReconfigureSharedFs.json"
+              },
+              {
+                "$ref": "../../../../components/schemas/infrastructure/servers/taskActions/ReconfigureServer.json"
+              },
+              {
+                "$ref": "../../../../components/schemas/infrastructure/servers/taskActions/RestartServer.json"
+              },
+              {
+                "$ref": "../../../../components/schemas/infrastructure/servers/taskActions/RestartCompute.json"
+              },
+              {
+                "$ref": "../../../../components/schemas/infrastructure/servers/taskActions/RestartComputeSpawner.json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

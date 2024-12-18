@@ -1,0 +1,40 @@
+{
+  "title": "ImageOrigin",
+  "type": "object",
+  "description": "The origin of the given image source.",
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "docker-hub": "dockerHub/DockerHubOrigin.json",
+      "docker-file": "dockerFile/DockerFileOrigin.json",
+      "docker-registry": "dockerRegistry/DockerRegistryOrigin.json",
+      "oci-registry": "ociRegistry/OciRegistryOrigin.json",
+      "cycle-upload": "cycleUpload/CycleUploadOrigin.json",
+      "cycle-source": "cycleSource/CycleSourceOrigin.json",
+      "none": "none/NoneOrigin.json"
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "dockerHub/DockerHubOrigin.json"
+    },
+    {
+      "$ref": "dockerFile/DockerFileOrigin.json"
+    },
+    {
+      "$ref": "dockerRegistry/DockerRegistryOrigin.json"
+    },
+    {
+      "$ref": "ociRegistry/OciRegistryOrigin.json"
+    },
+    {
+      "$ref": "cycleUpload/CycleUploadOrigin.json"
+    },
+    {
+      "$ref": "cycleSource/CycleSourceOrigin.json"
+    },
+    {
+      "$ref": "none/NoneOrigin.json"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "get": {
+    "operationId": "getPoolIPs",
+    "summary": "List Pool IPs",
+    "description": "Requires the `infrastructure-ips-manage` capability.",
+    "tags": [
+      "Infrastructure"
+    ],
+    "parameters": [
+      {
+        "name": "poolId",
+        "description": "The ID of the IP Pool to fetch the IPs of.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A list of IPs.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/infrastructure/ips/Ip.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

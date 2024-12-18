@@ -1,0 +1,30 @@
+{
+  "title": "ImageState",
+  "allOf": [
+    {
+      "required": [
+        "current"
+      ],
+      "properties": {
+        "current": {
+          "description": "The current state of the image.",
+          "type": "string",
+          "enum": [
+            "new",
+            "uploading",
+            "downloading",
+            "building",
+            "verifying",
+            "saving",
+            "live",
+            "deleting",
+            "deleted"
+          ]
+        }
+      }
+    },
+    {
+      "$ref": "../State.json"
+    }
+  ]
+}

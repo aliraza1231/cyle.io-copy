@@ -1,0 +1,144 @@
+{
+  "title": "Container",
+  "type": "object",
+  "description": "Containers are a way to package together your application along with it's dependencies, and run in a resource isolated process. They provide consistency across different hosts, efficiency over traditional hosting methods, and facilitate a micro-service based approach, where each logical piece of your application is split into multiple, easily testable parts (such as API, Backend, Frontend, etc).",
+  "required": [
+    "id",
+    "name",
+    "identifier",
+    "creator",
+    "environment",
+    "hub_id",
+    "image",
+    "config",
+    "instances",
+    "stateful",
+    "state",
+    "deprecate",
+    "lock",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "identifier": {
+      "$ref": "../Identifier.json",
+      "description": "A human readable slugged identifier for this container. Usually used as a key in a stack file."
+    },
+    "name": {
+      "type": "string",
+      "description": "A user defined name for the container resource."
+    },
+    "creator": {
+      "$ref": "../creators/CreatorScope.json"
+    },
+    "environment": {
+      "$ref": "./summaries/ContainerEnvironmentSummary.json"
+    },
+    "hub_id": {
+      "$ref": "../HubID.json"
+    },
+    "image": {
+      "$ref": "./summaries/ImageSummary.json"
+    },
+    "stack": {
+      "anyOf": [
+        {
+          "$ref": "./summaries/StackSummary.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "config": {
+      "$ref": "./config/Config.json"
+    },
+    "deployment": {
+      "anyOf": [
+        {
+          "$ref": "./Deployment.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "instances": {
+      "type": "integer",
+      "description": "The number of instances for a given container."
+    },
+    "volumes": {
+      "type": "array",
+      "items": {
+        "$ref": "./summaries/VolumeSummary.json"
+      }
+    },
+    "annotations": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Custom meta data for a given container",
+      "additionalProperties": {}
+    },
+    "role": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The role of a given container if it has one.",
+      "enum": [
+        "orchestrator"
+      ]
+    },
+    "stateful": {
+      "type": "boolean",
+      "description": "A boolean where true signifies the container is stateful."
+    },
+    "deprecate": {
+      "type": "boolean",
+      "description": "A boolean where true signifies the container is marked as deprecated."
+    },
+    "lock": {
+      "type": "boolean",
+      "description": "When set to true, prevents this container from being deleted."
+    },
+    "state": {
+      "$ref": "./ContainerState.json"
+    },
+    "events": {
+      "title": "ContainerEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the container's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted",
+        "started"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the container was created.",
+          "$ref": "../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the container was updated.",
+          "$ref": "../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the container was deleted.",
+          "$ref": "../DateTime.json"
+        },
+        "started": {
+          "description": "The timestamp of when the container was started.",
+          "$ref": "../DateTime.json"
+        }
+      }
+    },
+    "meta": {
+      "$ref": "./ContainersMeta.json"
+    }
+  }
+}

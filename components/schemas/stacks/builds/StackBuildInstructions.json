@@ -1,0 +1,38 @@
+{
+  "title": "StackBuildInstructions",
+  "x-ogen-name": "StackBuildInstructionsDetails",
+  "type": "object",
+  "description": "Additional instructions used when generating this stack build.",
+  "properties": {
+    "git": {
+      "type": "object",
+      "description": "Git information specifics.",
+      "required": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of information the user is passing.",
+          "enum": [
+            "hash",
+            "tag",
+            "branch"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "description": "The actual value to be passed."
+        }
+      }
+    },
+    "variables": {
+      "type": "object",
+      "description": "Custom variables applied to the stack during build. Any place in the stack where a `{{variable}}` is used is replaced with the value of the variable supplied in this map.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

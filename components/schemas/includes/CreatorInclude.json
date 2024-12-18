@@ -1,0 +1,46 @@
+{
+  "title": "CreatorInclude",
+  "description": "An identity that created a resource.",
+  "type": "object",
+  "properties": {
+    "accounts": {
+      "type": "object",
+      "description": "Included creators that are public accounts, keyed by ID.",
+      "additionalProperties": {
+        "$ref": "../creators/PublicAccount.json"
+      }
+    },
+    "employees": {
+      "type": "object",
+      "description": "Included creators that are employees of Cycle, keyed by ID.",
+      "example": null,
+      "additionalProperties": {
+        "$ref": "../creators/PublicAccount.json"
+      }
+    },
+    "visitors": {
+      "type": "object",
+      "description": "Included creators that are not Cycle accounts, keyed by ID.",
+      "example": null,
+      "additionalProperties": {
+        "$ref": "../creators/PublicAccount.json"
+      }
+    },
+    "environments": {
+      "type": "object",
+      "description": "Included creators that are Cycle environments (usually automatically created resources), keyed by ID.",
+      "example": null,
+      "additionalProperties": {
+        "$ref": "../environments/Environment.json"
+      }
+    },
+    "api_keys": {
+      "type": "object",
+      "description": "Included creators that are Cycle API Keys, keyed by ID.",
+      "example": null,
+      "additionalProperties": {
+        "$ref": "../creators/ApiKeyCreator.json"
+      }
+    }
+  }
+}

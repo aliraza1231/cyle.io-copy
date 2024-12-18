@@ -1,0 +1,115 @@
+{
+  "get": {
+    "operationId": "getHubActivity",
+    "summary": "List Hub Activity",
+    "tags": [
+      "Hubs"
+    ],
+    "parameters": [
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "users",
+              "components",
+              "creators",
+              "images",
+              "stack_builds",
+              "stacks",
+              "environments"
+            ]
+          }
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "style": "deepObject",
+        "required": false,
+        "description": "## Filter Field\nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "search": {
+              "type": "string",
+              "description": "`filter[search]=value` search activities for a value associated with a field on the given activity(s).\n"
+            },
+            "state": {
+              "type": "string",
+              "description": "`filter[state]=value1,value2` state filtering will allow you to filter by the activity's current state.\n"
+            },
+            "user": {
+              "type": "string",
+              "description": "`filter[user]=ID` user filtering by ID. Submit the ID of the user you wish to filter for and the return will be any activity from that user.\n"
+            },
+            "environment": {
+              "type": "string",
+              "description": "`filter[environment]=ID` environment filtering by ID. Submit the ID of the environment you wish to filter for and the return will be any activity from that environment.\n"
+            },
+            "container": {
+              "type": "string",
+              "description": "`filter[container]=ID` container filtering by ID. Submit the ID of the container you wish to filter for and the return will be any activity from that container.\n"
+            },
+            "instance": {
+              "type": "string",
+              "description": "`filter[instance]=ID` instance filtering by ID. Submit the ID of the instance you wish to filter for and the return will be any activity from that instance.\n"
+            },
+            "server": {
+              "type": "string",
+              "description": "`filter[server]=ID` server filtering by ID. Submit the ID of the server you wish to filter for and the return will be any activity from that server.\n"
+            },
+            "events": {
+              "type": "string",
+              "description": "`filter[events]=value` filter by event names. Example: `filter[events]=environment.services.vpn.login`\n"
+            },
+            "verbosity": {
+              "type": "integer",
+              "description": "`filter[verbosity]=integer` filter the activity return by verbosity. The verbosity can be:\n  `0` - Activity that users would find useful.\n  `1` - Activity that can be useful when tracking down how something happened. \n  `2` - Full activity, can be useful in debugging problems.\n"
+            }
+          }
+        }
+      },
+      {
+        "$ref": "../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Hub Activity entries.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/hubs/activity/Activity.json"
+                  }
+                },
+                "includes": {
+                  "$ref": "../../../components/schemas/hubs/activity/ActivityIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

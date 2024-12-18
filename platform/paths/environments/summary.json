@@ -1,0 +1,44 @@
+{
+  "get": {
+    "operationId": "getEnvironmentSummary",
+    "summary": "Get Environment Summary",
+    "description": "Gets the summary of an Environment. Contains useful and relevant data/statistics that would otherwise be several separate API calls.  \n\nRequires the `environments-view` capability.\n",
+    "tags": [
+      "Environments"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The ID of the requested environment.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns an environment summary object.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/environments/summaries/EnvironmentSummary.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

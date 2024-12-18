@@ -1,0 +1,252 @@
+{
+  "get": {
+    "operationId": "getContainers",
+    "summary": "List Containers",
+    "description": "Requires the `containers-view` capability.",
+    "tags": [
+      "Containers"
+    ],
+    "parameters": [
+      {
+        "name": "meta",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of meta values. Meta values will show up under a resource's `meta` field. In the case of applying a meta to a collection of resources, each resource will have it's own relevant meta data. In some rare cases, meta may not apply to individual resources, and may appear in the root document. These will be clearly labeled.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "instances_count",
+              "domains",
+              "ips"
+            ]
+          }
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "creators",
+              "images",
+              "stack_builds",
+              "stacks",
+              "environments"
+            ]
+          }
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "style": "deepObject",
+        "required": false,
+        "description": "## Filter Field\nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "creator": {
+              "type": "string",
+              "description": "`filter[creator]=account-ID` filter for containers matching a particular creator, such as `account-ID` or `environment-ID`\n"
+            },
+            "identifier": {
+              "type": "string",
+              "description": "`filter[identifier]=value` List only those containers matching this identifier. May return multiple results.\n"
+            },
+            "search": {
+              "type": "string",
+              "description": "`filter[search]=value` search containers for a value associated with a field on the given container(s).\n"
+            },
+            "state": {
+              "type": "string",
+              "description": "`filter[state]=value1,value2` state filtering will allow you to filter by the container's current state.\n"
+            },
+            "service": {
+              "type": "string",
+              "description": "`filter[service]=value` service filtering will allow you to filter by service type: `loadbalancer`, `discovery`, `vpn`.\n"
+            },
+            "public_network": {
+              "type": "string",
+              "description": "`filter[public_network]=value` public network filtering will allow you to filter by the containers network settings: `enabled`, `disabled`, `egress-only`.\n"
+            },
+            "image": {
+              "type": "string",
+              "description": "`filter[image]=ID` image filtering by ID.  Submit the ID of the image you wish to filter for and the return will be any containers currently using the image.\n"
+            },
+            "environment": {
+              "type": "string",
+              "description": "`filter[environment]=ID` environment filtering by ID.  Submit the ID of the environment you wish to filter for and the return will be any containers in that environment.\n"
+            },
+            "tags": {
+              "type": "string",
+              "description": "`filter[tags]=tagone,tagtwo,tagthree` container filtering using server tags. If the container has the tags you submit it will be part of the return.\n"
+            },
+            "stack": {
+              "type": "string",
+              "description": "`filter[stack]=ID` stack filtering by ID.  Submit the ID of the stack you wish to filter for and the return will be any containers deployed associated with 'containers' from the stack.\n"
+            },
+            "deployment": {
+              "type": "string",
+              "description": "`filter[deployment]=v1,v2` filter containers by deployment(s).\n"
+            },
+            "range-start": {
+              "description": "The start date from when to pull the containers",
+              "$ref": "../../../components/schemas/DateTime.json"
+            },
+            "range-end": {
+              "description": "The end date from when to pull the containers",
+              "$ref": "../../../components/schemas/DateTime.json"
+            }
+          }
+        }
+      },
+      {
+        "$ref": "../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Containers.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/containers/Container.json"
+                  }
+                },
+                "includes": {
+                  "$ref": "../../../components/schemas/containers/ContainerIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "post": {
+    "operationId": "createContainer",
+    "summary": "Create Container",
+    "description": "Requires the `containers-deploy` capability.",
+    "tags": [
+      "Containers"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "description": "Parameters for creating a new Container.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "name",
+              "environment_id",
+              "image_id",
+              "stateful",
+              "config"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "A user defined name for the Container."
+              },
+              "identifier": {
+                "anyOf": [
+                  {
+                    "$ref": "../../../components/schemas/Identifier.json"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "environment_id": {
+                "type": "string",
+                "description": "An identifier for the Environment this Container will be deployed to."
+              },
+              "image_id": {
+                "type": "string",
+                "description": "An identifier for the Image used to create this Container."
+              },
+              "stateful": {
+                "type": "boolean",
+                "description": "A boolean where true represents this Container is stateful."
+              },
+              "config": {
+                "$ref": "../../../components/schemas/containers/config/Config.json"
+              },
+              "lock": {
+                "type": "boolean",
+                "description": "When set to true, prevents this Container from being deleted."
+              },
+              "deployment": {
+                "anyOf": [
+                  {
+                    "$ref": "../../../components/schemas/containers/Deployment.json"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "volumes": {
+                "type": "array",
+                "items": {
+                  "$ref": "../../../components/schemas/containers/config/ContainerVolume.json"
+                }
+              },
+              "annotations": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "description": "Custom meta data. Not utilized by Cycle.",
+                "additionalProperties": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Returns a Container.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/containers/Container.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

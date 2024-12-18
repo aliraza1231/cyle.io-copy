@@ -1,0 +1,27 @@
+{
+  "title": "AnnoucementUpdate",
+  "type": "object",
+  "description": "An update to an Announcement.",
+  "required": [
+    "id",
+    "message",
+    "creator",
+    "time"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "message": {
+      "type": "string",
+      "description": "The text describing the update to the announcement."
+    },
+    "creator": {
+      "$ref": "../creators/CreatorScope.json"
+    },
+    "time": {
+      "$ref": "../DateTime.json",
+      "description": "A timestamp of when the update took place."
+    }
+  }
+}

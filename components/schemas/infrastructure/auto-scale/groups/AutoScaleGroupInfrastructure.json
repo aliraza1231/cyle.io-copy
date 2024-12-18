@@ -1,0 +1,58 @@
+{
+  "title": "AutoScaleGroupInfrastructure",
+  "type": "object",
+  "required": [
+    "models"
+  ],
+  "properties": {
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "provider",
+          "model_id",
+          "priority",
+          "locations"
+        ],
+        "properties": {
+          "provider": {
+            "type": "string",
+            "description": "The integration identifier for infrastructure provider used."
+          },
+          "integration_id": {
+            "$ref": "../../../ID.json",
+            "description": "The ID of the integration associated with this auto-scale group infrastructure."
+          },
+          "model_id": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "locations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "availability_zones"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "availability_zones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

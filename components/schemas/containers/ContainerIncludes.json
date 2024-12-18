@@ -1,0 +1,28 @@
+{
+  "title": "ContainerIncludes",
+  "description": "All includable resources linkable to the given container.",
+  "type": "object",
+  "properties": {
+    "creators": {
+      "$ref": "../includes/CreatorInclude.json"
+    },
+    "images": {
+      "$ref": "../includes/ImagesIncludes.json"
+    },
+    "stack_builds": {
+      "$ref": "../includes/StackBuildIncludes.json"
+    },
+    "stacks": {
+      "$ref": "../includes/StackIncludes.json"
+    },
+    "stacks:identifiers": {
+      "$ref": "../includes/IdentifierIncludes.json"
+    },
+    "environments": {
+      "$ref": "../includes/EnvironmentIncludes.json"
+    },
+    "environments:identifiers": {
+      "$ref": "../includes/IdentifierIncludes.json"
+    }
+  }
+}

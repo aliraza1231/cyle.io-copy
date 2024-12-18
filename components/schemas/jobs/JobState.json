@@ -1,0 +1,42 @@
+{
+  "title": "JobState",
+  "type": "object",
+  "required": [
+    "current",
+    "error"
+  ],
+  "properties": {
+    "current": {
+      "description": "The current state of the job.",
+      "type": "string",
+      "enum": [
+        "new",
+        "queued",
+        "error",
+        "scheduled",
+        "expired",
+        "running",
+        "completed"
+      ]
+    },
+    "changed": {
+      "$ref": "../DateTime.json"
+    },
+    "error": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "An error, if any, that has occurred for this job.",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Details about the error that has occurred."
+        }
+      }
+    }
+  }
+}

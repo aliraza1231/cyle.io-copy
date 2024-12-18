@@ -1,0 +1,50 @@
+{
+  "title": "StackSpecContainerImage",
+  "type": "object",
+  "required": [
+    "name",
+    "origin"
+  ],
+  "properties": {
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "origin": {
+      "$ref": "../../images/origins/ImageOrigin.json"
+    },
+    "build": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "args"
+      ],
+      "properties": {
+        "args": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "builder": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "integration_id"
+      ],
+      "properties": {
+        "integration_id": {
+          "$ref": "../../../../components/schemas/HybridIdentifier.json"
+        }
+      }
+    }
+  }
+}

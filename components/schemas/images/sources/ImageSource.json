@@ -1,0 +1,88 @@
+{
+  "title": "ImageSource",
+  "type": "object",
+  "description": "An image source is a set of resources that direct the platform on where it can find the resources needed to build an image resource.",
+  "required": [
+    "id",
+    "type",
+    "identifier",
+    "name",
+    "origin",
+    "hub_id",
+    "state",
+    "events",
+    "creator"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "identifier": {
+      "$ref": "../../Identifier.json",
+      "description": "A human readable slugged identifier for this image source."
+    },
+    "type": {
+      "$ref": "ImageSourceType.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "name": {
+      "type": "string",
+      "description": "A name for the image source resource."
+    },
+    "about": {
+      "$ref": "./ImageSourceAbout.json"
+    },
+    "origin": {
+      "$ref": "../origins/ImageOrigin.json"
+    },
+    "builder": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Configuration options regarding the builder used to create/import Images using this Image Source.",
+      "properties": {
+        "integration_id": {
+          "nullable": true,
+          "description": "The ID or Identifier of the Integration used to do the build.",
+          "$ref": "../../HybridIdentifier.json"
+        }
+      }
+    },
+    "creator": {
+      "$ref": "../../creators/CreatorScope.json"
+    },
+    "state": {
+      "$ref": "./ImageSourceState.json"
+    },
+    "events": {
+      "title": "ImageSourceEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the image source's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the image source was created.",
+          "$ref": "../../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the image source was updated.",
+          "$ref": "../../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the image source was deleted.",
+          "$ref": "../../DateTime.json"
+        }
+      }
+    },
+    "meta": {
+      "$ref": "./ImageSourceMeta.json"
+    }
+  }
+}

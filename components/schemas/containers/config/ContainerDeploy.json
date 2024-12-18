@@ -1,0 +1,233 @@
+{
+  "title": "ContainerDeploy",
+  "type": "object",
+  "description": "Deployment configuration for the given container.",
+  "required": [
+    "instances"
+  ],
+  "properties": {
+    "instances": {
+      "type": "integer",
+      "description": "The number of initial desired instances for a given container."
+    },
+    "strategy": {
+      "$ref": "../../infrastructure/DeploymentStrategyName.json",
+      "description": "The deployment strategy to use when scaling the given container."
+    },
+    "stateful": {
+      "type": "object",
+      "properties": {
+        "options": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "use_base_hostname": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "description": "Settings that give more granular control over deployment targets and conditions.",
+      "properties": {
+        "node": {
+          "type": "object",
+          "description": "Constraint settings related to which nodes an instance can be deployed to.",
+          "required": [
+            "tags"
+          ],
+          "properties": {
+            "tags": {
+              "type": "object",
+              "description": "Lists of server tags that formally declair servers that match the criteria for deployment.",
+              "properties": {
+                "any": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "A list of tags where a server matching any tags from the list is qualified as a deployment target."
+                },
+                "all": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "A list of tags where a server matching all tags from the list is the only scenario where the server is qualified as a deployment target."
+                }
+              }
+            }
+          }
+        },
+        "secrets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "shutdown": {
+      "type": "object",
+      "description": "Configuration for what to do during container shutdown.",
+      "properties": {
+        "graceful_timeout": {
+          "anyOf": [
+            {
+              "$ref": "../../Duration.json"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "How long the platform will wait for a container to stop gracefully."
+        },
+        "signals": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "enum": [
+              "SIGTERM",
+              "SIGINT",
+              "SIGUSR1",
+              "SIGUSR2",
+              "SIGHUP",
+              "SIGQUIT"
+            ]
+          },
+          "description": "Process signal sent to the container process."
+        }
+      }
+    },
+    "startup": {
+      "type": "object",
+      "description": "Configurations for container startup.",
+      "properties": {
+        "delay": {
+          "$ref": "../../Duration.json",
+          "description": "How long the platform will wait before sending the start signal to the given container."
+        }
+      }
+    },
+    "update": {
+      "type": "object",
+      "description": "Configurations for container updates.",
+      "properties": {
+        "stagger": {
+          "$ref": "../../Duration.json",
+          "description": "When set, Cycle will pick a random time from `0 - this duration`, and stagger the instances so they all start at different times (up to the time specified here)."
+        }
+      }
+    },
+    "restart": {
+      "type": "object",
+      "description": "Configurations for container restart events.",
+      "required": [
+        "condition",
+        "delay",
+        "max_attempts"
+      ],
+      "properties": {
+        "condition": {
+          "type": "string",
+          "description": "Policy for what should happen in the event of a container dying.",
+          "enum": [
+            "always",
+            "never",
+            "failure"
+          ]
+        },
+        "delay": {
+          "$ref": "../../Duration.json",
+          "description": "How long the platform will wait before trying to restart the container."
+        },
+        "max_attempts": {
+          "type": "integer",
+          "description": "The amount of times the platform will attempt the restart policies."
+        }
+      }
+    },
+    "health_check": {
+      "type": "object",
+      "description": "Configuration for determining the health of a container.",
+      "required": [
+        "command",
+        "retries",
+        "delay",
+        "interval",
+        "timeout",
+        "restart"
+      ],
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "The command that will be run to verify the health of the container."
+        },
+        "retries": {
+          "type": "integer",
+          "description": "The number of times the platform will retry the command before marking the container unhealthy."
+        },
+        "delay": {
+          "anyOf": [
+            {
+              "$ref": "../../Duration.json"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "How long to wait before performing an initial health check when the instance starts. The `state.health.healthy` field of the instance will be `null`` until the first check is performed."
+        },
+        "interval": {
+          "$ref": "../../Duration.json",
+          "description": "How long to wait between restarts."
+        },
+        "timeout": {
+          "$ref": "../../Duration.json",
+          "description": "How long before a health check attempt times out."
+        },
+        "restart": {
+          "type": "boolean",
+          "description": "A boolean where `true` represents the desire for a container to restart if unhealthy."
+        }
+      }
+    },
+    "telemetry": {
+      "type": "object",
+      "description": "Configuration settings for container telemetery reporting.",
+      "required": [
+        "retention",
+        "interval",
+        "disable"
+      ],
+      "properties": {
+        "retention": {
+          "$ref": "../../Duration.json",
+          "description": "How long telemetry data should be retained."
+        },
+        "interval": {
+          "$ref": "../../Duration.json",
+          "description": "The duration between samples."
+        },
+        "disable": {
+          "type": "boolean",
+          "description": "A boolean where true disables all telemetry reporting for this container."
+        },
+        "web_hook": {
+          "type": "string",
+          "description": "An endpoint to report the telemetry data to."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "get": {
+    "operationId": "getCompatibleImages",
+    "summary": "Get Compatible Images",
+    "description": "Returns a list of Images that are compatible with the specified Container.\nUsed to quickly find Images that can be used for reimaging the Container.\n\nRequires the `containers-view` capability.\n",
+    "tags": [
+      "Containers",
+      "Images"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested Container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of compatible Images.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/images/Image.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

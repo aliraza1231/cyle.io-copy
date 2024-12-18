@@ -1,0 +1,90 @@
+{
+  "get": {
+    "operationId": "getJobs",
+    "summary": "List Jobs",
+    "description": "Requires the `apionly-jobs-view` permission.",
+    "tags": [
+      "Jobs"
+    ],
+    "parameters": [
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "creators"
+            ]
+          }
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "style": "deepObject",
+        "required": false,
+        "description": "## Filter Field \nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "range-start": {
+              "description": "The start date from when to fetch Jobs",
+              "$ref": "../../../components/schemas/DateTime.json"
+            },
+            "range-end": {
+              "description": "The end date from when to fetch Jobs",
+              "$ref": "../../../components/schemas/DateTime.json"
+            },
+            "search": {
+              "type": "string",
+              "description": "`filter[search]=value` search jobs for a value associated with a field on the given job(s).\n"
+            },
+            "state": {
+              "type": "string",
+              "description": "`filter[state]=value1,value2` state filtering will allow you to filter by the job's current state.\n"
+            }
+          }
+        }
+      },
+      {
+        "$ref": "../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Jobs.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/jobs/Job.json"
+                  }
+                },
+                "includes": {
+                  "$ref": "../../../components/schemas/jobs/JobIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "title": "ErrorEnvelope",
+  "type": "object",
+  "description": "An error response.",
+  "required": [
+    "error",
+    "data"
+  ],
+  "properties": {
+    "error": {
+      "$ref": "Error.json"
+    }
+  }
+}

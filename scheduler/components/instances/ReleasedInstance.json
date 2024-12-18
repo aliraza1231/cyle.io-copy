@@ -1,0 +1,38 @@
+{
+  "title": "ReleasedInstance",
+  "description": "Details about a released function Instance.",
+  "type": "object",
+  "required": [
+    "instance_id"
+  ],
+  "properties": {
+    "instance_id": {
+      "description": "The ID of the released Instance.",
+      "$ref": "../../../components/schemas/ID.json"
+    },
+    "claimed": {
+      "anyOf": [
+        {
+          "$ref": "../../../components/schemas/DateTime.json"
+        },
+        "null"
+      ]
+    },
+    "spawned": {
+      "anyOf": [
+        {
+          "$ref": "../../../components/schemas/DateTime.json"
+        },
+        "null"
+      ]
+    },
+    "released": {
+      "anyOf": [
+        {
+          "$ref": "../../../components/schemas/DateTime.json"
+        },
+        "null"
+      ]
+    }
+  }
+}

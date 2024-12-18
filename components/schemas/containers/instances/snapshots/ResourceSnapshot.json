@@ -1,0 +1,93 @@
+{
+  "title": "InstanceTelemetryResourceSnapshot",
+  "description": "A resource snapshot that shows instance telemetry.",
+  "type": "object",
+  "required": [
+    "time",
+    "cpu",
+    "memory",
+    "processes",
+    "network"
+  ],
+  "properties": {
+    "time": {
+      "description": "A timestamp of the time this snapshot was captured at.",
+      "$ref": "../../../DateTime.json"
+    },
+    "hub_id": {
+      "anyOf": [
+        {
+          "$ref": "../../../HubID.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "container_id": {
+      "anyOf": [
+        {
+          "$ref": "../../../ID.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "instance_id": {
+      "anyOf": [
+        {
+          "$ref": "../../../ID.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "environment_id": {
+      "anyOf": [
+        {
+          "$ref": "../../../ID.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "server_id": {
+      "anyOf": [
+        {
+          "$ref": "../../../ID.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cluster": {
+      "anyOf": [
+        {
+          "$ref": "../../../Identifier.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cpu": {
+      "$ref": "CPUSnapshot.json"
+    },
+    "memory": {
+      "$ref": "MemorySnapshot.json"
+    },
+    "processes": {
+      "$ref": "ProcessesSnapshot.json"
+    },
+    "network": {
+      "$ref": "NetworkSnapshot.json"
+    },
+    "hugetlb": {
+      "$ref": "HugeTLB.json"
+    }
+  }
+}

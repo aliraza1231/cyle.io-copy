@@ -1,0 +1,67 @@
+{
+  "post": {
+    "operationId": "createIntegrationJob",
+    "description": "Creates a new Job targeted at the provided Hub Integration. \n\n## Required Permissions\n  - Requires a valid hub membership to the target hub.\n  - Requires the `hubs-integrations-manage` capability.\n",
+    "tags": [
+      "Hubs",
+      "Integrations"
+    ],
+    "parameters": [
+      {
+        "name": "integrationId",
+        "description": "The ID of the Hub Integration.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "summary": "Create a new Hub Integration Job.",
+    "requestBody": {
+      "description": "Parameters for creating a new Hub Integration Job.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "type": "string",
+                "description": "The type of Job/selected Job action to create.",
+                "enum": [
+                  "verify"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

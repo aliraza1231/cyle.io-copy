@@ -1,0 +1,8 @@
+{
+  "title": "PaymentGateway",
+  "type": "string",
+  "description": "The type of payment gateway used.",
+  "enum": [
+    "stripe"
+  ]
+}

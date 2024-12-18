@@ -1,0 +1,25 @@
+{
+  "title": "InstanceVolume",
+  "type": "object",
+  "description": "A container instance volume resource.",
+  "required": [
+    "id",
+    "config",
+    "deployed",
+    "sftp"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "config": {
+      "$ref": "../config/ContainerVolume.json"
+    },
+    "deployed": {
+      "$ref": "./DeployedVolume.json"
+    },
+    "sftp": {
+      "$ref": "./SFTP.json"
+    }
+  }
+}

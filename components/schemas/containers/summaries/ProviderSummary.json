@@ -1,0 +1,19 @@
+{
+  "title": "ProviderSummary",
+  "description": "A summary of the provider a given resource is deployed to.",
+  "type": "object",
+  "required": [
+    "identifier",
+    "location"
+  ],
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "description": "An identifier for the provider. Custom IAL providers will be listed as `a-<ID>`."
+    },
+    "location": {
+      "type": "string",
+      "description": "A location identifier associated with the provider."
+    }
+  }
+}

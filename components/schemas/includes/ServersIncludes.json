@@ -1,0 +1,8 @@
+{
+  "title": "ServerIncludes",
+  "description": "A resource thats associated with a server.",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "../infrastructure/servers/Server.json"
+  }
+}

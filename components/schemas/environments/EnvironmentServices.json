@@ -1,0 +1,50 @@
+{
+  "title": "EnvironmentServices",
+  "type": "object",
+  "description": "Service containers run by this environment and their configurations.",
+  "required": [
+    "loadbalancer"
+  ],
+  "properties": {
+    "loadbalancer": {
+      "anyOf": [
+        {
+          "$ref": "./services/LoadBalancerEnvironmentService.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "discovery": {
+      "anyOf": [
+        {
+          "$ref": "./services/DiscoveryEnvironmentService.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "vpn": {
+      "anyOf": [
+        {
+          "$ref": "./services/VpnEnvironmentService.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "scheduler": {
+      "anyOf": [
+        {
+          "$ref": "./services/SchedulerEnvironmentService.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

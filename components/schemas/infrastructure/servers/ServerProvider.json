@@ -1,0 +1,55 @@
+{
+  "title": "ServerProvider",
+  "type": "object",
+  "description": "A resource regarding the provider a given server is deployed from.",
+  "required": [
+    "vendor",
+    "model",
+    "location",
+    "server"
+  ],
+  "properties": {
+    "vendor": {
+      "type": "string",
+      "description": "The vendor for the provider this server is deployed from."
+    },
+    "model": {
+      "type": "string",
+      "description": "The model of the server that is deployed."
+    },
+    "location": {
+      "type": "string",
+      "description": "A location where the server is deployed."
+    },
+    "server": {
+      "type": "string",
+      "description": "A provider specific identifier for the server."
+    },
+    "init_ips": {
+      "description": "The IP's assigned to this server during provisioning.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mac_addr": {
+      "type": "string",
+      "description": "The mac address for the server."
+    },
+    "extra": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "provision_options": {
+      "type": "object",
+      "properties": {
+        "attachesd_storage_size": {
+          "type": "number"
+        },
+        "reservation_id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

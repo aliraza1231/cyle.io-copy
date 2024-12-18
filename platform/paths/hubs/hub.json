@@ -1,0 +1,141 @@
+{
+  "get": {
+    "operationId": "getHub",
+    "summary": "Get Hub",
+    "description": "Requires the `hubs-view` capability.",
+    "tags": [
+      "Hubs"
+    ],
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "parameters": [
+      {
+        "name": "meta",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of meta values. Meta values will show up under a resource's `meta` field. In the case of applying a meta to a collection of resources, each resource will have it's own relevant meta data. In some rare cases, meta may not apply to individual resources, and may appear in the root document. These will be clearly labeled.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "memberships"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns an hub resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/hubs/Hub.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "patch": {
+    "operationId": "updateHub",
+    "summary": "Update Hub",
+    "description": "Updates the specified hub, setting the values of the parameters passed.",
+    "tags": [
+      "Hubs"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "description": "Parameters for updating a hub.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "A name for the hub."
+              },
+              "webhooks": {
+                "$ref": "../../../components/schemas/hubs/HubWebhooks.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns the updated Hub resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "HubUpdateResponse",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/hubs/Hub.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteHub",
+    "tags": [
+      "Hubs"
+    ],
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "parameters": [],
+    "summary": "Delete Hub",
+    "description": "Requires the `hubs-delete` capability. This can only be aquired by being the hub owner.",
+    "responses": {
+      "202": {
+        "description": "Returns a task descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

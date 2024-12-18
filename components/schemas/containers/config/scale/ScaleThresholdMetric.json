@@ -1,0 +1,32 @@
+{
+  "title": "ScaleThresholdMetric",
+  "type": "object",
+  "description": "Discriminated union describing the different types of scaling threshold and their respective details",
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "ram": "./ScaleThresholdMetricRam.json",
+      "cpu": "./ScaleThresholdMetricCpu.json",
+      "network-connections": "./ScaleThresholdMetricNetworkConnections.json",
+      "network-requests": "./ScaleThresholdMetricNetworkRequests.json",
+      "network-throughput": "./ScaleThresholdMetricNetworkThroughput.json"
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "./ScaleThresholdMetricRam.json"
+    },
+    {
+      "$ref": "./ScaleThresholdMetricCpu.json"
+    },
+    {
+      "$ref": "./ScaleThresholdMetricNetworkConnections.json"
+    },
+    {
+      "$ref": "./ScaleThresholdMetricNetworkRequests.json"
+    },
+    {
+      "$ref": "./ScaleThresholdMetricNetworkThroughput.json"
+    }
+  ]
+}

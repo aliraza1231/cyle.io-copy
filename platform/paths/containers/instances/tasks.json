@@ -1,0 +1,78 @@
+{
+  "post": {
+    "operationId": "createInstanceJob",
+    "summary": "Create Instance Job",
+    "description": "Used to perform different actions on a given Container Instance. Can be used to migrate or undo a migration of a Container Instance.\n\nRequires the `containers-instance-migrate` capability.\n",
+    "tags": [
+      "Containers",
+      "Instances"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "instanceId",
+        "description": "The ID for the container instance.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for creating a new container instance job.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "discriminator": {
+              "propertyName": "action",
+              "mapping": {
+                "migrate": "../../../../components/schemas/containers/instances/taskActions/Migrate.json",
+                "migrate_revert": "../../../../components/schemas/containers/instances/taskActions/RevertMigration.json"
+              }
+            },
+            "oneOf": [
+              {
+                "$ref": "../../../../components/schemas/containers/instances/taskActions/RevertMigration.json"
+              },
+              {
+                "$ref": "../../../../components/schemas/containers/instances/taskActions/Migrate.json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

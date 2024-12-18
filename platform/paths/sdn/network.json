@@ -1,0 +1,182 @@
+{
+  "get": {
+    "operationId": "getNetwork",
+    "summary": "Get Network",
+    "description": "Requires the `sdn-networks-view` capability.",
+    "tags": [
+      "SDN"
+    ],
+    "parameters": [
+      {
+        "name": "networkId",
+        "in": "path",
+        "required": true,
+        "description": "The ID of the Network.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "creators",
+              "environments"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a Network.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/sdn/networks/Network.json"
+                },
+                "includes": {
+                  "$ref": "../../../components/schemas/sdn/networks/NetworkIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "patch": {
+    "operationId": "updateNetwork",
+    "summary": "Update Network",
+    "description": "Requires the `sdn-networks-manage` capability.",
+    "tags": [
+      "SDN"
+    ],
+    "parameters": [
+      {
+        "name": "networkId",
+        "in": "path",
+        "required": true,
+        "description": "The ID of the Network.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "creators",
+              "environments"
+            ]
+          }
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for updating a Network.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the Network."
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns a Network.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/sdn/networks/Network.json"
+                },
+                "includes": {
+                  "$ref": "../../../components/schemas/sdn/networks/NetworkIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteNetwork",
+    "summary": "Delete Network",
+    "description": "Requires the `sdn-networks-manage` capability.",
+    "tags": [
+      "SDN"
+    ],
+    "parameters": [
+      {
+        "name": "networkId",
+        "in": "path",
+        "required": true,
+        "description": "The ID of the Network.",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

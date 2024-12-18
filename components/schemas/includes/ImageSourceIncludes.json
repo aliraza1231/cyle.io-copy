@@ -1,0 +1,8 @@
+{
+  "title": "ImageSourceIncludes",
+  "description": "A resource associated with an image source.",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "../images/sources/ImageSource.json"
+  }
+}

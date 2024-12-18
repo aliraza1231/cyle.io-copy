@@ -1,0 +1,185 @@
+{
+  "get": {
+    "operationId": "getAutoScaleGroup",
+    "summary": "Get Auto-Scale Group",
+    "description": "Requires the `autoscale-groups-view` capability.",
+    "tags": [
+      "Infrastructure",
+      "Auto-Scale"
+    ],
+    "parameters": [
+      {
+        "name": "groupId",
+        "description": "The ID for the given Auto-Scale Group.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "integrations",
+              "models",
+              "locations"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns an Auto-Scale Group.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../../components/schemas/infrastructure/auto-scale/groups/AutoScaleGroup.json"
+                },
+                "includes": {
+                  "$ref": "../../../../../components/schemas/infrastructure/auto-scale/groups/AutoScaleGroupIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "patch": {
+    "operationId": "updateAutoScaleGroup",
+    "summary": "Update Auto-Scale Group",
+    "description": "Requires the `autoscale-groups-manage` capability.",
+    "tags": [
+      "Infrastructure",
+      "Auto-Scale"
+    ],
+    "parameters": [
+      {
+        "name": "groupId",
+        "description": "The ID for the given Auto-Scale Group.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for creating an Auto-Scale Group",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "name",
+              "identifier",
+              "cluster",
+              "scale",
+              "infrastructure"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "identifier": {
+                "type": "string"
+              },
+              "cluster": {
+                "type": "string"
+              },
+              "scale": {
+                "$ref": "../../../../../components/schemas/infrastructure/auto-scale/groups/AutoScaleGroupScale.json"
+              },
+              "infrastructure": {
+                "$ref": "../../../../../components/schemas/infrastructure/auto-scale/groups/AutoScaleGroupInfrastructure.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns an Auto-Scale Group.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../../components/schemas/infrastructure/auto-scale/groups/AutoScaleGroup.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteAutoScaleGroup",
+    "summary": "Delete Auto-Scale Group",
+    "description": "Requires the `autoscale-group-manage` capability.",
+    "tags": [
+      "Infrastructure",
+      "Auto-Scale"
+    ],
+    "parameters": [
+      {
+        "name": "groupId",
+        "description": "The ID for the given autoscale group.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "description": "Returns a task descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "get": {
+    "operationId": "getAnnouncements",
+    "summary": "Get Announcements",
+    "description": "Lists any important updates posted by the Cycle team.",
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "tags": [
+      "Announcements"
+    ],
+    "parameters": [
+      {
+        "$ref": "../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../components/parameters/PageParam.json"
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "required": false,
+        "style": "deepObject",
+        "description": "## Filter Field \nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "resolved": {
+              "description": "Get only Announcements that have been resolved, or only those that have not.",
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ]
+            },
+            "range": {
+              "description": "The start date from when to fetch the Announcements",
+              "type": "string",
+              "enum": [
+                "hour",
+                "day",
+                "week",
+                "month",
+                "year"
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "List of announcements.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "AnnouncementsListResponse",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/announcements/Announcement.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

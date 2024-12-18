@@ -1,0 +1,38 @@
+{
+  "get": {
+    "operationId": "getSearchIndex",
+    "summary": "Get Search Index",
+    "description": "Gets a pre-built search index, containing IDs and basic information for many commonly used resources on the Hub.\nCan be used to build a 'quick search' functionality for referencing the most frequently used resources.\n\nRequires the `view` capability for each returned segment, i.e. to retrieve Containers, you must have `containers-view`.\n",
+    "tags": [
+      "Search"
+    ],
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns an indexed search matrix.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/search/Index.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

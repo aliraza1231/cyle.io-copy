@@ -1,0 +1,16 @@
+{
+  "title": "ServerIncludes",
+  "type": "object",
+  "description": "A resource associated with a server.",
+  "properties": {
+    "locations": {
+      "$ref": "../../includes/LocationsIncludes.json"
+    },
+    "models": {
+      "$ref": "../../includes/ServerModelIncludes.json"
+    },
+    "integrations": {
+      "$ref": "../../includes/IntegrationsIncludes.json"
+    }
+  }
+}

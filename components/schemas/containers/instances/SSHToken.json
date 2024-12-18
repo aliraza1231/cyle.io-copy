@@ -1,0 +1,61 @@
+{
+  "title": "SSHToken",
+  "type": "object",
+  "description": "An Instance SSH token.",
+  "required": [
+    "id",
+    "instance_id",
+    "container_id",
+    "hub_id",
+    "creator",
+    "events",
+    "valid"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "instance_id": {
+      "type": "string",
+      "description": "The ID of the instance being connected to."
+    },
+    "container_id": {
+      "type": "string",
+      "description": "The ID of the container from which the instance was created."
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "creator": {
+      "$ref": "../../creators/CreatorScope.json"
+    },
+    "events": {
+      "title": "SSHTokenEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the SSH token's lifetime.",
+      "required": [
+        "created",
+        "used",
+        "expires"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the SSH token was created.",
+          "$ref": "../../DateTime.json"
+        },
+        "used": {
+          "description": "The timestamp of when the SSH token was used.",
+          "$ref": "../../DateTime.json"
+        },
+        "expires": {
+          "description": "The timestamp of when the SSH token expires.",
+          "$ref": "../../DateTime.json"
+        }
+      }
+    },
+    "valid": {
+      "type": "boolean",
+      "description": "A boolean where true represents the token as being a valid token to be used for connection."
+    }
+  }
+}

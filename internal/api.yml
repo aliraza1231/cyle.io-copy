@@ -1,0 +1,99 @@
+openapi: 3.1.0
+servers:
+  - description: Cycle Internal API
+    # https://github.com/whatwg/url/issues/577
+    # https://github.com/OAI/OpenAPI-Specification/issues/3011
+    url: "http+unix:/var/run/cycle/api/api.sock"
+info:
+  license:
+    name: Apache-2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  title: Cycle Internal API
+  description:
+    Inside every container running on Cycle, there is a Unix socket mounted at /var/run/cycle/api/api.sock. You can send HTTP requests over this socket to access information about the local environment, access secrets, and much more.
+    The way this internal API functions is very similar to how Cycle's main API works, though the purpose is different. The internal API is primarily used by instances to learn about their environment, and dynamically update as deployments change. In the future, we expect you'll be able to use the internal API to register service containers and much more.
+    The internal API returns identical JSON responses to the main API. There is also a websocket based API that you can tune into for streaming platform updates.
+  version: 1.0.0
+  contact:
+    email: support@cycle.io
+# tags:
+#   - name: Environments
+#     description: "env tag"
+
+security:
+  - tokenAuth: []
+
+paths:
+  # Environments
+  /v1/environment:
+    $ref: paths/environment/environment.json
+  /v1/environment/containers:
+    $ref: paths/environment/containers.json
+  /v1/environment/instances:
+    $ref: paths/environment/instances.json
+  /v1/environment/ips:
+    $ref: paths/environment/ips.json
+  /v1/environment/services:
+    $ref: paths/environment/services.json
+  /v1/environment/services/lb/telemetry/snapshots:
+    $ref: paths/environment/lbtelemetry.json
+  /v1/environment/scoped-variables:
+    $ref: paths/environment/scopedVariables.json
+
+  # Hubs
+  /v1/hub:
+    $ref: paths/hub/hub.json
+  /v1/hub/integrations:
+    $ref: paths/hub/integration.json
+
+  # Servers
+  /v1/server:
+    $ref: paths/server/server.json
+  /v1/server/instances:
+    $ref: paths/server/instances.json
+  /v1/server/instances/telemetry:
+    $ref: paths/server/instanceTelemetry.json
+  /v1/server/containers:
+    $ref: paths/server/containers.json
+  /v1/server/images:
+    $ref: paths/server/images.json
+  /v1/server/images/download:
+    $ref: paths/server/imageDownload.json
+
+  # Containers
+  /v1/container:
+    $ref: paths/container/container.json
+  /v1/container/instances:
+    $ref: paths/container/instances.json
+  /v1/containers/certificates:
+    $ref: paths/container/certificates.json
+  /v1/containers/domains:
+    $ref: paths/container/domains.json
+
+  # Conductor
+  /v1/conductor/tasks:
+    $ref: paths/conductor/tasks.json
+
+  # VPN
+  /v1/vpn/login:
+    $ref: paths/vpn/login.json
+
+  # SDN
+  /v1/sdn/networks:
+    $ref: paths/sdn/networks.json
+  /v1/sdn/networks/instances:
+    $ref: paths/sdn/instances.json
+  /v1/sdn/networks/environments:
+    $ref: paths/sdn/environments.json
+
+components:
+  securitySchemes:
+    tokenAuth:
+      name: X-CYCLE-TOKEN
+      in: header
+      type: apiKey
+      description: The authentication header for every request on the internal API. Take the value of the CYCLE_API_TOKEN environment variable present in the instance, and pass it as the value to this header to authenticate.
+    # Used for VPN login validation
+    basicAuth:
+      type: http
+      scheme: basic

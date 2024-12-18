@@ -1,0 +1,26 @@
+{
+  "title": "ContainerImageSummary",
+  "description": "The Id of the image and information on if it is a service.",
+  "type": "object",
+  "required": [
+    "id",
+    "service"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "service": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "If this image is a service container this will say either `discovery` | `loadbalancer` | `vpn`.",
+      "enum": [
+        "discovery",
+        "loadbalancer",
+        "vpn"
+      ]
+    }
+  }
+}

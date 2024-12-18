@@ -1,0 +1,6 @@
+{
+  "title": "FluidIdentifier",
+  "type": "string",
+  "description": "An identifier used in pipelines to refer to different kinds of resources across Cycle.\n\n## Types:\n- `id:<mongo id>`: A raw resource ID\n- `resource:<a resource identifier>`: A compound identifier pointing to a resource.\n- `from:<stage/step>`: For referencing a previous pipeline step.\n",
+  "example": "- id:6515098637b66c233ed164e7\n- resource:cluster:dev,env:demo,container:api\n- from:/image-create\n"
+}

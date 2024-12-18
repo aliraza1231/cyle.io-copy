@@ -1,0 +1,47 @@
+{
+  "title": "LoadBalancerTelemetrySnapshot",
+  "type": "object",
+  "required": [
+    "time",
+    "started",
+    "dataset_id",
+    "metrics"
+  ],
+  "properties": {
+    "time": {
+      "$ref": "../../../../DateTime.json"
+    },
+    "started": {
+      "$ref": "../../../../DateTime.json"
+    },
+    "version": {
+      "type": "string"
+    },
+    "dataset_id": {
+      "type": "integer"
+    },
+    "router": {
+      "anyOf": [
+        {
+          "$ref": "LoadBalancerTelemetryRouterMetrics.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "urls": {
+      "anyOf": [
+        {
+          "$ref": "LoadBalancerTelemetryUrlMetrics.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "metrics": {
+      "$ref": "LoadBalancerTelemetryControllerMetrics.json"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "title": "ContainerConfig",
+  "description": "A container configuration.",
+  "type": "object",
+  "required": [
+    "network",
+    "deploy"
+  ],
+  "properties": {
+    "network": {
+      "$ref": "ContainerNetwork.json"
+    },
+    "deploy": {
+      "$ref": "ContainerDeploy.json"
+    },
+    "scale": {
+      "$ref": "ContainerScale.json"
+    },
+    "runtime": {
+      "$ref": "ContainerRuntime.json"
+    },
+    "resources": {
+      "$ref": "ContainerResources.json"
+    },
+    "integrations": {
+      "$ref": "ContainerIntegrations.json"
+    }
+  }
+}

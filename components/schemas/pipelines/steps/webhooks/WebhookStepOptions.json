@@ -1,0 +1,74 @@
+{
+  "title": "WebhookStepOptions",
+  "description": "Options for configuring webhook pipeline steps.",
+  "type": "object",
+  "properties": {
+    "max_attempts": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "interval": {
+      "description": "How long to wait between retries on wait.",
+      "anyOf": [
+        {
+          "$ref": "../../../Duration.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "fail_on": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "not"
+      ],
+      "properties": {
+        "not": {
+          "type": "boolean",
+          "description": "If true, will fail on any codes NOT defined in the http_codes array."
+        },
+        "http_codes": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "description": "A list of http response codes that will trigger a failure.",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "retry_on": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "not"
+      ],
+      "properties": {
+        "not": {
+          "type": "boolean",
+          "description": "If true, will retry on any codes NOT defined in the http_codes array."
+        },
+        "http_codes": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "description": "A list of http response codes that will trigger a retry.",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

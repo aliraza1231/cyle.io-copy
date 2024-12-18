@@ -1,0 +1,116 @@
+{
+  "title": "ContainerSummary",
+  "type": "object",
+  "description": "A summary of a Container.",
+  "required": [
+    "id",
+    "name",
+    "creator",
+    "environment",
+    "hub_id",
+    "image",
+    "state",
+    "deprecate",
+    "lock",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "name": {
+      "type": "string",
+      "description": "A user defined name for the Container resource."
+    },
+    "creator": {
+      "$ref": "../../creators/CreatorScope.json"
+    },
+    "environment": {
+      "$ref": "ContainerEnvironmentSummary.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "stack": {
+      "anyOf": [
+        {
+          "$ref": "StackSummary.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "image": {
+      "$ref": "ImageSummary.json"
+    },
+    "annotations": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Custom meta data for a given Container. Not utilized by the platform.",
+      "additionalProperties": {}
+    },
+    "state": {
+      "$ref": "../ContainerState.json"
+    },
+    "role": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The role of a given Container if it has one.",
+      "enum": [
+        "contductor"
+      ]
+    },
+    "deprecate": {
+      "type": "boolean",
+      "description": "A boolean where true signifies the Container is marked as deprecated."
+    },
+    "deployment": {
+      "anyOf": [
+        {
+          "$ref": "../Deployment.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lock": {
+      "type": "boolean",
+      "description": "When set to true, prevents this Container from being deleted."
+    },
+    "events": {
+      "title": "ContainerEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the Container's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted",
+        "started"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the Container was created.",
+          "$ref": "../../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the Container was updated.",
+          "$ref": "../../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the Container was deleted.",
+          "$ref": "../../DateTime.json"
+        },
+        "started": {
+          "description": "The timestamp of when the Container was started.",
+          "$ref": "../../DateTime.json"
+        }
+      }
+    }
+  }
+}

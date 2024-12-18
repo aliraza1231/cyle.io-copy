@@ -1,0 +1,59 @@
+{
+  "get": {
+    "operationId": "GetServerConsole",
+    "summary": "Get Server Console",
+    "description": "Gets the authorization information required to connect to a Server console websocket.\n\nRequires the `servers-console` capability.\n",
+    "tags": [
+      "Infrastructure",
+      "Servers"
+    ],
+    "parameters": [
+      {
+        "name": "serverId",
+        "description": "The ID of the server to connect to.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns console credentials for the Server.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "address",
+                    "token"
+                  ],
+                  "properties": {
+                    "address": {
+                      "type": "string",
+                      "description": "The websocket target URL."
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "The authentication token for the console socket. It should be appended as the URL parameter \"token\" to the address."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

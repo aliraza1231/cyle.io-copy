@@ -1,0 +1,44 @@
+{
+  "get": {
+    "operationId": "getJob",
+    "summary": "Get Job",
+    "description": "Requires the `apionly-jobs-view` permission.",
+    "tags": [
+      "Jobs"
+    ],
+    "parameters": [
+      {
+        "name": "jobId",
+        "description": "The ID for the given Job.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A Job resources.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/jobs/Job.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "get": {
+    "operationId": "getLatestJobs",
+    "tags": [
+      "Jobs"
+    ],
+    "parameters": [],
+    "summary": "List Latest Jobs",
+    "description": "Requires the `apionly-jobs-view` permission.",
+    "responses": {
+      "200": {
+        "description": "Returns a list of Jobs.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/jobs/Job.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

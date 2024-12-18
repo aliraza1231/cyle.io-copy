@@ -1,0 +1,56 @@
+{
+  "get": {
+    "operationId": "getContainerBackupLogs",
+    "summary": "List Container Backup Logs",
+    "description": "Requires the `containers-backups-view` capability.",
+    "tags": [
+      "Containers"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "backupId",
+        "description": "The ID for the container backup.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a collection of Container Backup Logs.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/containers/backups/ContainerBackupLogs.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "post": {
+    "operationId": "createEnvironmentJob",
+    "summary": "Create Environment Job",
+    "description": "Create a job for an Environment, such as 'start' or 'stop'. \n\nRequires the `environments-manage` capability.\n",
+    "tags": [
+      "Environments"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The ID of the requested Environment.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for creating a new Environment job.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "discriminator": {
+              "propertyName": "action",
+              "mapping": {
+                "start": "../../../components/schemas/environments/taskActions/EnvironmentStartAction.json",
+                "stop": "../../../components/schemas/environments/taskActions/EnvironmentStopAction.json",
+                "initialize": "../../../components/schemas/environments/taskActions/EnvironmentInitializeAction.json",
+                "deployments.reconfigure": "../../../components/schemas/environments/taskActions/EnvironmentReconfigureDeploymentsAction.json"
+              }
+            },
+            "oneOf": [
+              {
+                "$ref": "../../../components/schemas/environments/taskActions/EnvironmentStartAction.json"
+              },
+              {
+                "$ref": "../../../components/schemas/environments/taskActions/EnvironmentStopAction.json"
+              },
+              {
+                "$ref": "../../../components/schemas/environments/taskActions/EnvironmentInitializeAction.json"
+              },
+              {
+                "$ref": "../../../components/schemas/environments/taskActions/EnvironmentReconfigureDeploymentsAction.json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "TaskResponse",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

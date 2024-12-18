@@ -1,0 +1,91 @@
+{
+  "title": "LoadBalancerTelemetryRouterMetrics",
+  "type": "object",
+  "required": [
+    "destinations"
+  ],
+  "properties": {
+    "destinations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "connections",
+          "requests",
+          "instance_id",
+          "container_id"
+        ],
+        "properties": {
+          "connections": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "success",
+              "unavailable"
+            ],
+            "properties": {
+              "success": {
+                "type": "integer"
+              },
+              "unavailable": {
+                "type": "integer"
+              },
+              "errors": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer"
+                }
+              },
+              "bytes_transmitted": {
+                "type": "integer"
+              },
+              "bytes_received": {
+                "type": "integer"
+              }
+            }
+          },
+          "requests": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "total"
+            ],
+            "properties": {
+              "total": {
+                "type": "integer"
+              },
+              "responses": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer"
+                }
+              },
+              "errors": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "latency_ms": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "instance_id": {
+            "type": "string"
+          },
+          "container_id": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "title": "LoadBalancerLatestTelemetryInstance",
+  "description": "Detailed telemetry for a load balancer instance at a point in time.",
+  "type": "object",
+  "required": [
+    "id",
+    "hub_id",
+    "environment_id",
+    "container_id",
+    "instance_id",
+    "server_id",
+    "cluster",
+    "time",
+    "controller"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../../../ID.json"
+    },
+    "hub_id": {
+      "$ref": "../../../../HubID.json"
+    },
+    "environment_id": {
+      "$ref": "../../../../ID.json"
+    },
+    "container_id": {
+      "$ref": "../../../../ID.json"
+    },
+    "instance_id": {
+      "$ref": "../../../../ID.json"
+    },
+    "server_id": {
+      "$ref": "../../../../ID.json"
+    },
+    "cluster": {
+      "$ref": "../../../../Identifier.json"
+    },
+    "time": {
+      "$ref": "../../../../DateTime.json"
+    },
+    "controller": {
+      "$ref": "../../../../Identifier.json"
+    },
+    "latest": {
+      "anyOf": [
+        {
+          "$ref": "LoadBalancerTelemetrySnapshot.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "snapshots": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "LoadBalancerTelemetrySnapshot.json"
+      }
+    }
+  }
+}

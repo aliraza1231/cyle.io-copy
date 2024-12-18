@@ -1,0 +1,166 @@
+{
+  "get": {
+    "operationId": "getDNSZone",
+    "summary": "Get DNS Zone",
+    "description": "Requires the `dns-view` capability.",
+    "tags": [
+      "DNS"
+    ],
+    "parameters": [
+      {
+        "name": "zoneId",
+        "description": "The ID of the zone.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a DNS zone resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/dns/Zone.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "patch": {
+    "operationId": "updateDNSZone",
+    "summary": "Update DNS Zone",
+    "description": "Requires the `dns-manage` capability.",
+    "tags": [
+      "DNS"
+    ],
+    "parameters": [
+      {
+        "name": "zoneId",
+        "description": "The ID of the zone.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "creators"
+            ]
+          }
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for updating a DNS Zone.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "hosted"
+            ],
+            "properties": {
+              "hosted": {
+                "type": "boolean",
+                "description": "A boolean where true represents the desire for the origin to be of the type `hosted`."
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns a DNS zone resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "DNSZoneUpdateResponse",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/dns/Zone.json"
+                },
+                "includes": {
+                  "$ref": "../../../components/schemas/dns/ZoneIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteDNSZone",
+    "summary": "Delete DNS Zone",
+    "description": "Requires the `dns-manage` capability.",
+    "tags": [
+      "DNS"
+    ],
+    "parameters": [
+      {
+        "name": "zoneId",
+        "description": "The ID of the zone.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

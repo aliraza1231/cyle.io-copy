@@ -1,0 +1,46 @@
+{
+  "title": "ContainerEnvironmentSummary",
+  "description": "A summary of supplemental environment and network information specific to a container.",
+  "type": "object",
+  "required": [
+    "id",
+    "cluster",
+    "legacy"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "cluster": {
+      "type": "string",
+      "description": "The cluster this environment is associated with."
+    },
+    "container_subnet": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The private network subnet ID for this container and its instances."
+    },
+    "ipv6": {
+      "anyOf": [
+        {
+          "$ref": "../../environments/IPNet.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "legacy": {
+      "anyOf": [
+        {
+          "$ref": "../../environments/LegacyNetwork.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

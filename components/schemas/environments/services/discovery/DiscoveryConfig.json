@@ -1,0 +1,39 @@
+{
+  "title": "DiscoveryConfig",
+  "type": "object",
+  "description": "The config object for the discovery service.",
+  "properties": {
+    "hosts": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "A mapping of hostnames to IP addresses for custom internal resolutions. Acts as a custom /etc/resolv.conf file that works environment wide.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "ipv4": {
+            "description": "The IPv4 address the discovery server should return to any container instance requesting this hostname.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "ipv6": {
+            "description": "The IPv6 address the discovery server should return to any container instance requesting this hostname.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

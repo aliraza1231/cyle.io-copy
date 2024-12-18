@@ -1,0 +1,195 @@
+{
+  "get": {
+    "operationId": "getImages",
+    "summary": "List Images",
+    "description": "Requires the `images-view` capability.",
+    "tags": [
+      "Images"
+    ],
+    "parameters": [
+      {
+        "name": "meta",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of meta values. Meta values will show up under a resource's `meta` field. In the case of applying a meta to a collection of resources, each resource will have it's own relevant meta data. In some rare cases, meta may not apply to individual resources, and may appear in the root document. These will be clearly labeled.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "containers_count"
+            ]
+          }
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "creators",
+              "stack_builds",
+              "stacks",
+              "sources",
+              "integrations"
+            ]
+          }
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "style": "deepObject",
+        "required": false,
+        "description": "## Filter Field \nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "identifier": {
+              "type": "string",
+              "description": "`filter[identifier]=value` List only those images matching this identifier. May return multiple results.\n"
+            },
+            "search": {
+              "type": "string",
+              "description": "`filter[search]=value` search for a value associated with a field on the given Image(s).\n"
+            },
+            "state": {
+              "type": "string",
+              "description": "`filter[state]=value1,value2` state filtering will allow you to filter by the Image's current state.\n"
+            },
+            "source_type": {
+              "type": "string",
+              "description": "`filter[source_type]=value` filter images by the Image source's type.  Can be: `direct` or `stack_build`\n"
+            },
+            "source_id": {
+              "type": "string",
+              "description": "`filter[source_id]=ID` Image filtering by source ID.  Submit the ID of the Image source you wish to filter for and the return will be any Images created from that source.\n"
+            }
+          }
+        }
+      },
+      {
+        "$ref": "../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../components/parameters/PageParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Images.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../components/schemas/images/Image.json"
+                  }
+                },
+                "includes": {
+                  "$ref": "../../../components/schemas/images/ImageIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "post": {
+    "operationId": "createImage",
+    "summary": "Create Image",
+    "description": "Requires the `images-manage` capability.",
+    "tags": [
+      "Images"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "description": "Parameters for creating a new Image.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "source_id"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "A name for the Image."
+              },
+              "source_id": {
+                "type": "string",
+                "description": "The ID for the Image source to be used."
+              },
+              "build": {
+                "type": "object",
+                "description": "A build object, holding information important to the Image build.",
+                "properties": {
+                  "args": {
+                    "type": "object",
+                    "description": "An object holding key value build time arguments needed for the Image during build time.",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "override": {
+                "type": "object",
+                "description": "An override object to be used for a single Image create request.",
+                "properties": {
+                  "target": {
+                    "type": "string",
+                    "description": "For Image sources with `docker-hub` or `docker-registry` origin types. A target to be used for overridding the default target - should include an Image and a tag."
+                  },
+                  "targz_url": {
+                    "type": "string",
+                    "description": "For Image sources with `docker-file` origin types. A URL pointing to a .tar.gz file of a repo with a Dockerfile in it - can be used instead of linking Cycle directly to a repository."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Returns an Image.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/images/Image.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

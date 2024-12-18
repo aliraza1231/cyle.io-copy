@@ -1,0 +1,106 @@
+{
+  "get": {
+    "operationId": "getIPPool",
+    "summary": "Get IP Pool",
+    "description": "Requires the `infrastructure-ips-manage` capability.",
+    "tags": [
+      "Infrastructure"
+    ],
+    "parameters": [
+      {
+        "name": "poolId",
+        "description": "The ID for the given pool.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "include",
+        "in": "query",
+        "required": false,
+        "description": "A comma separated list of include values. Included resources will show up under the root document's `include` field, with the key being the id of the included resource. In the case of applying an include to a collection of resources, if two resources share the same include, it will only appear once in the return.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "servers",
+              "integrations",
+              "locations"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "An IP Pool.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/infrastructure/ips/Pool.json"
+                },
+                "includes": {
+                  "$ref": "../../../../components/schemas/infrastructure/ips/PoolIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteIPPool",
+    "summary": "Delete IP Pool",
+    "description": "Requires the `infrastructure-ips-manage` capability.",
+    "tags": [
+      "Infrastructure"
+    ],
+    "parameters": [
+      {
+        "name": "poolId",
+        "description": "The ID for the given IP Pool.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

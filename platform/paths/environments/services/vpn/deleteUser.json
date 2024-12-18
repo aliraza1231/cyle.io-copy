@@ -1,0 +1,54 @@
+{
+  "delete": {
+    "operationId": "deleteVPNUser",
+    "summary": "Delete VPN User",
+    "description": "Requires the `environments-vpn-manage` capability.",
+    "tags": [
+      "Environments"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The environmentId where the VPN service the given user belongs to resides.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "userId",
+        "description": "The userId of the user to be deleted.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns no data.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "VPNUserDeleteReturn",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

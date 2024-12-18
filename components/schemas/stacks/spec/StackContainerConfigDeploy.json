@@ -1,0 +1,305 @@
+{
+  "title": "StackContainerConfigDeploy.json",
+  "type": "object",
+  "required": [
+    "instances"
+  ],
+  "properties": {
+    "instances": {
+      "type": "integer"
+    },
+    "strategy": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "resource-density",
+        "manual",
+        "high-availability",
+        "first-available",
+        "node",
+        "edge",
+        "function"
+      ]
+    },
+    "stateful": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "options"
+      ],
+      "properties": {
+        "options": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "use_base_hostname": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "node": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "tags"
+          ],
+          "properties": {
+            "tags": {
+              "type": "object",
+              "properties": {
+                "any": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "all": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "secrets": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "containers": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "shutdown": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "graceful_timeout": {
+          "description": "How long the platform will wait for a container to stop gracefully.",
+          "anyOf": [
+            {
+              "$ref": "../../Duration.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "startup": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "delay": {
+          "description": "How long the platform will wait before sending the start signal to the given container.",
+          "anyOf": [
+            {
+              "$ref": "../../Duration.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "update": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Configurations for container updates.",
+      "properties": {
+        "stagger": {
+          "anyOf": [
+            {
+              "$ref": "../../Duration.json"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "When set, Cycle will pick a random time from `0 - this duration`, and stagger the instances so they all start at different times (up to the time specified here)."
+        }
+      }
+    },
+    "restart": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "condition",
+        "delay",
+        "max_attempts"
+      ],
+      "properties": {
+        "condition": {
+          "type": "string",
+          "enum": [
+            "always",
+            "never",
+            "failure"
+          ]
+        },
+        "delay": {
+          "$ref": "../../Duration.json",
+          "description": "How long the platform will wait before trying to restart the container."
+        },
+        "max_attempts": {
+          "type": "integer"
+        },
+        "notify": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "emails": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "web_hook": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "health_check": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "command",
+        "retries",
+        "interval",
+        "timeout",
+        "restart"
+      ],
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "The command to run as your health check",
+          "example": "/bin/sh healthcheck.sh"
+        },
+        "retries": {
+          "type": "integer",
+          "description": "The number of times to retry the command before marking an instance unhealthy"
+        },
+        "interval": {
+          "$ref": "../../Duration.json",
+          "description": "How long to wait between running health checks."
+        },
+        "timeout": {
+          "$ref": "../../Duration.json",
+          "description": "How long before a health check attempt times out."
+        },
+        "restart": {
+          "type": "boolean",
+          "description": "A boolean where true represents the desire for the container to restart if any instance is unhealthy."
+        },
+        "delay": {
+          "anyOf": [
+            {
+              "$ref": "../../Duration.json"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "How long to wait after a container start event before starting health checks."
+        }
+      }
+    },
+    "telemetry": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "disable"
+      ],
+      "properties": {
+        "retention": {
+          "anyOf": [
+            {
+              "$ref": "../../Duration.json"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "How long telemetry data should be retained."
+        },
+        "interval": {
+          "anyOf": [
+            {
+              "$ref": "../../Duration.json"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The duration between samples."
+        },
+        "web_hook": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "A URL where Cycle will send telemetry data to."
+        },
+        "disable": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

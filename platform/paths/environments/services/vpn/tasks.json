@@ -1,0 +1,68 @@
+{
+  "post": {
+    "operationId": "createVPNServiceJob",
+    "summary": "Create VPN Service Job",
+    "description": "Used to reconfigure or reset the Environment VPN. Requires the `environments-vpn-manage` capability.",
+    "tags": [
+      "Environments"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The ID of the Environment the VPN service resides in.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "The task contents used to build the Environment VPN Job.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "discriminator": {
+              "propertyName": "action",
+              "mapping": {
+                "reset": "../../../../../components/schemas/environments/services/vpn/taskActions/VpnResetTask.json",
+                "reconfigure": "../../../../../components/schemas/environments/services/vpn/taskActions/VpnReconfigureTask.json"
+              }
+            },
+            "oneOf": [
+              {
+                "$ref": "../../../../../components/schemas/environments/services/vpn/taskActions/VpnResetTask.json"
+              },
+              {
+                "$ref": "../../../../../components/schemas/environments/services/vpn/taskActions/VpnReconfigureTask.json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

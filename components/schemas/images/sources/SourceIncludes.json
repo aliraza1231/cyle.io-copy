@@ -1,0 +1,16 @@
+{
+  "title": "SourceIncludes",
+  "description": "A resource associate with an image source.",
+  "type": "object",
+  "properties": {
+    "creators": {
+      "$ref": "../../includes/CreatorInclude.json"
+    },
+    "integrations": {
+      "$ref": "../../includes/IntegrationsIncludes.json"
+    },
+    "integrations:identifiers": {
+      "$ref": "../../includes/IdentifierIncludes.json"
+    }
+  }
+}

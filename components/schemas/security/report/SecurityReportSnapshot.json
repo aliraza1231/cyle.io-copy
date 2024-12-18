@@ -1,0 +1,38 @@
+{
+  "title": "SecurityReportSnapshot",
+  "type": "object",
+  "description": "A snapshot of security events for the given interval.",
+  "required": [
+    "time",
+    "incidents",
+    "count"
+  ],
+  "properties": {
+    "time": {
+      "$ref": "../../DateTime.json"
+    },
+    "incidents": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "$ref": "./SecuritySnapshotIncidentBreakdown.json"
+        },
+        "low": {
+          "$ref": "./SecuritySnapshotIncidentBreakdown.json"
+        },
+        "medium": {
+          "$ref": "./SecuritySnapshotIncidentBreakdown.json"
+        },
+        "high": {
+          "$ref": "./SecuritySnapshotIncidentBreakdown.json"
+        },
+        "critical": {
+          "$ref": "./SecuritySnapshotIncidentBreakdown.json"
+        }
+      }
+    },
+    "count": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "title": "EnvironmentSummary",
+  "type": "object",
+  "description": "Contains useful and relevant data/statistics for an environment that would otherwise be several separate API calls.",
+  "required": [
+    "id",
+    "state",
+    "services",
+    "stats"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "state": {
+      "$ref": "../EnvironmentState.json"
+    },
+    "services": {
+      "title": "EnvironmentServiceSummary",
+      "type": "object",
+      "description": "An object containing information about the service containers associated with this container. Each key is the name of a service, one of `discovery`, `vpn`, or `loadbalancer`.",
+      "properties": {
+        "loadbalancer": {
+          "anyOf": [
+            {
+              "$ref": "./EnvironmentServiceContainerSummary.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "discovery": {
+          "anyOf": [
+            {
+              "$ref": "./EnvironmentServiceContainerSummary.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "vpn": {
+          "anyOf": [
+            {
+              "$ref": "./EnvironmentServiceContainerSummary.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scheduler": {
+          "anyOf": [
+            {
+              "$ref": "./EnvironmentServiceContainerSummary.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "stats": {
+      "title": "EnvironmentSummaryStats",
+      "type": "object",
+      "description": "Statistics about the containers and instances associated with this environment.",
+      "required": [
+        "containers",
+        "instances"
+      ],
+      "properties": {
+        "containers": {
+          "$ref": "../../StateCountSummary.json"
+        },
+        "instances": {
+          "$ref": "../../StateCountSummary.json"
+        }
+      }
+    }
+  }
+}

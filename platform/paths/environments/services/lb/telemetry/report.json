@@ -1,0 +1,64 @@
+{
+  "get": {
+    "operationId": "getLoadBalancerTelemetryReport",
+    "summary": "Get Load Balancer Telemetry Report",
+    "description": "Fetches a telemetry report for Cycle's native load balancer for the specified range.\n\n## Permissions\nRequires the `environments-view` capability. Also requires the user to have access specifically to the requested Environment.\n",
+    "tags": [
+      "Environments"
+    ],
+    "parameters": [
+      {
+        "name": "environmentId",
+        "description": "The environmentId where the load balancer resides.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter",
+        "in": "query",
+        "style": "deepObject",
+        "required": false,
+        "description": "## Filter Field \nThe filter field is a key-value object, where the key is what you would like to filter, and the value is the value you're filtering for.\n",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "range-start": {
+              "description": "The start date from when to pull load balancer telemetry data",
+              "$ref": "../../../../../../components/schemas/DateTime.json"
+            },
+            "range-end": {
+              "description": "The end date from when to pull load balancer telemetry data",
+              "$ref": "../../../../../../components/schemas/DateTime.json"
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns the load balancer telemetry report",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../../../components/schemas/environments/services/lb/telemetry/LoadBalancerTelemetryReport.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

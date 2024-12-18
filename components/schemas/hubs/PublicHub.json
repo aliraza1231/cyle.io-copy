@@ -1,0 +1,33 @@
+{
+  "title": "PublicHub",
+  "description": "A hub with sensitive information stripped out.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "events",
+    "creator",
+    "state"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "name": {
+      "type": "string",
+      "description": "A name for the hub."
+    },
+    "events": {
+      "$ref": "HubEvents.json"
+    },
+    "creator": {
+      "$ref": "../creators/CreatorScope.json"
+    },
+    "state": {
+      "$ref": "./HubState.json"
+    },
+    "meta": {
+      "$ref": "./HubMeta.json"
+    }
+  }
+}

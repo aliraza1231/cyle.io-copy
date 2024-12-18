@@ -1,0 +1,13 @@
+{
+  "title": "NetworkIncludes",
+  "description": "All includable resource linkable to the given network.",
+  "type": "object",
+  "properties": {
+    "creators": {
+      "$ref": "../../includes/CreatorInclude.json"
+    },
+    "environments": {
+      "$ref": "../../includes/EnvironmentIncludes.json"
+    }
+  }
+}

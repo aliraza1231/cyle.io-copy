@@ -1,0 +1,301 @@
+{
+  "title": "Image",
+  "type": "object",
+  "description": "An image is a point in time build on a given image source, and what is distributed by Cycle to run containers.",
+  "required": [
+    "id",
+    "hub_id",
+    "name",
+    "size",
+    "backend",
+    "requires",
+    "config",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "hub_id": {
+      "$ref": "../HubID.json"
+    },
+    "name": {
+      "type": "string",
+      "description": "A user defined name for the image."
+    },
+    "size": {
+      "type": "integer",
+      "description": "The image size in bytes."
+    },
+    "about": {
+      "type": "object",
+      "description": "An object that holds information about the image.",
+      "required": [
+        "description"
+      ],
+      "properties": {
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "A description of the image."
+        }
+      }
+    },
+    "backend": {
+      "type": "object",
+      "description": "Describes where the image is hosted.",
+      "required": [
+        "provider",
+        "size",
+        "file_name",
+        "file_id"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "description": "The provider where this image is hosted."
+        },
+        "size": {
+          "type": "integer",
+          "description": "The size of the image in bytes."
+        },
+        "file_name": {
+          "type": "string",
+          "description": "A file name for the image, used by the platform."
+        },
+        "file_id": {
+          "type": "string",
+          "description": "A file id for the image, used by the platform."
+        }
+      }
+    },
+    "requires": {
+      "type": "object",
+      "description": "Any restrictions or requirements needed to run this image as a container.",
+      "properties": {
+        "nvidia_gpu": {
+          "type": "boolean"
+        }
+      }
+    },
+    "build": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Any additional build details for this image",
+      "properties": {
+        "args": {
+          "type": "object",
+          "description": "Arguments to pass to the builder during a build of this image.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "builder": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Configuration options regarding the builder used to create/import this Image.",
+      "required": [
+        "integration_id"
+      ],
+      "properties": {
+        "integration_id": {
+          "description": "The ID of the Integration used to do the build.",
+          "$ref": "../ID.json"
+        }
+      }
+    },
+    "config": {
+      "type": "object",
+      "description": "Configuration settings for the image.",
+      "required": [
+        "user",
+        "ports",
+        "env",
+        "labels",
+        "command",
+        "entrypoint",
+        "volumes",
+        "workdir",
+        "signal_stop"
+      ],
+      "properties": {
+        "user": {
+          "type": "string",
+          "description": "The linux user this image runs its processes as."
+        },
+        "ports": {
+          "description": "The port settings for the image.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "host",
+              "container",
+              "type"
+            ],
+            "properties": {
+              "host": {
+                "description": "Host Port",
+                "type": "number"
+              },
+              "container": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "env": {
+          "type": "object",
+          "description": "Image defined environment variables for the image.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "labels": {
+          "type": "object",
+          "description": "Image labels.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "command": {
+          "description": "The CMD array used to start the container.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "entrypoint": {
+          "description": "An entrypoint command.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "volumes": {
+          "description": "Volumes information for the given image.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "The path where the volume is mounted."
+              },
+              "mode": {
+                "type": "string",
+                "description": "Permission settings for the volume.",
+                "enum": [
+                  "ro",
+                  "rw"
+                ]
+              }
+            }
+          }
+        },
+        "workdir": {
+          "type": "string",
+          "description": "The working directory for the image."
+        },
+        "signal_stop": {
+          "type": "string",
+          "description": "A set command to be run if a signal is called."
+        }
+      }
+    },
+    "source": {
+      "x-ogen-name": "ImageSourceDetails",
+      "type": "object",
+      "discriminator": {
+        "propertyName": "type",
+        "mapping": {
+          "stack-build": "./sources/StackImageSourceType.json",
+          "direct": "./sources/DirectImageSourceType.json",
+          "bucket": "./sources/BucketImageSourceType.json"
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "sources/DirectImageSourceType.json"
+        },
+        {
+          "$ref": "sources/StackImageSourceType.json"
+        },
+        {
+          "$ref": "sources/BucketImageSourceType.json"
+        }
+      ]
+    },
+    "creator": {
+      "$ref": "../creators/CreatorScope.json"
+    },
+    "factory": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Information about the Factory service that built/imported the Image into Cycle.",
+      "required": [
+        "node_id",
+        "cached",
+        "acknowledged"
+      ],
+      "properties": {
+        "node_id": {
+          "type": "string",
+          "description": "The node holding the factory service that was responsible for building the image."
+        },
+        "cached": {
+          "$ref": "../DateTime.json",
+          "description": "A date timestamp for when the node cached the image."
+        },
+        "acknowledged": {
+          "$ref": "../DateTime.json",
+          "description": "A date timestamp for when the node acknowledged the image import job."
+        }
+      }
+    },
+    "state": {
+      "$ref": "./ImageState.json"
+    },
+    "events": {
+      "title": "ImageEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the image's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the image was created.",
+          "$ref": "../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the image was updated.",
+          "$ref": "../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the image was deleted.",
+          "$ref": "../DateTime.json"
+        }
+      }
+    },
+    "meta": {
+      "$ref": "./ImageMeta.json"
+    }
+  }
+}

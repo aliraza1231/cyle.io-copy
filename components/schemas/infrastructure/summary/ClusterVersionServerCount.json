@@ -1,0 +1,37 @@
+{
+  "title": "ClusterVersionServerCount",
+  "description": "A count of servers in a cluster with the given version of Cycle software",
+  "type": "object",
+  "required": [
+    "agent",
+    "agent-spawner",
+    "compute",
+    "compute-spawner"
+  ],
+  "properties": {
+    "agent": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "agent-spawner": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "compute": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "compute-spawner": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    }
+  }
+}

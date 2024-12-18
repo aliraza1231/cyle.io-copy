@@ -1,0 +1,18 @@
+{
+  "title": "AccountLoginInfo",
+  "type": "object",
+  "description": "Details of an Account login.",
+  "required": [
+    "id",
+    "ip"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "ip": {
+      "type": "string",
+      "description": "The IP of the request used during login."
+    }
+  }
+}

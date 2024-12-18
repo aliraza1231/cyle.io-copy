@@ -1,0 +1,21 @@
+{
+  "title": "InstanceTelemetryReport",
+  "type": "object",
+  "description": "An Instance telemetry report.",
+  "required": [
+    "request",
+    "snapshots"
+  ],
+  "properties": {
+    "request": {
+      "$ref": "../snapshots/TelemetryReportRequest.json"
+    },
+    "snapshots": {
+      "description": "An array of telemetry snapshots.",
+      "type": "array",
+      "items": {
+        "$ref": "../snapshots/ResourceSnapshot.json"
+      }
+    }
+  }
+}

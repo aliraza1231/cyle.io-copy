@@ -1,0 +1,34 @@
+{
+  "title": "LocationProvider",
+  "type": "object",
+  "description": "Information about the locaiton of the provider.",
+  "required": [
+    "identifier",
+    "location",
+    "code"
+  ],
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "description": "An identifier for the given provider"
+    },
+    "integration_id": {
+      "$ref": "../../ID.json",
+      "description": "The ID of the provider integration associated with this location."
+    },
+    "location": {
+      "type": "string",
+      "description": "A location name returned from the provider."
+    },
+    "code": {
+      "type": "string",
+      "description": "A location code returned from the provider."
+    },
+    "availability_zones": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

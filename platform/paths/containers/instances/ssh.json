@@ -1,0 +1,117 @@
+{
+  "get": {
+    "operationId": "generateInstanceSSHCredentials",
+    "summary": "Generate Instance SSH Credentials",
+    "description": "Generates credentials for connecting to an Instance via SSH. The generated endpoint/secret can be used to log in via SSH\ninto the Instance without exposing ports on the container or host.\n\nRequires the `containers-ssh` capability.\n",
+    "tags": [
+      "Containers",
+      "Instances"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "instanceId",
+        "description": "The ID for the container instance.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns an SSH connection response.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/containers/instances/returns/SSHResponse.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "expireInstanceSSHCredentials",
+    "tags": [
+      "Containers",
+      "Instances"
+    ],
+    "parameters": [
+      {
+        "name": "containerId",
+        "description": "The ID of the requested container.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "instanceId",
+        "description": "The ID for the container instance.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "summary": "Expire SSH Credentials",
+    "description": "Instantly expires any SSH credentials generated for this Instance.\n\nRequires the `containers-ssh` capability.\n",
+    "responses": {
+      "200": {
+        "description": "Returns the number of tokens removed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "ExpireSSHTokenResponse",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "description": "The number of tokens expired.",
+                  "required": [
+                    "tokens"
+                  ],
+                  "properties": {
+                    "tokens": {
+                      "type": "integer",
+                      "description": "The number of tokens expired."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

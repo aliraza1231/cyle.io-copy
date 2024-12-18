@@ -1,0 +1,16 @@
+{
+  "title": "AutoScaleGroupIncludes",
+  "description": "All includable resource linkable to the given auto-scale group.",
+  "type": "object",
+  "properties": {
+    "integrations": {
+      "$ref": "../../../includes/IntegrationsIncludes.json"
+    },
+    "models": {
+      "$ref": "../../../includes/ServerModelsIncludes.json"
+    },
+    "locations": {
+      "$ref": "../../../includes/LocationsIncludes.json"
+    }
+  }
+}

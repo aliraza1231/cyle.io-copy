@@ -1,0 +1,106 @@
+{
+  "title": "Announcement",
+  "type": "object",
+  "description": "An announcement from the Cycle team.",
+  "required": [
+    "id",
+    "title",
+    "description",
+    "updates",
+    "priority",
+    "events",
+    "creator",
+    "state"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "title": {
+      "type": "string",
+      "description": "A description of the event being announced."
+    },
+    "description": {
+      "type": "string",
+      "description": "A description of the announcement"
+    },
+    "updates": {
+      "type": "array",
+      "items": {
+        "$ref": "./AnnouncementUpdate.json"
+      }
+    },
+    "affected_integrations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "creator": {
+      "$ref": "../creators/CreatorScope.json"
+    },
+    "state": {
+      "allOf": [
+        {
+          "required": [
+            "current"
+          ],
+          "properties": {
+            "current": {
+              "description": "The current state of the method.",
+              "type": "string",
+              "enum": [
+                "live",
+                "deleting",
+                "deleted"
+              ]
+            }
+          }
+        },
+        {
+          "$ref": "../State.json"
+        }
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "description": "The priority or severity of the announcement.",
+      "enum": [
+        "notice",
+        "low",
+        "medium",
+        "high",
+        "severe"
+      ]
+    },
+    "events": {
+      "title": "AnnouncementEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the announcement's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted",
+        "resolved"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the announcement was created.",
+          "$ref": "../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the announcement was updated.",
+          "$ref": "../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the announcement was deleted.",
+          "$ref": "../DateTime.json"
+        },
+        "resolved": {
+          "description": "The timestamp of when the announcement was resolved.",
+          "$ref": "../DateTime.json"
+        }
+      }
+    }
+  }
+}

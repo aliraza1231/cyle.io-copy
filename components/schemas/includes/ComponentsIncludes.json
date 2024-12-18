@@ -1,0 +1,81 @@
+{
+  "title": "ComponentIncludes",
+  "type": "object",
+  "description": "A resource thats assocaited with activity.",
+  "additionalProperties": {
+    "oneOf": [
+      {
+        "$ref": "../containers/Container.json"
+      },
+      {
+        "$ref": "../containers/instances/Instance.json"
+      },
+      {
+        "$ref": "../environments/Environment.json"
+      },
+      {
+        "$ref": "../images/Image.json"
+      },
+      {
+        "$ref": "../images/sources/ImageSource.json"
+      },
+      {
+        "$ref": "../infrastructure/servers/Server.json"
+      },
+      {
+        "$ref": "../infrastructure/ips/Pool.json"
+      },
+      {
+        "$ref": "../hubs/integrations/Integration.json"
+      },
+      {
+        "$ref": "../stacks/Stack.json"
+      },
+      {
+        "$ref": "../stacks/builds/StackBuild.json"
+      },
+      {
+        "$ref": "../dns/Zone.json"
+      },
+      {
+        "$ref": "../dns/records/Record.json"
+      },
+      {
+        "$ref": "../hubs/ApiKey.json"
+      },
+      {
+        "$ref": "../sdn/networks/Network.json"
+      },
+      {
+        "$ref": "../hubs/HubMembership.json"
+      },
+      {
+        "$ref": "../pipelines/Pipeline.json"
+      },
+      {
+        "$ref": "../pipelines/trigger-keys/TriggerKey.json"
+      },
+      {
+        "$ref": "../scoped-variables/ScopedVariable.json"
+      },
+      {
+        "$ref": "../hubs/Hub.json"
+      },
+      {
+        "$ref": "../billing/invoices/Invoice.json"
+      },
+      {
+        "$ref": "../billing/methods/Method.json"
+      },
+      {
+        "$ref": "../infrastructure/auto-scale/groups/AutoScaleGroup.json"
+      },
+      {
+        "$ref": "../pipelines/runs/PipelineRun.json"
+      },
+      {
+        "$ref": "../hubs/roles/Role.json"
+      }
+    ]
+  }
+}

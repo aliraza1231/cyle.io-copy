@@ -1,0 +1,119 @@
+{
+  "title": "PipelineStep",
+  "description": "A step for a pipeline stage.",
+  "discriminator": {
+    "propertyName": "action",
+    "mapping": {
+      "image.source.create": "steps/ImageSourceCreateStep.json",
+      "image.create": "steps/ImageCreateStep.json",
+      "image.import": "steps/ImageImportStep.json",
+      "images.prune": "steps/ImagesPruneStep.json",
+      "image.create-import": "steps/ImageCreateImportStep.json",
+      "container.create": "steps/ContainerCreateStep.json",
+      "container.start": "steps/ContainerStartStep.json",
+      "container.stop": "steps/ContainerStopStep.json",
+      "container.delete": "steps/ContainerDeleteStep.json",
+      "container.reimage": "steps/ContainerReimageStep.json",
+      "container.restart": "steps/ContainerRestartStep.json",
+      "environment.create": "steps/EnvironmentCreateStep.json",
+      "environment.start": "steps/EnvironmentStartStep.json",
+      "environment.stop": "steps/EnvironmentStopStep.json",
+      "environment.delete": "steps/EnvironmentDeleteStep.json",
+      "environment.deployment.start": "steps/EnvironmentDeploymentStartStep.json",
+      "environment.deployment.stop": "steps/EnvironmentDeploymentStopStep.json",
+      "environment.deployments.tag": "steps/EnvironmentDeploymentsTagStep.json",
+      "environment.deployments.prune": "steps/EnvironmentDeploymentsPruneStep.json",
+      "environment.deployment.healthy.watch": "steps/EnvironmentDeploymentHealthyWatchStep.json",
+      "stack.build.create": "steps/StackBuildCreateStep.json",
+      "stack.build.generate": "steps/StackBuildGenerateStep.json",
+      "stack.build.deploy": "steps/StackBuildDeployStep.json",
+      "stack.prune": "steps/StackPruneStep.json",
+      "sleep": "steps/SleepStep.json",
+      "webhook.post": "steps/webhooks/WebhookPostStep.json",
+      "webhook.get": "steps/webhooks/WebhookGetStep.json"
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "steps/ImageSourceCreateStep.json"
+    },
+    {
+      "$ref": "steps/ImageCreateStep.json"
+    },
+    {
+      "$ref": "steps/ImageImportStep.json"
+    },
+    {
+      "$ref": "steps/ImagesPruneStep.json"
+    },
+    {
+      "$ref": "steps/ImageCreateImportStep.json"
+    },
+    {
+      "$ref": "steps/ContainerCreateStep.json"
+    },
+    {
+      "$ref": "steps/ContainerStartStep.json"
+    },
+    {
+      "$ref": "steps/ContainerStopStep.json"
+    },
+    {
+      "$ref": "steps/ContainerDeleteStep.json"
+    },
+    {
+      "$ref": "steps/ContainerReimageStep.json"
+    },
+    {
+      "$ref": "steps/ContainerRestartStep.json"
+    },
+    {
+      "$ref": "steps/EnvironmentCreateStep.json"
+    },
+    {
+      "$ref": "steps/EnvironmentStartStep.json"
+    },
+    {
+      "$ref": "steps/EnvironmentStopStep.json"
+    },
+    {
+      "$ref": "steps/EnvironmentDeleteStep.json"
+    },
+    {
+      "$ref": "steps/EnvironmentDeploymentStartStep.json"
+    },
+    {
+      "$ref": "steps/EnvironmentDeploymentStopStep.json"
+    },
+    {
+      "$ref": "steps/EnvironmentDeploymentsTagStep.json"
+    },
+    {
+      "$ref": "steps/EnvironmentDeploymentsPruneStep.json"
+    },
+    {
+      "$ref": "steps/EnvironmentDeploymentHealthyWatchStep.json"
+    },
+    {
+      "$ref": "steps/StackBuildCreateStep.json"
+    },
+    {
+      "$ref": "steps/StackBuildGenerateStep.json"
+    },
+    {
+      "$ref": "steps/StackBuildDeployStep.json"
+    },
+    {
+      "$ref": "steps/StackPruneStep.json"
+    },
+    {
+      "$ref": "steps/webhooks/WebhookPostStep.json"
+    },
+    {
+      "$ref": "steps/webhooks/WebhookGetStep.json"
+    },
+    {
+      "$ref": "steps/SleepStep.json"
+    }
+  ]
+}

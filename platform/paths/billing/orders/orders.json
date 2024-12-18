@@ -1,0 +1,153 @@
+{
+  "get": {
+    "operationId": "getOrders",
+    "summary": "List Billing Orders",
+    "description": "Requires the `billing-services-manage` capability.",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [
+      {
+        "$ref": "../../../../components/parameters/SortParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/FilterParam.json"
+      },
+      {
+        "$ref": "../../../../components/parameters/PageParam.json"
+      },
+      {
+        "name": "meta",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "due"
+            ]
+          }
+        }
+      },
+      {
+        "$ref": "includes/OrderIncludeParam.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a list of Billing Orders.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../../../../components/schemas/billing/orders/Order.json"
+                  }
+                },
+                "includes": {
+                  "$ref": "includes/BillingOrderIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "post": {
+    "operationId": "createOrder",
+    "summary": "Create Billing Order",
+    "description": "Requires the `billing-orders-manage` capability.",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [
+      {
+        "name": "meta",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "due"
+            ]
+          }
+        }
+      },
+      {
+        "$ref": "includes/OrderIncludeParam.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for creating a new order",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "tier_plan_id": {
+                "type": "string",
+                "description": "ID associated with the tier plan"
+              },
+              "support_plan_id": {
+                "type": "string",
+                "description": "ID associated with the support plan"
+              },
+              "term_length": {
+                "type": "string",
+                "description": "String that defines term length",
+                "enum": [
+                  "once",
+                  "monthly",
+                  "yearly"
+                ]
+              },
+              "promo_code": {
+                "type": "string",
+                "description": "String that defines a promo code"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Returns a Billing Order.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/billing/BillingOrder.json"
+                },
+                "includes": {
+                  "$ref": "includes/BillingOrderIncludes.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

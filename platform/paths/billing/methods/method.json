@@ -1,0 +1,154 @@
+{
+  "get": {
+    "operationId": "getBillingMethod",
+    "summary": "Get Billing Method",
+    "description": "Requires the `billing-methods-manage` capability.",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [
+      {
+        "name": "methodId",
+        "description": "The ID of the billing method.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Returns a billing method resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/billing/methods/Method.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "patch": {
+    "operationId": "updateBillingMethod",
+    "summary": "Update Billing Invoice",
+    "description": "Requires the `billing-methods-manage` capability.",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [
+      {
+        "name": "methodId",
+        "description": "The ID of the billing method.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "A name for the billing method."
+              },
+              "primary": {
+                "type": "boolean",
+                "description": "A boolean where true represents a billing method being primary."
+              },
+              "address": {
+                "$ref": "../../../../components/schemas/billing/methods/Address.json"
+              },
+              "credit_card": {
+                "$ref": "../../../../components/schemas/billing/methods/CreditCard.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns a billing method resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/billing/methods/Method.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteBillingMethod",
+    "summary": "Delete Biilling Method",
+    "description": "Deletes the Billing Method. However, the primary payment method may not be deleted.\nRequires the `billing-methods-manage` capability.\n",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [
+      {
+        "name": "methodId",
+        "description": "The ID of the billing method.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "TaskResponse",
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

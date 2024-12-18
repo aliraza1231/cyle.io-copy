@@ -1,0 +1,65 @@
+{
+  "post": {
+    "operationId": "createOrderJob",
+    "summary": "Create Billing Order Job",
+    "description": "Used to confirm a Billing Order.\n\nRequires the `billing-services-manage` capability.\n",
+    "tags": [
+      "Billing"
+    ],
+    "parameters": [
+      {
+        "name": "orderId",
+        "description": "The ID of the requested Order",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "type": "string",
+                "enum": [
+                  "confirm"
+                ],
+                "description": "The name of the action to perform"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "title": "Server",
+  "x-ogen-name": "InfraServer",
+  "type": "object",
+  "description": "The server resource, referring to servers that have been deployed to a Cycle hub.",
+  "required": [
+    "id",
+    "hub_id",
+    "location_id",
+    "model_id",
+    "node_id",
+    "shared_file_systems",
+    "hostname",
+    "creator",
+    "provider",
+    "cluster",
+    "features",
+    "constraints",
+    "ephemeral",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "location_id": {
+      "type": "string",
+      "description": "An identifier for the location this server is deployed to."
+    },
+    "model_id": {
+      "type": "string",
+      "description": "An identifier for the model of server that is deployed."
+    },
+    "node_id": {
+      "type": "string",
+      "description": "An identifier for the node."
+    },
+    "shared_file_systems": {
+      "$ref": "./ServerSharedFileSystems.json"
+    },
+    "hostname": {
+      "type": "string",
+      "description": "The server hostname."
+    },
+    "creator": {
+      "$ref": "../../creators/CreatorScope.json"
+    },
+    "provider": {
+      "$ref": "./ServerProvider.json"
+    },
+    "cluster": {
+      "type": "string",
+      "description": "The cluster the given server is deployed to."
+    },
+    "features": {
+      "$ref": "./ServerFeatures.json"
+    },
+    "constraints": {
+      "$ref": "./ServerConstraints.json"
+    },
+    "autoscale": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "group_id"
+      ],
+      "properties": {
+        "group_id": {
+          "$ref": "../../ID.json"
+        }
+      }
+    },
+    "ephemeral": {
+      "type": "boolean",
+      "description": "Set to true when a server is created as part of an auto-scale event."
+    },
+    "evacuate": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Details about a server's evacuation status. When an evacuation is in progress, no new container instances will be permitted on the server.",
+      "required": [
+        "started"
+      ],
+      "properties": {
+        "started": {
+          "description": "The time when this server began evacuating instances.",
+          "$ref": "../../DateTime.json"
+        }
+      }
+    },
+    "state": {
+      "$ref": "./ServerState.json"
+    },
+    "events": {
+      "title": "ServerEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the server's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted",
+        "latest_instance",
+        "provisioning"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the server was created.",
+          "$ref": "../../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the server was updated.",
+          "$ref": "../../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the server was deleted.",
+          "$ref": "../../DateTime.json"
+        },
+        "latest_instance": {
+          "description": "The timestamp of when the latest instance was deployed to this server.",
+          "$ref": "../../DateTime.json"
+        },
+        "provisioning": {
+          "type": "object",
+          "description": "Information about the provisioning of the server.",
+          "required": [
+            "started",
+            "failed",
+            "completed"
+          ],
+          "properties": {
+            "started": {
+              "description": "A timestamp of when the server started provisioning.",
+              "$ref": "../../DateTime.json"
+            },
+            "failed": {
+              "description": "A timestamp of when the server failed provisioning.",
+              "$ref": "../../DateTime.json"
+            },
+            "completed": {
+              "description": "A timestamp of when the server completed provisioning.",
+              "$ref": "../../DateTime.json"
+            }
+          }
+        }
+      }
+    },
+    "meta": {
+      "$ref": "./ServerMeta.json"
+    }
+  }
+}

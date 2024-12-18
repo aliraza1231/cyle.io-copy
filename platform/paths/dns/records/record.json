@@ -1,0 +1,119 @@
+{
+  "patch": {
+    "operationId": "updateDNSZoneRecord",
+    "summary": "Update DNS Zone Record",
+    "description": "Requires the `dns-manage` capability.",
+    "tags": [
+      "DNS"
+    ],
+    "parameters": [
+      {
+        "name": "zoneId",
+        "description": "The ID of the Zone.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "recordId",
+        "description": "The ID of the record.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters for updating a DNS Zone Record. The name value cannot be updated and is omitted from the properties.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "$ref": "../../../../components/schemas/dns/records/RecordTypes.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Returns a DNS Zone Record.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/dns/records/Record.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  },
+  "delete": {
+    "operationId": "deleteDNSZoneRecord",
+    "summary": "Delete DNS Zone Record",
+    "description": "Requires the `dns-manage` capability.",
+    "tags": [
+      "DNS"
+    ],
+    "parameters": [
+      {
+        "name": "zoneId",
+        "description": "The ID of the Zone.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "recordId",
+        "description": "The ID of the DNS Zone Record.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "202": {
+        "description": "Returns a Job Descriptor.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../../../../components/schemas/jobs/JobDescriptor.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

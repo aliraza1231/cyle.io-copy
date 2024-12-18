@@ -1,0 +1,48 @@
+{
+  "title": "ContainerImageSummary",
+  "description": "A summary of the image this container was created from.",
+  "type": "object",
+  "required": [
+    "id",
+    "service",
+    "extension"
+  ],
+  "properties": {
+    "id": {
+      "anyOf": [
+        {
+          "$ref": "../../ID.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "extension": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "An image that is packaged with Cycle directly, such as the global load balancer.",
+      "required": [
+        "identifier"
+      ],
+      "properties": {
+        "identifier": {
+          "$ref": "../../Identifier.json"
+        }
+      }
+    },
+    "service": {
+      "anyOf": [
+        {
+          "$ref": "../ServiceContainerIdentifier.json"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "If a service container, the identifier specifying which service it is."
+    }
+  }
+}

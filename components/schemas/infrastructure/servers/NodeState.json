@@ -1,0 +1,30 @@
+{
+  "title": "NodeState",
+  "allOf": [
+    {
+      "required": [
+        "current",
+        "changed"
+      ],
+      "properties": {
+        "current": {
+          "description": "The current state of the node.",
+          "type": "string",
+          "enum": [
+            "new",
+            "offline",
+            "authorizing",
+            "online",
+            "decommissioned"
+          ]
+        },
+        "changed": {
+          "$ref": "../../DateTime.json"
+        }
+      }
+    },
+    {
+      "$ref": "../../State.json"
+    }
+  ]
+}

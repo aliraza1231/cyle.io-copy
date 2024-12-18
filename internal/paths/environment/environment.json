@@ -1,0 +1,34 @@
+{
+  "get": {
+    "operationId": "getEnvironment",
+    "summary": "Get Environment",
+    "description": "Gets the Environment that this instance is a part of.\n",
+    "tags": [
+      "Environments"
+    ],
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "Returns an Environment.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "../../../components/schemas/environments/Environment.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../../../components/responses/errors/DefaultError.json"
+      }
+    }
+  }
+}

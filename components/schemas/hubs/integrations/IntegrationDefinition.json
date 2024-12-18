@@ -1,0 +1,152 @@
+{
+  "title": "IntegrationDefinition",
+  "description": "Describes an integration for a Cycle Hub that can be enabled by the Hub owner.",
+  "type": "object",
+  "required": [
+    "vendor",
+    "name",
+    "supports_verification",
+    "supports_multiple",
+    "required_fields",
+    "url",
+    "public",
+    "usable",
+    "editable"
+  ],
+  "properties": {
+    "vendor": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "supports_verification": {
+      "type": "boolean"
+    },
+    "supports_multiple": {
+      "type": "boolean"
+    },
+    "features": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "description": "A list of additional features supported by this Integration.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "extends": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "description": "A list of functionality that this integration extends. i.e. [\"backups\"]",
+      "items": {
+        "type": "string"
+      }
+    },
+    "extended_configuration": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Additional configuration options that are available when using this Integration. These describe additional functionality that Cycle may utilize.",
+      "properties": {
+        "options": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "key": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "fields": {
+      "type": "object",
+      "properties": {
+        "extra": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "description",
+              "required"
+            ],
+            "properties": {
+              "regex": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "auth": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "description",
+              "required"
+            ],
+            "properties": {
+              "regex": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "public": {
+      "type": "boolean"
+    },
+    "usable": {
+      "type": "boolean"
+    },
+    "editable": {
+      "type": "boolean",
+      "description": "If true, the Integration can be edited. Otherwise, to make a change it will need to be deleted and recreated."
+    }
+  }
+}

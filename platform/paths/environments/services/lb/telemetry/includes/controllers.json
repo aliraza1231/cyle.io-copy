@@ -1,0 +1,19 @@
+{
+  "title": "LoadBalancerLatestControllersIncludes",
+  "description": "Optionally included resources for load balancer controllers",
+  "type": "object",
+  "properties": {
+    "creators": {
+      "$ref": "../../../../../../../components/schemas/includes/CreatorInclude.json"
+    },
+    "stack_builds": {
+      "$ref": "../../../../../../../components/schemas/includes/StackBuildIncludes.json"
+    },
+    "stacks": {
+      "$ref": "../../../../../../../components/schemas/includes/StackIncludes.json"
+    },
+    "sources": {
+      "$ref": "../../../../../../../components/schemas/includes/ImageSourceIncludes.json"
+    }
+  }
+}

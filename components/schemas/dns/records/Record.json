@@ -1,0 +1,71 @@
+{
+  "title": "DNSRecord",
+  "type": "object",
+  "description": "A DNS record.",
+  "required": [
+    "id",
+    "hub_id",
+    "creator",
+    "zone_id",
+    "name",
+    "resolved_domain",
+    "type",
+    "features",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "creator": {
+      "$ref": "../../creators/CreatorScope.json"
+    },
+    "zone_id": {
+      "type": "string",
+      "description": "A unique identifier for the zone"
+    },
+    "name": {
+      "type": "string",
+      "description": "A name used for the record, where `@` signifies the use of the root domain."
+    },
+    "resolved_domain": {
+      "type": "string",
+      "description": "The name of the record and the origin as a domain name."
+    },
+    "type": {
+      "$ref": "RecordTypes.json"
+    },
+    "features": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "TLS features for the record.",
+      "required": [
+        "certificate"
+      ],
+      "properties": {
+        "certificate": {
+          "anyOf": [
+            {
+              "$ref": "TlsCertificateSummary.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "state": {
+      "$ref": "RecordState.json"
+    },
+    "events": {
+      "$ref": "../../Events.json"
+    }
+  }
+}

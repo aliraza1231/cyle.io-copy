@@ -1,0 +1,91 @@
+{
+  "title": "StackBuild",
+  "type": "object",
+  "description": "A stack build resource.",
+  "required": [
+    "id",
+    "hub_id",
+    "stack_id",
+    "about",
+    "instructions",
+    "events",
+    "state"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../ID.json"
+    },
+    "hub_id": {
+      "$ref": "../../HubID.json"
+    },
+    "stack_id": {
+      "type": "string",
+      "description": "An identifier for the stack related to this build."
+    },
+    "spec": {
+      "anyOf": [
+        {
+          "$ref": "../spec/StackSpec.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "about": {
+      "x-ogen-name": "StackBuildAboutDetails",
+      "type": "object",
+      "description": "Information about the stack build.",
+      "required": [
+        "version",
+        "description"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Information about the version of the stack."
+        },
+        "description": {
+          "type": "string",
+          "description": "Information describing the stack"
+        },
+        "git_commit": {
+          "$ref": "./StackGitCommit.json"
+        }
+      }
+    },
+    "instructions": {
+      "$ref": "StackBuildInstructions.json"
+    },
+    "events": {
+      "title": "StackBuildEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the stack build's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the stack build was created.",
+          "$ref": "../../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the stack build was updated.",
+          "$ref": "../../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the stack build was deleted.",
+          "$ref": "../../DateTime.json"
+        }
+      }
+    },
+    "state": {
+      "$ref": "./StackBuildState.json"
+    },
+    "meta": {
+      "$ref": "./StackBuildMeta.json"
+    }
+  }
+}

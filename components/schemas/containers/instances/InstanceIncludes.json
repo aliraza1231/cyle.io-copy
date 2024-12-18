@@ -1,0 +1,34 @@
+{
+  "title": "InstanceIncludes",
+  "description": "A resource associated with an instance.",
+  "type": "object",
+  "properties": {
+    "creators": {
+      "$ref": "../../includes/CreatorInclude.json"
+    },
+    "servers": {
+      "$ref": "../../includes/ServersIncludes.json"
+    },
+    "locations": {
+      "$ref": "../../includes/LocationsIncludes.json"
+    },
+    "integrations": {
+      "$ref": "../../includes/IntegrationsIncludes.json"
+    },
+    "integrations:identifiers": {
+      "$ref": "../../includes/IdentifierIncludes.json"
+    },
+    "containers": {
+      "$ref": "../../includes/ContainersIncludes.json"
+    },
+    "containers:identifiers": {
+      "$ref": "../../includes/IdentifierIncludes.json"
+    },
+    "environments": {
+      "$ref": "../../includes/EnvironmentIncludes.json"
+    },
+    "environments:identifiers": {
+      "$ref": "../../includes/IdentifierIncludes.json"
+    }
+  }
+}

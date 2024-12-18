@@ -1,0 +1,90 @@
+{
+  "title": "ScopedVariable",
+  "type": "object",
+  "description": "Scoped variables are a way for users to dynamically allocate runtime specific environment variables across any number of containers in an environment.",
+  "required": [
+    "id",
+    "creator",
+    "hub_id",
+    "environment_id",
+    "identifier",
+    "scope",
+    "source",
+    "access",
+    "state",
+    "events"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../ID.json"
+    },
+    "creator": {
+      "$ref": "../creators/CreatorScope.json"
+    },
+    "hub_id": {
+      "$ref": "../HubID.json"
+    },
+    "environment_id": {
+      "type": "string",
+      "description": "An identifier used to reference the environment this resource is scoped to."
+    },
+    "identifier": {
+      "$ref": "../Identifier.json"
+    },
+    "scope": {
+      "$ref": "./ScopedVariableScope.json"
+    },
+    "access": {
+      "$ref": "./ScopedVariableAccess.json"
+    },
+    "source": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "The source or value of the scoped variable.",
+      "discriminator": {
+        "propertyName": "type",
+        "mapping": {
+          "url": "./URLSource.json",
+          "raw": "./RawSource.json"
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "./URLSource.json"
+        },
+        {
+          "$ref": "./RawSource.json"
+        }
+      ]
+    },
+    "state": {
+      "$ref": "./ScopedVariableState.json"
+    },
+    "events": {
+      "title": "ScopedVariableEvents",
+      "type": "object",
+      "description": "A collection of timestamps for each event in the Scoped Variable's lifetime.",
+      "required": [
+        "created",
+        "updated",
+        "deleted"
+      ],
+      "properties": {
+        "created": {
+          "description": "The timestamp of when the scoped variable was created.",
+          "$ref": "../DateTime.json"
+        },
+        "updated": {
+          "description": "The timestamp of when the scoped variable was updated.",
+          "$ref": "../DateTime.json"
+        },
+        "deleted": {
+          "description": "The timestamp of when the scoped variable was deleted.",
+          "$ref": "../DateTime.json"
+        }
+      }
+    }
+  }
+}

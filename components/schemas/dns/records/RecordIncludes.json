@@ -1,0 +1,16 @@
+{
+  "title": "RecordIncludes",
+  "description": "All includable resources linkable to the given records.",
+  "type": "object",
+  "properties": {
+    "creators": {
+      "$ref": "../../includes/CreatorInclude.json"
+    },
+    "containers": {
+      "$ref": "../../includes/ContainersIncludes.json"
+    },
+    "containers:identifiers": {
+      "$ref": "../../includes/IdentifierIncludes.json"
+    }
+  }
+}

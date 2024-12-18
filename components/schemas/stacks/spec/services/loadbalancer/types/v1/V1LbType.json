@@ -1,0 +1,33 @@
+{
+  "title": "V1LbType",
+  "type": "object",
+  "required": [
+    "type",
+    "details",
+    "ipv4",
+    "ipv6"
+  ],
+  "properties": {
+    "ipv4": {
+      "type": "boolean",
+      "description": "Allow / disallow traffic to be routed via IPv4."
+    },
+    "ipv6": {
+      "type": "boolean",
+      "description": "Allow / disallow traffic to be routed via IPv6."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "v1"
+      ]
+    },
+    "details": {
+      "anyOf": [
+        {
+          "$ref": "V1LbConfig.json"
+        }
+      ]
+    }
+  }
+}
